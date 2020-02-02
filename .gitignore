@@ -136,3 +136,6 @@ db.sqlite3
 
 # media
 media/uploads/
+
+# system files MacOS
+.DS_Store
