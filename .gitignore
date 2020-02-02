@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDE
+.vscode/
+
+# db 
+db.sqlite3
+
+# media
+media/uploads/

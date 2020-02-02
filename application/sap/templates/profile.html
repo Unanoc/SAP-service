@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="profile-wrapper">
+        <div class="profile-avatar-wrapper">
+            <img class="profile-avatar" src="/media/{{ profile.upload }}">
+        </div>
+
+        <div class="profile-info-wrapper">
+            <div class="profile-field"><i>{{ profile.username }}</i></div>
+            <div class="profile-field">{{ profile.first_name }} {{ profile.last_name }}</div>
+            <div class="profile-field">{{ profile.email }}</div>
+
+            <a href="{% url 'settings' %}">
+                <div class="profile-edit-button">Edit Profile</div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

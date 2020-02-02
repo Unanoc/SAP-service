@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_name %}
+    <div class="header-name">Edit Profile</div>
+{% endblock %}
+
+{% block messages %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+    {% if form.username.errors %}
+        {% for error in form.username.errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+    {% if form.password.errors %}
+        {% for error in form.password.errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="sign_in_up-form-wrapper">
+        <form enctype="multipart/form-data" action="{% url 'settings' %}" method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            <div>
+                <button type="submit" class="sign_in_up-btn">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
