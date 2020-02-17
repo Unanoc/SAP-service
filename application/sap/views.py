@@ -11,8 +11,9 @@ from application.sap.forms import (
 from application.sap.models import User
 
 
+@login_required(login_url='/signin/')
 def index(request):
-    return render(request, 'base.html')
+    return render(request, 'home.html')
 
 
 def sign_up(request):
@@ -83,3 +84,13 @@ def settings(request):
 		form = UserSettingsForm(instance=user)
 
 	return render(request, 'settings.html', {'form': form})
+
+
+@login_required(login_url='/signin/')
+def create_poll(request):
+    return render(request, 'create_poll.html')
+
+
+@login_required(login_url='/signin/')
+def statistics(request):
+    return render(request, 'statistics.html')

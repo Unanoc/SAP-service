@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_name %}
+    <div class="header-name">Students and Professors Service</div>
+    <div class="header-desc">feedback system for improving and analyzing of education process at university</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="home-menu">
+        <div class="home-menu-item">
+            <a href="{% url 'create_poll' %}">
+                <div class="home-menu-item-header">Create a poll</div><br>
+                <div class="home-menu-item-text">Create a poll with questions about quality of your classes to send it to your students</div>
+            </a>
+        </div>
+    
+        <div class="home-menu-item">
+            <a href="{% url 'statistics' %}">
+                <div class="home-menu-item-header">Get statistics</div>
+                <div class="home-menu-item-text">See what students think about your classes.<br>May be there is something to improve a quility of the education proccess...</div>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

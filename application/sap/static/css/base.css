@@ -1,4 +1,5 @@
 @import "auth.css";
+@import "home.css";
 @import "profile.css";
 
 * {
@@ -69,7 +70,7 @@ input[type=text], input[type=password], input[type=email], input[type=file] {
 }
 
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=file]:focus {
-    border: 1px solid #118fab;
+    border: 1px solid #6b22d8;
     outline: none;
 }
 
@@ -78,6 +79,13 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     text-align: center;
     font-size: 4vh;
     margin-top: 5vh;
+}
+
+.header-desc {
+    display: block;
+    text-align: center;
+    font-size: 2vh;
+    margin-top: 3vh;
 }
 
 .messages {
