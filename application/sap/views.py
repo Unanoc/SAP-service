@@ -87,10 +87,20 @@ def settings(request):
 
 
 @login_required(login_url='/signin/')
-def create_poll(request):
-    return render(request, 'create_poll.html')
+def statistics(request):
+    return render(request, 'statistics.html')
 
 
 @login_required(login_url='/signin/')
-def statistics(request):
-    return render(request, 'statistics.html')
+def create_feedback_rating(request):
+    return render(request, 'create_feedback_rating.html')
+
+
+@login_required(login_url='/signin/')
+def create_feedback_comment(request):
+    return render(request, 'create_feedback_comment.html')
+
+
+@login_required(login_url='/signin/')
+def create_quiz(request):
+    return render(request, 'create_quiz.html')

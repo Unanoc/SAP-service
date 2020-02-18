@@ -9,19 +9,26 @@
 {% block content %}
 
     <div class="home-menu">
-        <div class="home-menu-item">
-            <a href="{% url 'create_poll' %}">
-                <div class="home-menu-item-header">Create a poll</div><br>
-                <div class="home-menu-item-text">Create a poll with questions about quality of your classes to send it to your students</div>
-            </a>
-        </div>
-    
-        <div class="home-menu-item">
-            <a href="{% url 'statistics' %}">
-                <div class="home-menu-item-header">Get statistics</div>
-                <div class="home-menu-item-text">See what students think about your classes.<br>May be there is something to improve a quility of the education proccess...</div>
-            </a>
-        </div>
+        <a href="{% url 'create_feedback_rating' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/feedback_star_rating.png' %}">
+            </div>
+            <div class="text-button">Rating feedback</div>
+        </a>
+
+        <a href="{% url 'create_feedback_comment' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/feedback_text.png' %}">
+            </div>
+            <div class="text-button">Comment feedback</div>
+        </a>
+
+        <a href="{% url 'create_quiz' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/feedback_quiz.png' %}">
+            </div>
+            <div class="text-button">Quiz</div>
+        </a>
     </div>
 
 {% endblock %}

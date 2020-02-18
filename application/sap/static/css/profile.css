@@ -28,17 +28,18 @@
     flex-direction: column;
 }
 
-.profile-field {
-    display: block;
+.profile-button-wrapper {
+    display: flex;
+    margin: auto;
     margin-top: 2vh;
-    opacity: 0.7;
+    width: 100%;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
 }
 
-.profile-edit-button {
-    border: 1px solid rgb(28, 29, 29);
-    border-radius: 5px;
-    padding: 1vh;
-    text-align: center;
+.profile-field {
+    display: block;
     margin-top: 2vh;
     opacity: 0.7;
 }

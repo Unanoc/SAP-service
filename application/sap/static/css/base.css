@@ -92,3 +92,26 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     text-align: center;
     color:rgb(230, 65, 114);
 }
+
+/* buttons */
+.text-button {
+    border: 1px solid rgb(28, 29, 29);
+    border-radius: 5px;
+    padding: 1vh;
+    text-align: center;
+    margin-top: 2vh;
+    opacity: 0.7;
+}
+
+.text-button:hover {
+    background-color: #6b22d8;
+    opacity: 1;
+    color: white;
+}
+
+.image-button {
+    width: 10vh;
+}
+.image-button-wrapper {
+    text-align: center;
+}

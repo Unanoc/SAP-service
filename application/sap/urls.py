@@ -12,8 +12,10 @@ urlpatterns = [
     path('signout/', views.sign_out, name='signout'),
     path('profile/<username>/', views.profile, name='profile'),
     path('settings/', views.settings, name='settings'),
-    path('create/poll/', views.create_poll, name='create_poll'),
     path('statistics/', views.statistics, name='statistics'),
+    path('create/feedback/rating/', views.create_feedback_rating, name='create_feedback_rating'),
+    path('create/feedback/comment/', views.create_feedback_comment, name='create_feedback_comment'),
+    path('create/feedback/quiz/', views.create_quiz, name='create_quiz'),
 ]
 
 if settings.DEBUG:
