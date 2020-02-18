@@ -1,7 +1,7 @@
-@import "auth.css";
 @import "home.css";
 @import "profile.css";
 
+/* common */
 * {
     box-sizing: border-box; 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -11,12 +11,6 @@ html, body {
     min-height: 100vh;
     margin: auto;
     width: 90%;
-}
-
-.main {
-    display: flex;
-    flex: 1;
-    margin: auto;
 }
 
 nav {
@@ -31,25 +25,13 @@ a {
     color: black;
 }
 
-.nav-button {
-    float: right;
-    margin-right: 2vh;
-    font-size: 2vh;
+.main {
+    display: flex;
+    flex: 1;
+    margin: auto;
 }
 
-.nav-button:hover {
-    color: rgb(0, 0, 0);
-}
-
-.nav-button:focus {
-    color: black;
-}
-
-.logo-img {
-    width: 4vh;
-    float: left;
-}
-
+/* inputs */
 input, button {
 	font-family: inherit;
 	font-size: inherit;
@@ -74,6 +56,27 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     outline: none;
 }
 
+/* navbar */
+.nav-button {
+    float: right;
+    margin-right: 2vh;
+    font-size: 2vh;
+}
+
+.nav-button:hover {
+    color: rgb(0, 0, 0);
+}
+
+.nav-button:focus {
+    color: black;
+}
+
+.logo-img {
+    width: 4vh;
+    float: left;
+}
+
+/* headers and messages */
 .header-name {
     display: block;
     text-align: center;
@@ -114,4 +117,29 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 }
 .image-button-wrapper {
     text-align: center;
+}
+
+/* form */
+.form-wrapper {
+    display: block;
+    margin: auto;
+    margin-top: 5vh;
+    width: 50%;
+}
+
+.form-btn {
+    background-color: #6b22d8;
+    color: white;
+    padding: 1.8vh 0.1vh;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+    opacity: 0.9;
+    float: right;
+    font-size: 2.5vh;
+}
+
+.form-btn:hover {
+    opacity:1;
 }

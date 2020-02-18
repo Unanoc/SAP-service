@@ -9,21 +9,21 @@
 {% block content %}
 
     <div class="home-menu">
-        <a href="{% url 'create_feedback_rating' %}">
+        <a href="{% url 'creating_commented_feedback' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/commented_feedback.png' %}">
+            </div>
+            <div class="text-button">Commented feedback</div>
+        </a>
+
+        <a href="">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/feedback_star_rating.png' %}">
             </div>
-            <div class="text-button">Rating feedback</div>
+            <div class="text-button">Estimated feedback</div>
         </a>
 
-        <a href="{% url 'create_feedback_comment' %}">
-            <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/feedback_text.png' %}">
-            </div>
-            <div class="text-button">Comment feedback</div>
-        </a>
-
-        <a href="{% url 'create_quiz' %}">
+        <a href="">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/feedback_quiz.png' %}">
             </div>

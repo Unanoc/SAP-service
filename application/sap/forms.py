@@ -3,11 +3,17 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from application.sap.models import User
+from application.sap.models import CommentedFeedback, User
 
 
-text_validator = RegexValidator(r"[а-яА-Яa-zA-Z]",
-                               "Text should contain letters")
+text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
+                               'Text should contain letters')
+
+student_group_validator = RegexValidator(r'^[а-яА-Я]{1,4}\d{0,2}\-\d{1,3}[а-яА-Я]?$',
+                                        'Wrong student group format')
+
+telergam_channel_validator = RegexValidator(r'^@.*',
+                                        'Telegram channel name must have "@" at the begining')
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -137,3 +143,25 @@ class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'upload']
+
+
+class CommentedFeedbackForm(forms.ModelForm):
+    group_name = forms.CharField(
+        validators=[student_group_validator], 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Student group name',
+        })
+    )
+
+    telegram_channel = forms.CharField(
+        validators=[telergam_channel_validator], 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Telegram channel',
+        })
+    )
+
+    class Meta:
+        model = CommentedFeedback
+        fields = ['group_name', 'telegram_channel']
