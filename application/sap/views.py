@@ -1,3 +1,4 @@
+import telebot
 import uuid
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -5,6 +6,7 @@ from django.http import Http404, HttpResponseForbidden as Http403, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from application.sap.forms import (
+    CommentedFeedbackSettingsForm,
     CommentedFeedbackForm,
     UserRegistrationForm, 
     UserLoginForm,
@@ -12,8 +14,10 @@ from application.sap.forms import (
 )
 from application.sap.models import (
     CommentedFeedback,
+    CommentedFeedbackSettings,
     User,
 )
+from application.settings import CONFIG
 
 
 @login_required(login_url='/signin/')
@@ -98,35 +102,82 @@ def statistics(request):
 
 @login_required(login_url='/signin/')
 def sending_to_telegram(request, hash):
-    print(hash)
+    cfs = CommentedFeedbackSettings.objects.get_by_hash(hash=hash)
+    url = "{}/{}".format(
+        cfs.base_url, 
+        cfs.hash_url,
+    )
+
+    try:
+        bot = telebot.TeleBot(CONFIG['token'])
+        bot.send_message(cfs.telegram_channel, text=url)
+    except telebot.apihelper.ApiException as e:
+        return render(request, 'response_message.html', 
+            {'message': "Bot is not a member of the channel chat or this channel chat does not exist."}
+        )
+    except Exception as e:
+        return render(request, 'response_message.html', 
+            {'message': "Something bad happend... Bot has not send this link. Please, try again."}
+        )
+
     return redirect('/')
 
 
 @login_required(login_url='/signin/')
-def creating_commented_feedback(request):
+def creating_commented_feedback_settings(request):
     if request.method == 'POST':
-        form = CommentedFeedbackForm(request.POST)
+        form = CommentedFeedbackSettingsForm(request.POST)
         if form.is_valid():
             hash_url = uuid.uuid4()
-            cf = CommentedFeedback.objects.create(
+            user = User.objects.by_username(username=request.user)
+            cfs = CommentedFeedbackSettings.objects.create(
                 group_name=form.cleaned_data['group_name'],
                 telegram_channel=form.cleaned_data['telegram_channel'],
+                subject=form.cleaned_data['subject'],
                 hash_url=hash_url,
+                base_url = "{}/feedback/comment".format(request.META['HTTP_HOST']),
+                user=user,
             )
-            cf.save()
+            cfs.save()
 
             return render(request, 'generated_link.html', 
                 {
                     'message': "Commented feedback link",
-                    'base_link': "{}/feedback/comment".format(request.META['HTTP_HOST']),
-                    'hash_url': hash_url,
+                    'base_link': cfs.base_url,
+                    'hash_url': cfs.hash_url,
                 }
             )
     else:
-        form = CommentedFeedbackForm()
+        form = CommentedFeedbackSettingsForm()
 
     return render(request, 'creating_commented_feedback.html', {'form': form})
 
 
 def getting_commented_feedback(request, hash):
-    return render(request, 'commented_feedback.html', {'hash': hash})
+    cfs = CommentedFeedbackSettings.objects.get_by_hash(hash=hash)
+
+    if request.method == 'POST':
+        form = CommentedFeedbackForm(request.POST)
+        if form.is_valid():
+
+            cf = CommentedFeedback.objects.create(
+                text=form.cleaned_data['text'],
+                group_name=cfs.group_name,
+                user=cfs.user,
+            )
+            cf.save()
+
+            return render(request, 'response_message_student.html', 
+                {'message': "Thank you!"}
+            )
+    else:
+        form = CommentedFeedbackForm()
+
+    return render(request, 'commented_feedback.html', 
+        {
+            'form': form,
+            'group_name': cfs.group_name,
+            'subject': cfs.subject,
+            'hash_url': cfs.hash_url,
+        }
+    )

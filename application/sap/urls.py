@@ -14,7 +14,7 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
 
     path('statistics/', views.statistics, name='statistics'),
-    path('create/feedback/comment/', views.creating_commented_feedback, name='creating_commented_feedback'),
+    path('create/feedback/comment/', views.creating_commented_feedback_settings, name='creating_commented_feedback_settings'),
 
     path('feedback/comment/<hash>/', views.getting_commented_feedback, name='getting_commented_feedback'),
     

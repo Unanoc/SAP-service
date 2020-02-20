@@ -3,7 +3,11 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from application.sap.models import CommentedFeedback, User
+from application.sap.models import (
+    CommentedFeedback,
+    CommentedFeedbackSettings,
+    User,
+)
 
 
 text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
@@ -15,10 +19,13 @@ student_group_validator = RegexValidator(r'^[а-яА-Я]{1,4}\d{0,2}\-\d{1,3}[а
 telergam_channel_validator = RegexValidator(r'^@.*',
                                         'Telegram channel name must have "@" at the begining')
 
+comment_feedback_validator = RegexValidator(r'^.*',
+                                        'Comment must not be empty')
+
 
 class UserRegistrationForm(forms.ModelForm):
     first_name = forms.CharField(
-        validators=[text_validator], 
+        validators=[text_validator],
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'minlength': 1,
@@ -145,12 +152,19 @@ class UserSettingsForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'upload']
 
 
-class CommentedFeedbackForm(forms.ModelForm):
+class CommentedFeedbackSettingsForm(forms.ModelForm):
     group_name = forms.CharField(
         validators=[student_group_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Student group name',
+        })
+    )
+
+    subject = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Subject name',
         })
     )
 
@@ -163,5 +177,19 @@ class CommentedFeedbackForm(forms.ModelForm):
     )
 
     class Meta:
+        model = CommentedFeedbackSettings
+        fields = ['group_name', 'subject', 'telegram_channel']
+
+
+class CommentedFeedbackForm(forms.ModelForm):
+    text = forms.CharField(
+        validators=[comment_feedback_validator], 
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Your comment about passed class',
+        })
+    )
+
+    class Meta:
         model = CommentedFeedback
-        fields = ['group_name', 'telegram_channel']
+        fields = ['text']

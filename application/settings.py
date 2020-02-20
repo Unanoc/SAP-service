@@ -136,3 +136,10 @@ AUTH_USER_MODEL = 'sap.User'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Telegram bot
+import json
+CONFIG = {}
+with open("config.json", "r") as f:
+    CONFIG = json.loads(f.read())

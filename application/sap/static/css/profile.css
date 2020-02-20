@@ -17,6 +17,7 @@
     height: 30vh;
     object-fit: cover;
     border-radius: 50%;
+    border: 1px solid black;
 }
 
 .profile-info-wrapper {

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 from application.sap.managers import (
-    CommentedFeedbackManager,
+    CommentedFeedbackSettingsManager,
     UserManager,
 )
 
@@ -25,14 +25,26 @@ class User(AbstractUser):
         return self.username
 
 
-class CommentedFeedback(models.Model):
+class CommentedFeedbackSettings(models.Model):
     group_name = models.CharField(max_length=10, verbose_name="Group name")
+    subject = models.CharField(max_length=30, verbose_name="Subject name")
     telegram_channel = models.CharField(max_length=100, verbose_name="Telegram channel")
     hash_url = models.CharField(max_length=100, default="", verbose_name="Hash URL")
+    base_url = models.CharField(max_length=100, default="", verbose_name="Full URL")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateTimeField(
         default=timezone.now, 
         verbose_name="Commented feedback date"
     )
 
-    objects = CommentedFeedbackManager()
+    objects = CommentedFeedbackSettingsManager()
     
+
+class CommentedFeedback(models.Model):
+    text = models.TextField(verbose_name="Comment text")
+    group_name = models.CharField(max_length=10, verbose_name="Group name")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
+    date = models.DateTimeField(
+        default=timezone.now, 
+        verbose_name="Commented feedback date"
+    )

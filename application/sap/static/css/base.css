@@ -32,7 +32,7 @@ a {
 }
 
 /* inputs */
-input, button {
+input, button, textarea {
 	font-family: inherit;
 	font-size: inherit;
 	padding: 0.4em;
@@ -42,7 +42,7 @@ input, button {
 	border-radius: 5px;
 }
 
-input[type=text], input[type=password], input[type=email], input[type=file] {
+input[type=text], input[type=password], input[type=email], input[type=file], textarea {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -51,8 +51,8 @@ input[type=text], input[type=password], input[type=email], input[type=file] {
     background: #ffffff;
 }
 
-input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=file]:focus {
-    border: 1px solid #6b22d8;
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=file]:focus, textarea:focus {
+    border: 1px solid #000000;
     outline: none;
 }
 
@@ -107,7 +107,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 }
 
 .text-button:hover {
-    background-color: #6b22d8;
+    background-color: #000000;
     opacity: 1;
     color: white;
 }
@@ -128,7 +128,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 }
 
 .form-btn {
-    background-color: #6b22d8;
+    background-color: #000000;
     color: white;
     padding: 1.8vh 0.1vh;
     margin: 8px 0;
