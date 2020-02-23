@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 
 from application.sap.models import (
     CommentedFeedback,
-    CommentedFeedbackSettings,
+    FeedbackSettings,
     User,
 )
 
@@ -13,14 +13,11 @@ from application.sap.models import (
 text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
                                'Text should contain letters')
 
-student_group_validator = RegexValidator(r'^[а-яА-Я]{1,4}\d{0,2}\-\d{1,3}[а-яА-Я]?$',
-                                        'Wrong student group format')
-
 telergam_channel_validator = RegexValidator(r'^@.*',
                                         'Telegram channel name must have "@" at the begining')
 
-comment_feedback_validator = RegexValidator(r'^.*',
-                                        'Comment must not be empty')
+not_empty_validator = RegexValidator(r'^.*',
+                                        'Fields must not be empty')
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -152,9 +149,9 @@ class UserSettingsForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'upload']
 
 
-class CommentedFeedbackSettingsForm(forms.ModelForm):
+class FeedbackSettingsForm(forms.ModelForm):
     group_name = forms.CharField(
-        validators=[student_group_validator], 
+        validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Student group name',
@@ -177,13 +174,13 @@ class CommentedFeedbackSettingsForm(forms.ModelForm):
     )
 
     class Meta:
-        model = CommentedFeedbackSettings
+        model = FeedbackSettings
         fields = ['group_name', 'subject', 'telegram_channel']
 
 
 class CommentedFeedbackForm(forms.ModelForm):
     text = forms.CharField(
-        validators=[comment_feedback_validator], 
+        validators=[not_empty_validator], 
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Your comment about passed class',

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_name %}
+    <div class="header-name">Estimated feedback</div>
+{% endblock %}
+
+{% block messages %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.group_name.errors %}
+        {% for error in form.group_name.errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.telegram_channel.errors %}
+        {% for error in form.telegram_channel.errors %}
+            <p>{{ error|escape }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <form enctype="multipart/form-data" action="{% url 'creating_estimated_feedback_settings' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <div>
+            <button type="submit" class="form-btn">Generate a link</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

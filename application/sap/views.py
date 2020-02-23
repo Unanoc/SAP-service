@@ -6,15 +6,16 @@ from django.http import Http404, HttpResponseForbidden as Http403, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from application.sap.forms import (
-    CommentedFeedbackSettingsForm,
     CommentedFeedbackForm,
+    FeedbackSettingsForm,
     UserRegistrationForm, 
     UserLoginForm,
     UserSettingsForm,
 )
 from application.sap.models import (
     CommentedFeedback,
-    CommentedFeedbackSettings,
+    EstimatedFeedback,
+    FeedbackSettings,
     User,
 )
 from application.settings import CONFIG
@@ -102,15 +103,15 @@ def statistics(request):
 
 @login_required(login_url='/signin/')
 def sending_to_telegram(request, hash):
-    cfs = CommentedFeedbackSettings.objects.get_by_hash(hash=hash)
-    url = "{}/{}".format(
-        cfs.base_url, 
-        cfs.hash_url,
+    fs = FeedbackSettings.objects.get_by_hash(hash=hash)
+    url = "Please, leave some feedback about passed class.\n{}/{}".format(
+        fs.base_url, 
+        fs.hash_url,
     )
 
     try:
         bot = telebot.TeleBot(CONFIG['token'])
-        bot.send_message(cfs.telegram_channel, text=url)
+        bot.send_message(fs.telegram_channel, text=url)
     except telebot.apihelper.ApiException as e:
         return render(request, 'response_message.html', 
             {'message': "Bot is not a member of the channel chat or this channel chat does not exist."}
@@ -126,35 +127,35 @@ def sending_to_telegram(request, hash):
 @login_required(login_url='/signin/')
 def creating_commented_feedback_settings(request):
     if request.method == 'POST':
-        form = CommentedFeedbackSettingsForm(request.POST)
+        form = FeedbackSettingsForm(request.POST)
         if form.is_valid():
             hash_url = uuid.uuid4()
             user = User.objects.by_username(username=request.user)
-            cfs = CommentedFeedbackSettings.objects.create(
-                group_name=form.cleaned_data['group_name'],
+            fs = FeedbackSettings.objects.create(
+                group_name=form.cleaned_data['group_name'].upper(),
                 telegram_channel=form.cleaned_data['telegram_channel'],
                 subject=form.cleaned_data['subject'],
                 hash_url=hash_url,
                 base_url = "{}/feedback/comment".format(request.META['HTTP_HOST']),
                 user=user,
             )
-            cfs.save()
+            fs.save()
 
             return render(request, 'generated_link.html', 
                 {
                     'message': "Commented feedback link",
-                    'base_link': cfs.base_url,
-                    'hash_url': cfs.hash_url,
+                    'base_link': fs.base_url,
+                    'hash_url': fs.hash_url
                 }
             )
     else:
-        form = CommentedFeedbackSettingsForm()
+        form = FeedbackSettingsForm()
 
     return render(request, 'creating_commented_feedback.html', {'form': form})
 
 
 def getting_commented_feedback(request, hash):
-    cfs = CommentedFeedbackSettings.objects.get_by_hash(hash=hash)
+    fs = FeedbackSettings.objects.get_by_hash(hash=hash)
 
     if request.method == 'POST':
         form = CommentedFeedbackForm(request.POST)
@@ -162,8 +163,9 @@ def getting_commented_feedback(request, hash):
 
             cf = CommentedFeedback.objects.create(
                 text=form.cleaned_data['text'],
-                group_name=cfs.group_name,
-                user=cfs.user,
+                group_name=fs.group_name,
+                user=fs.user,
+                date=fs.date,
             )
             cf.save()
 
@@ -176,8 +178,65 @@ def getting_commented_feedback(request, hash):
     return render(request, 'commented_feedback.html', 
         {
             'form': form,
-            'group_name': cfs.group_name,
-            'subject': cfs.subject,
-            'hash_url': cfs.hash_url,
+            'group_name': fs.group_name,
+            'subject': fs.subject,
+            'hash_url': fs.hash_url,
         }
     )
+
+
+@login_required(login_url='/signin/')
+def creating_estimated_feedback_settings(request):
+    if request.method == 'POST':
+        form = FeedbackSettingsForm(request.POST)
+        if form.is_valid():
+            hash_url = uuid.uuid4()
+            user = User.objects.by_username(username=request.user)
+            fs = FeedbackSettings.objects.create(
+                group_name=form.cleaned_data['group_name'].upper(),
+                telegram_channel=form.cleaned_data['telegram_channel'],
+                subject=form.cleaned_data['subject'],
+                hash_url=hash_url,
+                base_url = "{}/feedback/estimated".format(request.META['HTTP_HOST']),
+                user=user,
+            )
+            fs.save()
+
+            return render(request, 'generated_link.html', 
+                {
+                    'message': "Estimated feedback link",
+                    'base_link': fs.base_url,
+                    'hash_url': fs.hash_url,
+                }
+            )
+    else:
+        form = FeedbackSettingsForm()
+
+    return render(request, 'creating_estimated_feedback.html', {'form': form})
+
+
+def getting_estimated_feedback(request, hash):
+    fs = FeedbackSettings.objects.get_by_hash(hash=hash)
+
+    if request.method == 'POST':
+        cf = EstimatedFeedback.objects.create(
+            rating=request.POST['rating'],
+            comment=request.POST['comment'],
+            group_name=fs.group_name,
+            user=fs.user,
+            date=fs.date,
+        )
+        cf.save()
+
+        return render(request, 'response_message_student.html', 
+            {'message': "Thank you!"}
+        )
+    else:
+        return render(request, 'estimated_feedback.html', 
+            {
+                'group_name': fs.group_name,
+                'subject': fs.subject,
+                'hash_url': fs.hash_url,
+                'RATING_CHOICES': EstimatedFeedback.RATING_CHOICES,
+            }
+        )

@@ -8,7 +8,7 @@ class UserManager(UserManager):
         return self.all().filter(username=username).first()
 
 
-class CommentedFeedbackSettingsManager(models.Manager):
+class FeedbackSettingsManager(models.Manager):
 
     def get_by_hash(self, hash):
         return self.all().filter(hash_url=hash).first()
