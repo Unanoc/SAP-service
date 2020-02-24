@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "internal/base.html" %}
 {% load static %}
 
 {% block header_name %}
@@ -7,28 +7,19 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="home-menu">
-        <a href="{% url 'creating_commented_feedback_settings' %}">
+        <a href="{% url 'feedback-create_commented_feedback' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/commented_feedback.png' %}">
             </div>
             <div class="text-button">Commented feedback</div>
         </a>
 
-        <a href="{% url 'creating_estimated_feedback_settings' %}">
+        <a href="{% url 'feedback-create_estimated_feedback' %}">
             <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/feedback_star_rating.png' %}">
+                <img class="image-button" src="{% static 'src/estimated_feedback.png' %}">
             </div>
             <div class="text-button">Estimated feedback</div>
         </a>
-
-        <a href="">
-            <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/feedback_quiz.png' %}">
-            </div>
-            <div class="text-button">Quiz</div>
-        </a>
     </div>
-
 {% endblock %}

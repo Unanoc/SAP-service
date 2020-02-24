@@ -1,6 +1,3 @@
-@import "home.css";
-@import "profile.css";
-
 /* common */
 * {
     box-sizing: border-box; 
@@ -13,13 +10,6 @@ html, body {
     width: 90%;
 }
 
-nav {
-    min-height: 7vh;
-    margin: auto;
-    padding: 3vh;
-    opacity: 0.7;
-}
-
 a {
     text-decoration: none;
     color: black;
@@ -27,7 +17,6 @@ a {
 
 .main {
     display: flex;
-    flex: 1;
     margin: auto;
 }
 
@@ -56,26 +45,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     outline: none;
 }
 
-/* navbar */
-.nav-button {
-    float: right;
-    margin-right: 2vh;
-    font-size: 2vh;
-}
-
-.nav-button:hover {
-    color: rgb(0, 0, 0);
-}
-
-.nav-button:focus {
-    color: black;
-}
-
-.logo-img {
-    width: 4vh;
-    float: left;
-}
-
 /* headers and messages */
 .header-name {
     display: block;
@@ -89,11 +58,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     text-align: center;
     font-size: 2vh;
     margin-top: 3vh;
-}
-
-.messages {
-    text-align: center;
-    color:rgb(230, 65, 114);
 }
 
 /* buttons */
@@ -112,13 +76,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     color: white;
 }
 
-.image-button {
-    width: 10vh;
-}
-.image-button-wrapper {
-    text-align: center;
-}
-
 /* form */
 .form-wrapper {
     display: block;
@@ -130,14 +87,14 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 .form-btn {
     background-color: #000000;
     color: white;
-    padding: 1.8vh 0.1vh;
+    padding: 1vh;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 25%;
     opacity: 0.9;
     float: right;
-    font-size: 2.5vh;
+    font-size: relative-size;
 }
 
 .form-btn:hover {

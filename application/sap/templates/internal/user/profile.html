@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'internal/base.html' %}
 {% load static %}
 
 
@@ -15,14 +15,14 @@
         </div>
 
         <div class="profile-button-wrapper">
-            <a href="{% url 'statistics' %}">
+            <a href="{% url 'statistics-index' %}">
                 <div class="image-button-wrapper">
-                    <img class="image-button" src="{% static 'src/stat.png' %}">
+                    <img class="image-button" src="{% static 'src/statistics.png' %}">
                 </div>
                 <div class="text-button">Statistics</div>
             </a>
 
-            <a href="{% url 'settings' %}">
+            <a href="{% url 'user-settings' %}">
                 <div class="image-button-wrapper">
                     <img class="image-button" src="{% static 'src/edit.png' %}">
                 </div>
@@ -30,5 +30,4 @@
             </a>
         </div>
     </div>
-
 {% endblock %}

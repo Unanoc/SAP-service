@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "internal/base.html" %}
 {% load static %}
 
 {% block header_name %}
-    <div class="header-name">Estimated feedback</div>
+    <div class="header-name">Create estimated feedback</div>
 {% endblock %}
 
 {% block messages %}
@@ -26,18 +26,18 @@
 {% endblock %}
 
 {% block content %}
-<div class="form-wrapper">
-    <form enctype="multipart/form-data" action="{% url 'creating_estimated_feedback_settings' %}" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <div>
-                {{ field }}
-            </div>
-        {% endfor %}
+    <div class="form-wrapper">
+        <form enctype="multipart/form-data" action="{% url 'feedback-create_estimated_feedback' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    {{ field }}
+                </div>
+            {% endfor %}
 
-        <div>
-            <button type="submit" class="form-btn">Generate a link</button>
-        </div>
-    </form>
-</div>
+            <div>
+                <button type="submit" class="form-btn">Generate a link</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

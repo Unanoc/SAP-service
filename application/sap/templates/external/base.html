@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{% static 'src/favicon.png' %}" type="image/png">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/external/base.css' %}">
     <title>SAP</title>
 </head>
 <body>
-    <div class="header">{% block header_name %}{% endblock %}</div>
+    {% block header_name %}{% endblock %}
+    
     <div class="messages">{% block messages %}{% endblock %}</div>
     <div class="main">{% block content %}{% endblock %}</div>
+
+    {% block custom_css %}{% endblock %}
+    {% block custom_js %}{% endblock %}
 </body>
 </html>

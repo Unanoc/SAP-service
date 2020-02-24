@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "internal/base.html" %}
 {% load static %}
 
 {% block header_name %}
-    <div class="header-name">Edit Profile</div>
+    <div class="header-name">Create commented feedback</div>
 {% endblock %}
 
 {% block messages %}
@@ -11,13 +11,15 @@
             <p>{{ error|escape }}</p>
         {% endfor %}
     {% endif %}
-    {% if form.username.errors %}
-        {% for error in form.username.errors %}
+
+    {% if form.group_name.errors %}
+        {% for error in form.group_name.errors %}
             <p>{{ error|escape }}</p>
         {% endfor %}
     {% endif %}
-    {% if form.password.errors %}
-        {% for error in form.password.errors %}
+
+    {% if form.telegram_channel.errors %}
+        {% for error in form.telegram_channel.errors %}
             <p>{{ error|escape }}</p>
         {% endfor %}
     {% endif %}
@@ -25,9 +27,8 @@
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data" action="{% url 'settings' %}" method="post">
+        <form enctype="multipart/form-data" action="{% url 'feedback-create_commented_feedback' %}" method="post">
             {% csrf_token %}
-
             {% for field in form %}
                 <div>
                     {{ field }}
@@ -35,7 +36,7 @@
             {% endfor %}
 
             <div>
-                <button type="submit" class="form-btn">Save</button>
+                <button type="submit" class="form-btn">Generate a link</button>
             </div>
         </form>
     </div>

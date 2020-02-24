@@ -1,0 +1,144 @@
+@import "home.css";
+@import "profile.css";
+
+/* common */
+* {
+    box-sizing: border-box; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+html, body {
+    min-height: 100vh;
+    margin: auto;
+    width: 90%;
+}
+
+nav {
+    min-height: 7vh;
+    margin: auto;
+    padding: 3vh;
+    opacity: 0.7;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.main {
+    display: flex;
+    margin: auto;
+}
+
+/* inputs */
+input, button, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.4em;
+	margin: 0 0 0.5em 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=file], textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    background: #ffffff;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=file]:focus, textarea:focus {
+    border: 1px solid #000000;
+    outline: none;
+}
+
+/* navbar */
+.nav-button {
+    float: right;
+    margin-right: 2vh;
+    font-size: 2vh;
+}
+
+.nav-button:hover {
+    color: rgb(0, 0, 0);
+}
+
+.nav-button:focus {
+    color: black;
+}
+
+.logo-img {
+    width: 4vh;
+    float: left;
+}
+
+/* headers and messages */
+.header-name {
+    display: block;
+    text-align: center;
+    font-size: 4vh;
+    margin-top: 5vh;
+}
+
+.header-desc {
+    display: block;
+    text-align: center;
+    font-size: 2vh;
+    margin-top: 3vh;
+}
+
+.messages {
+    text-align: center;
+    color:rgb(230, 65, 114);
+}
+
+/* buttons */
+.text-button {
+    border: 1px solid rgb(28, 29, 29);
+    border-radius: 5px;
+    padding: 1vh;
+    text-align: center;
+    margin-top: 2vh;
+    opacity: 0.7;
+}
+
+.text-button:hover {
+    background-color: #000000;
+    opacity: 1;
+    color: white;
+}
+
+.image-button {
+    width: 10vh;
+}
+.image-button-wrapper {
+    text-align: center;
+}
+
+/* form */
+.form-wrapper {
+    display: block;
+    margin: auto;
+    margin-top: 5vh;
+    width: 50%;
+}
+
+.form-btn {
+    background-color: #000000;
+    color: white;
+    padding: 1vh;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+    opacity: 0.9;
+    float: right;
+    font-size: relative-size;
+}
+
+.form-btn:hover {
+    opacity:1;
+}

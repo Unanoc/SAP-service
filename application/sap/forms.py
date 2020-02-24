@@ -14,10 +14,10 @@ text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
                                'Text should contain letters')
 
 telergam_channel_validator = RegexValidator(r'^@.*',
-                                        'Telegram channel name must have "@" at the begining')
+                                           'Telegram channel name must have "@" at the begining')
 
 not_empty_validator = RegexValidator(r'^.*',
-                                        'Fields must not be empty')
+                                    'Fields must not be empty')
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -183,7 +183,8 @@ class CommentedFeedbackForm(forms.ModelForm):
         validators=[not_empty_validator], 
         widget=forms.Textarea(attrs={
             'class': 'form-control',
-            'placeholder': 'Your comment about passed class',
+            'placeholder': 'Write a comment...',
+            'rows': 4,
         })
     )
 

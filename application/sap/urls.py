@@ -2,25 +2,36 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
 
-from application.sap import views
+from application.sap.views import (
+    api,
+    auth,
+    feedback, 
+    home,
+    statistics,
+    user,
+)
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('signup/', views.sign_up, name='signup'),
-    path('signin/', views.sign_in, name='signin'),
-    path('signout/', views.sign_out, name='signout'),
-    path('profile/<username>/', views.profile, name='profile'),
-    path('settings/', views.settings, name='settings'),
+    path('', home.index, name='index'),
 
-    path('statistics/', views.statistics, name='statistics'),
-    path('create/feedback/comment/', views.creating_commented_feedback_settings, name='creating_commented_feedback_settings'),
-    path('create/feedback/estimated/', views.creating_estimated_feedback_settings, name='creating_estimated_feedback_settings'),
+    path('auth/signup/', auth.signup, name='auth-signup'),
+    path('auth/signin/', auth.signin, name='auth-signin'),
+    path('auth/signout/', auth.signout, name='auth-signout'),
 
-    path('feedback/comment/<hash>/', views.getting_commented_feedback, name='getting_commented_feedback'),
-    path('feedback/estimated/<hash>/', views.getting_estimated_feedback, name='getting_estimated_feedback'),
-    
-    path('bot/send/<hash>/', views.sending_to_telegram, name='sending_to_telegram'),
+    path('user/profile/<username>/', user.profile, name='user-profile'),
+    path('user/settings/', user.settings, name='user-settings'),
+
+    path('statistics/', statistics.index, name='statistics-index'),
+    path('statistics/commented/', statistics.commented, name='statistics-commented'),
+    path('statistics/estimated/', statistics.estimated, name='statistics-estimated'),
+
+    path('feedback/create/commented/feedback/', feedback.create_commented_feedback, name='feedback-create_commented_feedback'),
+    path('feedback/create/estimated/feedback/', feedback.create_estimated_feedback, name='feedback-create_estimated_feedback'),
+    path('feedback/get/commented/<hash>/', feedback.get_commented_feedback, name='feedback-get_commented_feedback'),
+    path('feedback/get/estimated/<hash>/', feedback.get_estimated_feedback, name='feedback-get_estimated_feedback'),
+
+    path('api/telegrambot/send/<hash>/', api.telegrambot_send_to_telegram, name='api-telegrambot_send_to_telegram'),
 ]
 
 if settings.DEBUG:
