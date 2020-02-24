@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.utils.datastructures import MultiValueDictKeyError
@@ -20,23 +21,37 @@ def create_commented_feedback(request):
     if request.method == 'POST':
         form = FeedbackSettingsForm(request.POST)
         if form.is_valid():
-            hash_url = uuid.uuid4()
             user = User.objects.by_username(username=request.user)
-            fs = FeedbackSettings.objects.create(
+            existing = FeedbackSettings.objects.get_where(
                 group_name=form.cleaned_data['group_name'].upper(),
-                telegram_channel=form.cleaned_data['telegram_channel'],
                 subject=form.cleaned_data['subject'],
-                hash_url=hash_url,
-                base_url = "{}/feedback/get/commented".format(request.META['HTTP_HOST']),
                 user=user,
+                base_url="{}/feedback/get/commented".format(request.META['HTTP_HOST']),
+                date=datetime.date(datetime.now())
             )
-            fs.save()
+            if existing is None:
+                hash_url = uuid.uuid4()
+                fs = FeedbackSettings.objects.create(
+                    group_name=form.cleaned_data['group_name'].upper(),
+                    telegram_channel=form.cleaned_data['telegram_channel'],
+                    subject=form.cleaned_data['subject'],
+                    hash_url=hash_url,
+                    base_url = "{}/feedback/get/commented".format(request.META['HTTP_HOST']),
+                    user=user,
+                )
+                fs.save()
+
+                base_url = fs.base_url
+                _hash = fs.hash_url
+            else:
+                base_url = existing.base_url
+                _hash = existing.hash_url
 
             return render(request, 'internal/feedback/generated_link.html', 
                 {
                     'message': "Commented feedback link",
-                    'base_link': fs.base_url,
-                    'hash_url': fs.hash_url
+                    'base_url': base_url,
+                    'hash': _hash,
                 }
             )
     else:
@@ -81,23 +96,37 @@ def create_estimated_feedback(request):
     if request.method == 'POST':
         form = FeedbackSettingsForm(request.POST)
         if form.is_valid():
-            hash_url = uuid.uuid4()
             user = User.objects.by_username(username=request.user)
-            fs = FeedbackSettings.objects.create(
+            existing = FeedbackSettings.objects.get_where(
                 group_name=form.cleaned_data['group_name'].upper(),
-                telegram_channel=form.cleaned_data['telegram_channel'],
                 subject=form.cleaned_data['subject'],
-                hash_url=hash_url,
-                base_url = "{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
                 user=user,
+                base_url="{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
+                date=datetime.date(datetime.now())
             )
-            fs.save()
+            if existing is None:
+                hash_url = uuid.uuid4()
+                fs = FeedbackSettings.objects.create(
+                    group_name=form.cleaned_data['group_name'].upper(),
+                    telegram_channel=form.cleaned_data['telegram_channel'],
+                    subject=form.cleaned_data['subject'],
+                    hash_url=hash_url,
+                    base_url = "{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
+                    user=user,
+                )
+                fs.save()
+
+                base_url = fs.base_url
+                _hash = fs.hash_url
+            else:
+                base_url = existing.base_url
+                _hash = existing.hash_url
 
             return render(request, 'internal/feedback/generated_link.html', 
                 {
                     'message': "Estimated feedback link",
-                    'base_link': fs.base_url,
-                    'hash_url': fs.hash_url,
+                    'base_url': base_url,
+                    'hash': _hash,
                 }
             )
     else:

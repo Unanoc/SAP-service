@@ -12,3 +12,6 @@ class FeedbackSettingsManager(models.Manager):
 
     def get_by_hash(self, hash):
         return self.all().filter(hash_url=hash).first()
+
+    def get_where(self, **kwargs):
+        return self.all().filter(**kwargs).first()
