@@ -3,11 +3,11 @@ from django.conf.urls.static import static
 from django.urls import path, re_path
 
 from application.sap.views import (
-    api,
     auth,
     feedback, 
     home,
     statistics,
+    telegram,
     user,
 )
 
@@ -31,7 +31,7 @@ urlpatterns = [
     path('feedback/get/commented/<hash>/', feedback.get_commented_feedback, name='feedback-get_commented_feedback'),
     path('feedback/get/estimated/<hash>/', feedback.get_estimated_feedback, name='feedback-get_estimated_feedback'),
 
-    path('api/telegrambot/send/<hash>/', api.telegrambot_send_to_telegram, name='api-telegrambot_send_to_telegram'),
+    path('api/telegrambot/send/<hash>/', telegram.telegrambot_send_to_telegram, name='api-telegrambot_send_to_telegram'),
 ]
 
 if settings.DEBUG:
