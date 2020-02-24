@@ -139,3 +139,6 @@ media/uploads/
 
 # system files MacOS
 .DS_Store
+
+# migrations
+application/sap/migrations/
