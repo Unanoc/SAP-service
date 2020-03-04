@@ -1,0 +1,17 @@
+{% extends "internal/base.html" %}
+{% load static %}
+
+{% block header_name %}
+    <div class="header-name">Estimated feedback statistics</div>
+{% endblock %}
+
+{% block content %}
+    <div class="menu">
+        <a href="{% url 'statistics-estimated-groups' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/stat-group.png' %}">
+            </div>
+            <div class="text-button">Groups</div>
+        </a>
+    </div>
+{% endblock %}

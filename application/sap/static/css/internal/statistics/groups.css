@@ -1,0 +1,33 @@
+.left {
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+.left .left-content {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+}
+
+
+.right {
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+.right .right-content {
+    margin: auto;
+    height: 100%;
+    width: 90%;
+
+    display: flex;
+}
+#chart-header {
+    width: 100;
+    text-align: center;
+    font-size: 4vh;
+
+    display: block;
+}

@@ -72,6 +72,7 @@ def get_commented_feedback(request, hash):
                 group_name=fs.group_name,
                 user=fs.user,
                 date=fs.date,
+                subject=fs.subject,
             )
             cf.save()
 
@@ -146,6 +147,7 @@ def get_estimated_feedback(request, hash):
                 group_name=fs.group_name,
                 user=fs.user,
                 date=fs.date,
+                subject=fs.subject,
             )
             cf.save()
         except MultiValueDictKeyError:

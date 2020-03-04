@@ -2,22 +2,22 @@
 {% load static %}
 
 {% block header_name %}
-    <div class="header-name">Statistics</div>
+    <div class="header-name">STATISTICS</div>
     <div class="header-desc">Go over statistics to analyze a quality of your classes.</div>
 {% endblock %}
 
 {% block content %}
-    <div class="home-menu">
+    <div class="menu">
         <a href="{% url 'statistics-commented' %}">
             <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/commented_feedback.png' %}">
+                <img class="image-button" src="{% static 'src/commented_feedback_stat.png' %}">
             </div>
             <div class="text-button">Commented feedback</div>
         </a>
 
         <a href="{% url 'statistics-estimated' %}">
             <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/estimated_feedback.png' %}">
+                <img class="image-button" src="{% static 'src/estimated_feedback_stat.png' %}">
             </div>
             <div class="text-button">Estimated feedback</div>
         </a>

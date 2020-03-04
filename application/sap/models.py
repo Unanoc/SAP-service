@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 
 from application.sap.managers import (
+    CommenterFeedbackManager,
+    EstimatedFeedbackManager,
     FeedbackSettingsManager,
     UserManager,
 )
@@ -41,8 +43,11 @@ class FeedbackSettings(models.Model):
 class CommentedFeedback(models.Model):
     text = models.TextField(verbose_name="Comment text")
     group_name = models.CharField(max_length=10, verbose_name="Group name")
+    subject = models.CharField(max_length=30, verbose_name="Subject name")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Commented feedback date")
+
+    objects = CommenterFeedbackManager()
 
 
 class EstimatedFeedback(models.Model):
@@ -50,5 +55,8 @@ class EstimatedFeedback(models.Model):
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
     group_name = models.CharField(max_length=10, verbose_name="Group name")
+    subject = models.CharField(max_length=30, verbose_name="Subject name")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Estimated feedback date")
+
+    objects = EstimatedFeedbackManager()

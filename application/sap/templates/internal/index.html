@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block header_name %}
-    <div class="header-name">Students and Professors Service</div>
+    <div class="header-name">STUDENTS & PROFESSORS</div>
     <div class="header-desc">feedback system for improving and analyzing of education process at university</div>
 {% endblock %}
 
 {% block content %}
-    <div class="home-menu">
+    <div class="menu">
         <a href="{% url 'feedback-create_commented_feedback' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/commented_feedback.png' %}">

@@ -7,8 +7,11 @@ from application.sap.views import (
     feedback, 
     home,
     statistics,
-    telegram,
     user,
+)
+from application.sap.views.api import (
+    stat,
+    telegram,
 )
 
 
@@ -25,6 +28,7 @@ urlpatterns = [
     path('statistics/', statistics.index, name='statistics-index'),
     path('statistics/commented/', statistics.commented, name='statistics-commented'),
     path('statistics/estimated/', statistics.estimated, name='statistics-estimated'),
+    path('statistics/estimated/groups', statistics.estimated_groups, name='statistics-estimated-groups'),
 
     path('feedback/create/commented/feedback/', feedback.create_commented_feedback, name='feedback-create_commented_feedback'),
     path('feedback/create/estimated/feedback/', feedback.create_estimated_feedback, name='feedback-create_estimated_feedback'),
@@ -32,6 +36,7 @@ urlpatterns = [
     path('feedback/get/estimated/<hash>/', feedback.get_estimated_feedback, name='feedback-get_estimated_feedback'),
 
     path('api/telegrambot/send/<hash>/', telegram.telegrambot_send_to_telegram, name='api-telegrambot_send_to_telegram'),
+    path('api/statistics/groups/data/', stat.GroupsData.as_view(), name='api-groups_data'),
 ]
 
 if settings.DEBUG:
