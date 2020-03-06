@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 from application.sap.forms import (
-    GroupStatisticsForm,
+    GroupAverageStatisticsForm,
 )
 
 
@@ -24,7 +24,7 @@ def estimated(request):
 
 @login_required(login_url='/auth/signin/')
 def estimated_groups(request):
-    form = GroupStatisticsForm()
+    form = GroupAverageStatisticsForm()
 
     return render(request, 
         'internal/statistics/estimated/groups.html', 

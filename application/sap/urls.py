@@ -5,7 +5,7 @@ from django.urls import path, re_path
 from application.sap.views import (
     auth,
     feedback, 
-    home,
+    root,
     statistics,
     user,
 )
@@ -16,7 +16,8 @@ from application.sap.views.api import (
 
 
 urlpatterns = [
-    path('', home.index, name='index'),
+    path('', root.index, name='root-index'),
+    path('help/', root.help, name='root-help'),
 
     path('auth/signup/', auth.signup, name='auth-signup'),
     path('auth/signin/', auth.signin, name='auth-signin'),
@@ -35,8 +36,8 @@ urlpatterns = [
     path('feedback/get/commented/<hash>/', feedback.get_commented_feedback, name='feedback-get_commented_feedback'),
     path('feedback/get/estimated/<hash>/', feedback.get_estimated_feedback, name='feedback-get_estimated_feedback'),
 
-    path('api/telegrambot/send/<hash>/', telegram.telegrambot_send_to_telegram, name='api-telegrambot_send_to_telegram'),
-    path('api/statistics/groups/data/', stat.GroupsData.as_view(), name='api-groups_data'),
+    path('api/telegrambot/send/', telegram.BotSender.as_view(), name='api-bot_send'),
+    path('api/statistics/group/average/', stat.GroupAverage.as_view(), name='api-group_average'),
 ]
 
 if settings.DEBUG:

@@ -24,7 +24,7 @@ class CommenterFeedbackManager(models.Manager):
 
 class EstimatedFeedbackManager(models.Manager):
 
-    def get_group_stat(self, user_id, date_from, date_to, group, subject):
+    def get_group_average(self, user_id, date_from, date_to, group, subject):
         from django.db import connection
         with connection.cursor() as cursor:
             query = """

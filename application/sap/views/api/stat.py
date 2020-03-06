@@ -7,7 +7,7 @@ from application.sap.models import (
 )
 
 
-class GroupsData(APIView):
+class GroupAverage(APIView):
     authentication_classes = []
     permission_classes = []
 
@@ -15,7 +15,7 @@ class GroupsData(APIView):
         date_from = datetime.datetime.strptime(request.data["from"], '%d/%m/%Y').strftime('%Y-%m-%d')
         date_to = datetime.datetime.strptime(request.data["to"], '%d/%m/%Y').strftime('%Y-%m-%d')
         
-        objects = EstimatedFeedback.objects.get_group_stat(
+        objects = EstimatedFeedback.objects.get_group_average(
             user_id=request.data["user_id"],
             date_from=date_from,
             date_to=date_to,
@@ -29,3 +29,26 @@ class GroupsData(APIView):
         }
 
         return Response(result)
+
+
+# class GroupInfo(APIView):
+#     authentication_classes = []
+#     permission_classes = []
+
+#     def post (self, request, format=None):
+#         day = datetime.datetime.strptime(request.data["day"], '%d/%m/%Y').strftime('%Y-%m-%d')
+        
+#         objects = EstimatedFeedback.objects.get_group_stat(
+#             user_id=request.data["user_id"],
+#             date_from=date_from,
+#             date_to=date_to,
+#             group=request.data["group"].upper(),
+#             subject=request.data["subject"],
+#         )
+
+#         result = {
+#             "group": request.data["group"].upper(),
+#             "objects": objects,
+#         }
+
+#         return Response(result)

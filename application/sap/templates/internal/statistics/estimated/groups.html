@@ -74,7 +74,7 @@
                 user_id: "{{ user_id }}",
             };
 
-            fetch('{% url "api-groups_data" %}', {
+            fetch('{% url "api-group_average" %}', {
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json', 
@@ -95,7 +95,7 @@
             })
             .catch((err) => {
                 header = document.getElementById('chart-header')
-                header.innerHTML = "Данные отсутствуют";
+                header.innerHTML = "No data";
                 console.log('error:', err)
             })
         }
@@ -111,17 +111,16 @@
 
             var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
             // Add three color stops
-            gradientStroke.addColorStop(0, "#80b6f4");
-            gradientStroke.addColorStop(1, "#f49080");
+            gradientStroke.addColorStop(0, "#ff8f8f");
+            gradientStroke.addColorStop(1, "#8f93ff");
 
             var chart = new Chart(ctx, {
                 type: chart_type,
 
-                // The data for our dataset
                 data: {
                     labels: Array.from(input_data, x => x['date']),
                     datasets: [{
-                        label: 'Average rating in the group for period',
+                        label: 'Average rating of the group for the period',
                         backgroundColor: gradientStroke,
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
