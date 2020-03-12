@@ -1,5 +1,5 @@
 from django.contrib.auth.models import UserManager
-from django.db import models
+from django.db import connection, models
 
 
 class UserManager(UserManager):
@@ -17,15 +17,36 @@ class FeedbackSettingsManager(models.Manager):
         return self.all().filter(**kwargs).first()
 
 
-class CommenterFeedbackManager(models.Manager):
+class CommentedFeedbackManager(models.Manager):
 
-    pass
+    def get_group_comments_for_day(self, user_id, date, group, subject):
+
+        with connection.cursor() as cursor:
+            query = """
+                SELECT text, group_name, subject, date
+                FROM sap_commentedfeedback as s
+                WHERE
+                    s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
+                    AND s.date = '{}'
+            """.format(user_id, group, subject, date)
+
+            cursor.execute(query)
+            result_list = []
+            for row in cursor.fetchall():
+                obj = {
+                    'text': row[0], 
+                    'group_name': row[1],
+                    'subject': row[2],
+                    'date': row[3],
+                }
+                result_list.append(obj)
+        return result_list
 
 
 class EstimatedFeedbackManager(models.Manager):
 
     def get_group_average(self, user_id, date_from, date_to, group, subject):
-        from django.db import connection
+
         with connection.cursor() as cursor:
             query = """
                 SELECT AVG(s.rating), s.date

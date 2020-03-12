@@ -37,6 +37,7 @@ urlpatterns = [
     path('feedback/get/estimated/<hash>/', feedback.get_estimated_feedback, name='feedback-get_estimated_feedback'),
 
     path('api/telegrambot/send/', telegram.BotSender.as_view(), name='api-bot_send'),
+    path('api/statistics/comments/', stat.Comments.as_view(), name='api-comments'),
     path('api/statistics/group/average/', stat.GroupAverage.as_view(), name='api-group_average'),
 ]
 

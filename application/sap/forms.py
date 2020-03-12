@@ -193,6 +193,32 @@ class CommentedFeedbackForm(forms.ModelForm):
         fields = ['text']
 
 
+class CommentedStatisticsForm(forms.Form):
+    date = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'id': 'date',
+            'data-toggle':'datepicker',
+            'placeholder': 'date',
+            'autocomplete': 'off',
+        }),
+    )
+    group_name = forms.CharField(
+        validators=[not_empty_validator], 
+        widget=forms.TextInput(attrs={
+            'id': 'group',
+            'class': 'form-control',
+            'placeholder': 'Student group name',
+        })
+    )
+    subject = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'id': 'subject',
+            'class': 'form-control',
+            'placeholder': 'Subject name',
+        })
+    )
+
+
 class GroupAverageStatisticsForm(forms.Form):
     period_from = forms.DateField(
         widget=forms.TextInput(attrs={

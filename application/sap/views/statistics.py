@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from application.sap.forms import (
     GroupAverageStatisticsForm,
+    CommentedStatisticsForm,
 )
 
 
@@ -14,7 +15,12 @@ def index(request):
 
 @login_required(login_url='/auth/signin/')
 def commented(request):
-    return render(request, 'internal/statistics/commented/index.html')
+    form = CommentedStatisticsForm() 
+
+    return render(request, 
+        'internal/statistics/commented/index.html',
+        {'form': form, 'user_id': request.user.id}
+    )
 
 
 @login_required(login_url='/auth/signin/')

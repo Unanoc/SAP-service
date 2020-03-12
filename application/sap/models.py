@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from application.sap.managers import (
-    CommenterFeedbackManager,
+    CommentedFeedbackManager,
     EstimatedFeedbackManager,
     FeedbackSettingsManager,
     UserManager,
@@ -47,7 +47,7 @@ class CommentedFeedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Commented feedback date")
 
-    objects = CommenterFeedbackManager()
+    objects = CommentedFeedbackManager()
 
 
 class EstimatedFeedback(models.Model):
