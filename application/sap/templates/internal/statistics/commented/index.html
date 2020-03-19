@@ -1,11 +1,97 @@
 {% extends "internal/base.html" %}
 {% load static %}
 
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/internal/statistics/left_right_content.css' %}">
+    <script src="{% static 'js/lib/chart.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block header_name %}
-    <div class="header-name"></div>
-    <div class="header-desc"></div>
+    <div class="header-name">Comments</div>
 {% endblock %}
 
 {% block content %}
+    <div class="right">
+        <div class="right-content">
+            <div id="right-content-header"></div>
+            <div id="right-content-items"></div>
+        </div>
+    </div>
 
+    <div class="left">
+        <div class="left-content">
+            <div class="form-wrapper">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    <div>
+                        <button id="btn" class="form-btn">Go</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // datapicker widjet
+        $(function () {
+            $('[data-toggle="datepicker"]').datepicker({
+                format:'dd/mm/yyyy',
+            });
+        });
+
+        // handler of button submit
+        document.getElementById("btn").addEventListener('click', function(e){
+            e.preventDefault();
+            sendFormAndDraw();
+        }, false);
+
+        function sendFormAndDraw() {
+            const data = {
+                date: document.getElementById('date').value,
+                group: document.getElementById('group').value,
+                subject: document.getElementById('subject').value,
+                user_id: "{{ user_id }}",
+            };
+
+            fetch('{% url "api-comments" %}', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json', 
+                    'X-CSRFToken':'{{ csrf_token }}',
+                    'X-Requested-With':'XMLHttpRequest'
+                },
+                body: JSON.stringify(data),
+                mode:'cors',
+                cache:'default',
+                credentials:'include'      
+            }).then((response) => response.json())
+            .then((result) => {
+                header = document.getElementById('right-content-header');
+                header.innerHTML = result['group'] + ' (' + result['date'] + ')';
+                
+                comments_div = document.getElementById('right-content-items');
+                for (let i = 0; i < result['comments'].length; i++) {
+                    comment = document.createElement('div');
+                    comment.innerHTML += result['comments'][i]['text'];
+                    comment.className = 'right-content-item';
+                    comments_div.appendChild(comment);
+                }
+            })
+            .catch((err) => {
+                header = document.getElementById('right-content-header')
+                header.innerHTML = "No comments for this day";
+                console.log('error:', err)
+            })
+        }
+    </script>
 {% endblock %}

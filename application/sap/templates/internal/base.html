@@ -12,11 +12,11 @@
 </head>
 <body>
     <nav>
-        <a href="/"><div class="nav-button-logo"><img class="logo-img" src="{% static 'src/favicon.png' %}"></div></a>
         {% if user.is_authenticated %}
             <a href="{% url 'auth-signout' %}"><div class="nav-button">Sign out</div></a>
             <a href="{% url 'user-profile' user.username %}"><div class="nav-button">Profile</div></a>
-            <a href="/"><div class="nav-button">Home</div></a>
+            <a href="{% url 'root-help' %}"><div class="nav-button">Help</div></a>
+            <a href="{% url 'root-index' %}"><div class="nav-button">Home</div></a>
         {% else %}
             <a href="{% url 'auth-signup' %}"><div class="nav-button">Sign up</div></a>
             <a href="{% url 'auth-signin' %}"><div class="nav-button">Sign in</div></a>

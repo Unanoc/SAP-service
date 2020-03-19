@@ -26,6 +26,7 @@ def create_commented_feedback(request):
                 group_name=form.cleaned_data['group_name'].upper(),
                 subject=form.cleaned_data['subject'],
                 user=user,
+                telegram_channel=form.cleaned_data['telegram_channel'],
                 base_url="{}/feedback/get/commented".format(request.META['HTTP_HOST']),
                 date=datetime.date(datetime.now())
             )
@@ -102,6 +103,7 @@ def create_estimated_feedback(request):
                 group_name=form.cleaned_data['group_name'].upper(),
                 subject=form.cleaned_data['subject'],
                 user=user,
+                telegram_channel=form.cleaned_data['telegram_channel'],
                 base_url="{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
                 date=datetime.date(datetime.now())
             )

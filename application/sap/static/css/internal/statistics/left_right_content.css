@@ -1,0 +1,57 @@
+.left {
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+.left .left-content {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+}
+#chart-type {
+    width: 100%;
+    font-size: 1.8vh;
+}
+
+
+.right {
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+.right .right-content {
+    margin: auto;
+    height: 100%;
+    width: 90%;
+    margin-top: 4vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#chart-header {
+    width: 100%;
+    text-align: center;
+    font-size: 3vh;
+
+    display: block;
+}
+#right-content-header {
+    width: 100%;
+    text-align: center;
+    font-size: 3vh;
+
+    display: block;
+}
+.right-content-item {
+    width: 60%;
+    margin: auto;
+    display: block;
+    text-align: justify;
+    margin-top: 5vh;
+
+    border: 1px solid black;
+    border-radius: 3px;
+}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css_js %}
-    <link rel="stylesheet" href="{% static 'css/internal/statistics/groups.css' %}">
+    <link rel="stylesheet" href="{% static 'css/internal/statistics/left_right_content.css' %}">
     <script src="{% static 'js/lib/chart.js' %}"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block header_name %}
-    <div class="header-name">Groups statistics</div>
-    <div class="header-desc"></div>
+    <div class="header-name">Groups statistics</div
 {% endblock %}
 
 {% block content %}
@@ -60,7 +59,7 @@
         });
 
         // handler of button submit
-        document.getElementById("btn").addEventListener('click',function(e){
+        document.getElementById("btn").addEventListener('click', function(e){
             e.preventDefault();
             sendFormAndDraw();
         }, false);
@@ -74,7 +73,7 @@
                 user_id: "{{ user_id }}",
             };
 
-            fetch('{% url "api-groups_data" %}', {
+            fetch('{% url "api-group_average" %}', {
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json', 
@@ -95,7 +94,7 @@
             })
             .catch((err) => {
                 header = document.getElementById('chart-header')
-                header.innerHTML = "Данные отсутствуют";
+                header.innerHTML = "No data";
                 console.log('error:', err)
             })
         }
@@ -105,34 +104,51 @@
             return select.options[select.selectedIndex].value;;
         }
 
+        function getColors(arr, opacity) {
+            var chartColors = {
+                five: `rgba(255, 99, 132, ${opacity})`,
+                four: `rgba(54, 162, 235, ${opacity})`,
+                three: `rgba(255, 206, 86, ${opacity})`,
+                two: `rgba(75, 192, 192, ${opacity})`,
+                one: `rgba(153, 102, 255, ${opacity})`,
+            };
+
+            var resultColors = new Array();
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] > 4) {
+                    resultColors.push(chartColors.five);
+                } else if (arr[i] > 3 && arr[i] <= 4) {
+                    resultColors.push(chartColors.four);
+                } else if (arr[i] > 2 && arr[i] <= 3) {
+                    resultColors.push(chartColors.three);
+                    console.log(chartColors.three)
+                } else if (arr[i] > 1 && arr[i] <= 2) {
+                    resultColors.push(chartColors.two);
+                } else {
+                    resultColors.push(chartColors.one);
+                }
+            }
+            return resultColors;
+        }
+
         // draw function for charts
         function _drawChart(input_data, chart_type) {
             var ctx = document.getElementById('chart').getContext('2d');
-
-            var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-            // Add three color stops
-            gradientStroke.addColorStop(0, "#80b6f4");
-            gradientStroke.addColorStop(1, "#f49080");
-
+            var x_points = Array.from(input_data, x => x['date']);
+            var y_points = Array.from(input_data, x => x['avg_rating']);
             var chart = new Chart(ctx, {
                 type: chart_type,
-
-                // The data for our dataset
                 data: {
-                    labels: Array.from(input_data, x => x['date']),
+                    labels: x_points,
                     datasets: [{
-                        label: 'Average rating in the group for period',
-                        backgroundColor: gradientStroke,
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                        ],
-                        data: Array.from(input_data, x => x['avg_rating']),
+                        label: 'Average group rating per period',
+                        backgroundColor: getColors(y_points, '0.2'),
+                        borderColor: getColors(y_points, '1'),
+                        data: y_points,
                     }]
                 },
-
                 options: {}
             });
         }
-        
     </script>
 {% endblock %}
