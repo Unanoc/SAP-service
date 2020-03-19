@@ -10,6 +10,10 @@
 
     display: flex;
 }
+#chart-type {
+    width: 100%;
+    font-size: 1.8vh;
+}
 
 
 .right {

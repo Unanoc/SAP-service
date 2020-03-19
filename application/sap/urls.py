@@ -29,7 +29,8 @@ urlpatterns = [
     path('statistics/', statistics.index, name='statistics-index'),
     path('statistics/commented/', statistics.commented, name='statistics-commented'),
     path('statistics/estimated/', statistics.estimated, name='statistics-estimated'),
-    path('statistics/estimated/groups', statistics.estimated_groups, name='statistics-estimated-groups'),
+    path('statistics/estimated/bygroup', statistics.estimated_by_group, name='statistics-estimated-by-group'),
+    path('statistics/estimated/byday', statistics.estimated_by_day, name='statistics-estimated-by-day'),
 
     path('feedback/create/commented/feedback/', feedback.create_commented_feedback, name='feedback-create_commented_feedback'),
     path('feedback/create/estimated/feedback/', feedback.create_estimated_feedback, name='feedback-create_estimated_feedback'),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('api/telegrambot/send/', telegram.BotSender.as_view(), name='api-bot_send'),
     path('api/statistics/comments/', stat.Comments.as_view(), name='api-comments'),
     path('api/statistics/group/average/', stat.GroupAverage.as_view(), name='api-group_average'),
+    path('api/statistics/group/day/info/', stat.GroupDayInfo.as_view(), name='api-group_day_info'),
 ]
 
 if settings.DEBUG:

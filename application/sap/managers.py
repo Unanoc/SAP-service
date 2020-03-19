@@ -20,7 +20,6 @@ class FeedbackSettingsManager(models.Manager):
 class CommentedFeedbackManager(models.Manager):
 
     def get_group_comments_for_day(self, user_id, date, group, subject):
-
         with connection.cursor() as cursor:
             query = """
                 SELECT text, group_name, subject, date
@@ -46,7 +45,6 @@ class CommentedFeedbackManager(models.Manager):
 class EstimatedFeedbackManager(models.Manager):
 
     def get_group_average(self, user_id, date_from, date_to, group, subject):
-
         with connection.cursor() as cursor:
             query = """
                 SELECT AVG(s.rating), s.date
@@ -64,3 +62,20 @@ class EstimatedFeedbackManager(models.Manager):
                 obj = {'avg_rating': row[0], 'date': row[1]}
                 result_list.append(obj)
         return result_list
+    
+    def get_group_day_info(self, user_id, date, group, subject):
+        with connection.cursor() as cursor:
+            query = """
+                SELECT s.rating, time
+                FROM sap_estimatedfeedback as s
+                WHERE 
+                    s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
+                    AND s.date = '{}'
+            """.format(user_id, group, subject, date)
+
+            cursor.execute(query)
+            result_list = []
+            for row in cursor.fetchall():
+                result_list.append({'rating': row[0], 'time': row[1].strftime("%H:%M:%S")})
+        return result_list
+    

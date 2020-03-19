@@ -1,0 +1,153 @@
+{% extends "internal/base.html" %}
+{% load static %}
+
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/internal/statistics/left_right_content.css' %}">
+    <script src="{% static 'js/lib/chart.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block header_name %}
+    <div class="header-name">Day statistics</div
+{% endblock %}
+
+{% block content %}
+    <div class="right">
+        <div id="chart-header" ></div>
+        <div class="right-content">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+
+    <div class="left">
+        <div class="left-content">
+            <div class="form-wrapper">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+
+                    <select id="chart-type">
+                        <option value="line">Line</option>
+                        <option value="bar">Bar</option>
+                        <option value="radar">Radar</option>
+                        <option value="doughnut">Doughnut</option>
+                        <option value="pie">Pie</option>
+                        <option value="polarArea">Polar Area</option>
+                    </select>
+        
+                    <div>
+                        <button id="btn" class="form-btn">Go</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // datapicker widjet
+        $(function () {
+            $('[data-toggle="datepicker"]').datepicker({
+                format:'dd/mm/yyyy',
+            });
+        });
+
+        // handler of button submit
+        document.getElementById("btn").addEventListener('click', function(e){
+            e.preventDefault();
+            sendFormAndDraw();
+        }, false);
+
+        function sendFormAndDraw() {
+            const data = {
+                date: document.getElementById('date').value,
+                group: document.getElementById('group').value,
+                subject: document.getElementById('subject').value,
+                user_id: "{{ user_id }}",
+            };
+
+            fetch('{% url "api-group_day_info" %}', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json', 
+                    'X-CSRFToken':'{{ csrf_token }}',
+                    'X-Requested-With':'XMLHttpRequest'
+                },
+                body: JSON.stringify(data),
+                mode:'cors',
+                cache:'default',
+                credentials:'include'      
+            }).then((response) => response.json())
+            .then((result) => {
+                header = document.getElementById('chart-header')
+                header.innerHTML = result['group'] + ' (' + result['date'] + ')';
+
+                chartType = getChartType();
+                _drawChart(result['objects'], chartType);
+            })
+            .catch((err) => {
+                header = document.getElementById('chart-header')
+                header.innerHTML = "No data";
+                console.log('error:', err)
+            })
+        }
+
+        function getChartType() {
+            var select = document.getElementById('chart-type');
+            return select.options[select.selectedIndex].value;;
+        }
+
+        function getColors(arr, opacity) {
+            var chartColors = {
+                five: `rgba(255, 99, 132, ${opacity})`,
+                four: `rgba(54, 162, 235, ${opacity})`,
+                three: `rgba(255, 206, 86, ${opacity})`,
+                two: `rgba(75, 192, 192, ${opacity})`,
+                one: `rgba(153, 102, 255, ${opacity})`,
+            };
+
+            var resultColors = new Array();
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] > 4) {
+                    resultColors.push(chartColors.five);
+                } else if (arr[i] > 3 && arr[i] <= 4) {
+                    resultColors.push(chartColors.four);
+                } else if (arr[i] > 2 && arr[i] <= 3) {
+                    resultColors.push(chartColors.three);
+                    console.log(chartColors.three)
+                } else if (arr[i] > 1 && arr[i] <= 2) {
+                    resultColors.push(chartColors.two);
+                } else {
+                    resultColors.push(chartColors.one);
+                }
+            }
+            return resultColors;
+        }
+
+        // draw function for charts
+        function _drawChart(input_data, chart_type) {
+            var ctx = document.getElementById('chart').getContext('2d');
+            var x_points = Array.from(input_data, x => x['time']);
+            var y_points = Array.from(input_data, x => x['rating']);
+            var chart = new Chart(ctx, {
+                type: chart_type,
+                data: {
+                    labels: x_points,
+                    datasets: [{
+                        label: 'Daily group rating',
+                        backgroundColor: getColors(y_points, '0.2'),
+                        borderColor: getColors(y_points, '1'),
+                        data: y_points,
+                    }]
+                },
+                options: {}
+            });
+        }
+    </script>
+{% endblock %}

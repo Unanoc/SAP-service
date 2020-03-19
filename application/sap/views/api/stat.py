@@ -56,24 +56,24 @@ class GroupAverage(APIView):
         return Response(result)
 
 
-# class GroupInfo(APIView):
-#     authentication_classes = []
-#     permission_classes = []
+class GroupDayInfo(APIView):
+    authentication_classes = []
+    permission_classes = []
 
-#     def post(self, request, format=None):
-#         day = datetime.datetime.strptime(request.data["day"], '%d/%m/%Y').strftime('%Y-%m-%d')
+    def post(self, request, format=None):
+        date = datetime.datetime.strptime(request.data["date"], '%d/%m/%Y').strftime('%Y-%m-%d')
         
-#         objects = EstimatedFeedback.objects.get_group_stat(
-#             user_id=request.data["user_id"],
-#             date_from=date_from,
-#             date_to=date_to,
-#             group=request.data["group"].upper(),
-#             subject=request.data["subject"],
-#         )
+        objects = EstimatedFeedback.objects.get_group_day_info(
+            user_id=request.data["user_id"],
+            date=date,
+            group=request.data["group"].upper(),
+            subject=request.data["subject"],
+        )
 
-#         result = {
-#             "group": request.data["group"].upper(),
-#             "objects": objects,
-#         }
+        result = {
+            "group": request.data["group"].upper(),
+            "date": date,
+            "objects": objects,
+        }
 
-#         return Response(result)
+        return Response(result)

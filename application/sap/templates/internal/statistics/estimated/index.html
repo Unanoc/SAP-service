@@ -7,11 +7,18 @@
 
 {% block content %}
     <div class="menu">
-        <a href="{% url 'statistics-estimated-groups' %}">
+        <a href="{% url 'statistics-estimated-by-group' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/stat-group.png' %}">
             </div>
-            <div class="text-button">Groups</div>
+            <div class="text-button">By group</div>
+        </a>
+
+        <a href="{% url 'statistics-estimated-by-day' %}">
+            <div class="image-button-wrapper">
+                <img class="image-button" src="{% static 'src/stat-day.png' %}">
+            </div>
+            <div class="text-button">By day</div>
         </a>
     </div>
 {% endblock %}

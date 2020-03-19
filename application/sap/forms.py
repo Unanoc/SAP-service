@@ -253,27 +253,27 @@ class GroupAverageStatisticsForm(forms.Form):
     )
 
 
-# class GroupInfoStatisticsForm(forms.Form):
-#     day = forms.DateField(
-#         widget=forms.TextInput(attrs={
-#             'id': 'from',
-#             'data-toggle':'datepicker',
-#             'placeholder': 'day',
-#             'autocomplete': 'off',
-#         }),
-#     )
-#     group_name = forms.CharField(
-#         validators=[not_empty_validator], 
-#         widget=forms.TextInput(attrs={
-#             'id': 'group',
-#             'class': 'form-control',
-#             'placeholder': 'Student group name',
-#         })
-#     )
-#     subject = forms.CharField(
-#         widget=forms.TextInput(attrs={
-#             'id': 'subject',
-#             'class': 'form-control',
-#             'placeholder': 'Subject name',
-#         })
-#     )
+class GroupDayInfoStatisticsForm(forms.Form):
+    date = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'id': 'date',
+            'data-toggle':'datepicker',
+            'placeholder': 'Date',
+            'autocomplete': 'off',
+        }),
+    )
+    group_name = forms.CharField(
+        validators=[not_empty_validator], 
+        widget=forms.TextInput(attrs={
+            'id': 'group',
+            'class': 'form-control',
+            'placeholder': 'Student group name',
+        })
+    )
+    subject = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'id': 'subject',
+            'class': 'form-control',
+            'placeholder': 'Subject name',
+        })
+    )

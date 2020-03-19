@@ -46,17 +46,19 @@ class CommentedFeedback(models.Model):
     subject = models.CharField(max_length=30, verbose_name="Subject name")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Commented feedback date")
+    time = models.TimeField(auto_now_add=True, verbose_name="Commented feedback time")
 
     objects = CommentedFeedbackManager()
 
 
 class EstimatedFeedback(models.Model):
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
-    rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
+    rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
     group_name = models.CharField(max_length=10, verbose_name="Group name")
     subject = models.CharField(max_length=30, verbose_name="Subject name")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Estimated feedback date")
+    time = models.TimeField(auto_now_add=True, verbose_name="Estimated feedback time")
 
     objects = EstimatedFeedbackManager()
