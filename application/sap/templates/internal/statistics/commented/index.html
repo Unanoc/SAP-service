@@ -77,13 +77,19 @@
             }).then((response) => response.json())
             .then((result) => {
                 header = document.getElementById('right-content-header');
+                if (result['comments'].length == 0) {
+                    header.innerHTML = "No comments for this day";
+                    return
+                }
                 header.innerHTML = result['subject'] + ' (' + result['group'] + ')';
                 
                 comments_div = document.getElementById('right-content-items');
+                comments_div.innerHTML = ''
                 for (let i = 0; i < result['comments'].length; i++) {
                     comment = document.createElement('div');
-                    comment.innerHTML += result['comments'][i]['text'];
                     comment.className = 'right-content-item';
+                    var content = `<b>${result['comments'][i]['date']}</b> <i>${result['comments'][i]['time']}</i><hr>${result['comments'][i]['text']}`;
+                    comment.innerHTML += content;
                     comments_div.appendChild(comment);
                 }
             })

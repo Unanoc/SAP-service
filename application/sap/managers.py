@@ -27,6 +27,7 @@ class CommentedFeedbackManager(models.Manager):
                 JOIN sap_feedbacksettings f
                 ON f.id = c.settings_id AND f.date = '{}' AND f.subject = '{}' 
                 AND f.user_id = '{}' AND f.group_name = '{}'
+                ORDER BY c.time DESC
             """.format(date, subject, user_id, group_name)
 
             cursor.execute(query)
@@ -35,7 +36,7 @@ class CommentedFeedbackManager(models.Manager):
                 obj = {
                     'text': row[0], 
                     'date': row[1], 
-                    'time': row[2], 
+                    'time': row[2].strftime("%H:%M:%S"), 
                 }
                 result_list.append(obj)
         return result_list
@@ -65,11 +66,12 @@ class EstimatedFeedbackManager(models.Manager):
     def get_group_day_info(self, user_id, date, group_name, subject):
         with connection.cursor() as cursor:
             query = """
-                SELECT s.rating, time
+                SELECT s.rating, s.time
                 FROM sap_estimatedfeedback as s
                 WHERE 
                     s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
                     AND s.date = '{}'
+                ORDER BY s.time
             """.format(user_id, group_name, subject, date)
 
             cursor.execute(query)

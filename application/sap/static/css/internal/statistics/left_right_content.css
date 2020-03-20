@@ -50,8 +50,9 @@
     margin: auto;
     display: block;
     text-align: justify;
-    margin-top: 5vh;
+    margin-top: 3vh;
+    padding:2.5vh;
 
-    border: 1px solid black;
-    border-radius: 3px;
+    border: 1px solid rgb(105, 105, 105);
+    border-radius: 10px;
 }
