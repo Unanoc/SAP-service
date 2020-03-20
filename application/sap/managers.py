@@ -19,24 +19,23 @@ class FeedbackSettingsManager(models.Manager):
 
 class CommentedFeedbackManager(models.Manager):
 
-    def get_group_comments_for_day(self, user_id, date, group, subject):
+    def get_group_comments_for_day(self, user_id, date, group_name, subject):
         with connection.cursor() as cursor:
             query = """
-                SELECT text, group_name, subject, date
-                FROM sap_commentedfeedback as s
-                WHERE
-                    s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
-                    AND s.date = '{}'
-            """.format(user_id, group, subject, date)
+                SELECT c.text, c.date, c.time
+                FROM sap_commentedfeedback c
+                JOIN sap_feedbacksettings f
+                ON f.id = c.settings_id AND f.date = '{}' AND f.subject = '{}' 
+                AND f.user_id = '{}' AND f.group_name = '{}'
+            """.format(date, subject, user_id, group_name)
 
             cursor.execute(query)
             result_list = []
             for row in cursor.fetchall():
                 obj = {
                     'text': row[0], 
-                    'group_name': row[1],
-                    'subject': row[2],
-                    'date': row[3],
+                    'date': row[1], 
+                    'time': row[2], 
                 }
                 result_list.append(obj)
         return result_list
@@ -44,7 +43,7 @@ class CommentedFeedbackManager(models.Manager):
 
 class EstimatedFeedbackManager(models.Manager):
 
-    def get_group_average(self, user_id, date_from, date_to, group, subject):
+    def get_group_average(self, user_id, date_from, date_to, group_name, subject):
         with connection.cursor() as cursor:
             query = """
                 SELECT AVG(s.rating), s.date
@@ -54,7 +53,7 @@ class EstimatedFeedbackManager(models.Manager):
                     AND s.date >= '{}' AND s.date <= '{}'
                 GROUP BY date
                 ORDER BY date
-            """.format(user_id, group, subject, date_from, date_to)
+            """.format(user_id, group_name, subject, date_from, date_to)
 
             cursor.execute(query)
             result_list = []
@@ -63,7 +62,7 @@ class EstimatedFeedbackManager(models.Manager):
                 result_list.append(obj)
         return result_list
     
-    def get_group_day_info(self, user_id, date, group, subject):
+    def get_group_day_info(self, user_id, date, group_name, subject):
         with connection.cursor() as cursor:
             query = """
                 SELECT s.rating, time
@@ -71,7 +70,7 @@ class EstimatedFeedbackManager(models.Manager):
                 WHERE 
                     s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
                     AND s.date = '{}'
-            """.format(user_id, group, subject, date)
+            """.format(user_id, group_name, subject, date)
 
             cursor.execute(query)
             result_list = []

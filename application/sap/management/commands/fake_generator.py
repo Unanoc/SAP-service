@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 
 from application.sap.models import (
+    CommentedFeedback,
     EstimatedFeedback,
     User,
 )
@@ -12,12 +13,14 @@ from application.sap.models import (
 # To clean up Data base and generate fake data just write "python manage.py flush && python manage.py fake_generator"
 
 count_estimated_feedback = 30
+count_commented_feedback = 30
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.user_generate()
         self.estimated_feedback_generate()
+        self.commented_feedback_generate()
 
 
     def user_generate(self):
@@ -28,6 +31,7 @@ class Command(BaseCommand):
         user.last_name = faker.last_name()
         user.save()
 
+
     def get_dates_of_current_month(self):
         today = datetime.datetime.today()
         month_range = calendar.monthrange(today.year, today.month)
@@ -35,7 +39,6 @@ class Command(BaseCommand):
 
         for i in range(1, month_range[1]+1):
             yield template.format(today.year, today.month, i)
-
 
 
     def estimated_feedback_generate(self):
@@ -55,3 +58,21 @@ class Command(BaseCommand):
                             user_id=user.id,
                         )
                         estimated_feedback.save()
+
+
+    def commented_feedback_generate(self):
+        faker = Faker()
+        user = User.objects.by_username('test')
+
+        for date in self.get_dates_of_current_month():
+            for subject in ['Электроника', 'ООП', 'Схемотехника', 'Дискретная математика', 'Информатика']:
+                for group in ["ИУ6-8{}".format(i) for i in range(1, 6)]:
+                    for i in range(1, count_commented_feedback):
+                        commented_feedback = CommentedFeedback.objects.create(
+                            text=faker.sentence(),
+                            group_name=group,
+                            subject=subject,
+                            date=date,
+                            user_id=user.id,
+                        )
+                        commented_feedback.save()

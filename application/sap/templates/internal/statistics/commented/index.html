@@ -77,7 +77,7 @@
             }).then((response) => response.json())
             .then((result) => {
                 header = document.getElementById('right-content-header');
-                header.innerHTML = result['group'] + ' (' + result['date'] + ')';
+                header.innerHTML = result['subject'] + ' (' + result['group'] + ')';
                 
                 comments_div = document.getElementById('right-content-items');
                 for (let i = 0; i < result['comments'].length; i++) {

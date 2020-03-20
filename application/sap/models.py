@@ -47,6 +47,7 @@ class CommentedFeedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Commented feedback date")
     time = models.TimeField(auto_now_add=True, verbose_name="Commented feedback time")
+    settings = models.ForeignKey(FeedbackSettings, on_delete=models.CASCADE, verbose_name=("Feedback settings"))
 
     objects = CommentedFeedbackManager()
 
@@ -60,5 +61,6 @@ class EstimatedFeedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=("User"))
     date = models.DateField(default=date.today, verbose_name="Estimated feedback date")
     time = models.TimeField(auto_now_add=True, verbose_name="Estimated feedback time")
+    settings = models.ForeignKey(FeedbackSettings, on_delete=models.CASCADE, verbose_name=("Feedback settings"))
 
     objects = EstimatedFeedbackManager()

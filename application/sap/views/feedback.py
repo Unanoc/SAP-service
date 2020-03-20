@@ -34,11 +34,11 @@ def create_commented_feedback(request):
                 hash_url = uuid.uuid4()
                 fs = FeedbackSettings.objects.create(
                     group_name=form.cleaned_data['group_name'].upper(),
-                    telegram_channel=form.cleaned_data['telegram_channel'],
                     subject=form.cleaned_data['subject'],
-                    hash_url=hash_url,
-                    base_url = "{}/feedback/get/commented".format(request.META['HTTP_HOST']),
                     user=user,
+                    telegram_channel=form.cleaned_data['telegram_channel'],
+                    base_url = "{}/feedback/get/commented".format(request.META['HTTP_HOST']),
+                    hash_url=hash_url,
                 )
                 fs.save()
 
@@ -74,6 +74,7 @@ def get_commented_feedback(request, hash):
                 user=fs.user,
                 date=fs.date,
                 subject=fs.subject,
+                settings_id=fs.id,
             )
             cf.save()
 
@@ -111,11 +112,11 @@ def create_estimated_feedback(request):
                 hash_url = uuid.uuid4()
                 fs = FeedbackSettings.objects.create(
                     group_name=form.cleaned_data['group_name'].upper(),
-                    telegram_channel=form.cleaned_data['telegram_channel'],
                     subject=form.cleaned_data['subject'],
-                    hash_url=hash_url,
-                    base_url = "{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
                     user=user,
+                    telegram_channel=form.cleaned_data['telegram_channel'],
+                    base_url = "{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
+                    hash_url=hash_url,
                 )
                 fs.save()
 
@@ -148,8 +149,8 @@ def get_estimated_feedback(request, hash):
                 comment=request.POST['comment'],
                 group_name=fs.group_name,
                 user=fs.user,
-                date=fs.date,
                 subject=fs.subject,
+                settings_id=fs.id,
             )
             cf.save()
         except MultiValueDictKeyError:

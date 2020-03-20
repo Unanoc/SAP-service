@@ -86,6 +86,10 @@
             }).then((response) => response.json())
             .then((result) => {
                 header = document.getElementById('chart-header')
+                if (result['objects'].length == 0) {
+                    header.innerHTML = "No data";
+                    return
+                }
                 header.innerHTML = result['group'] + ' (' + result['date'] + ')';
 
                 chartType = getChartType();

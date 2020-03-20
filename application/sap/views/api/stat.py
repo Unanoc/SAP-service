@@ -18,14 +18,13 @@ class Comments(APIView):
         objects = CommentedFeedback.objects.get_group_comments_for_day(
             user_id=request.data["user_id"],
             date=date,
-            group=request.data["group"].upper(),
+            group_name=request.data["group"].upper(),
             subject=request.data["subject"],
         )
 
         result = {
             "group": request.data["group"].upper(),
             "subject": request.data["subject"],
-            "date": date,
             "comments": objects,
         }
 
@@ -44,7 +43,7 @@ class GroupAverage(APIView):
             user_id=request.data["user_id"],
             date_from=date_from,
             date_to=date_to,
-            group=request.data["group"].upper(),
+            group_name=request.data["group"].upper(),
             subject=request.data["subject"],
         )
 
@@ -66,7 +65,7 @@ class GroupDayInfo(APIView):
         objects = EstimatedFeedback.objects.get_group_day_info(
             user_id=request.data["user_id"],
             date=date,
-            group=request.data["group"].upper(),
+            group_name=request.data["group"].upper(),
             subject=request.data["subject"],
         )
 
