@@ -1,7 +1,7 @@
 # SAP-service
 
 <p align="center">
-  <a href="#"><img src="https://github.com/Unanoc/SAP-service/blob/master/media/default/default_avatar.png" alt="SAP"></a>
+  <a href="#"><img width="200px" src="https://github.com/Unanoc/SAP-service/blob/master/application/sap/static/src/favicon.png" alt="SAP"></a>
 </p>
 
 Students and Professors feedback system for improving and analyzing of education process at university
