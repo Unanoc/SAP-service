@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import json
 import os
+
+
+CONFIG = {}
+with open("config.json", "r") as f:
+    CONFIG = json.loads(f.read())
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bu1&y*u#iocgz9v1az34#80igjxp_2jui&3o4b65hrev4it-^x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG['prod']
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,24 +83,23 @@ WSGI_APPLICATION = 'application.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sap',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'db',
-        'PORT': 3306,
-    }
+prod = {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'sap',
+    'USER': 'sap',
+    'PASSWORD': 'password',
+    'HOST': 'db',
+    'PORT': 3306,
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+dev = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+}
 
+DATABASES = {
+    'default': prod if CONFIG['prod'] else dev
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -137,10 +143,3 @@ AUTH_USER_MODEL = 'sap.User'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-# Telegram bot
-import json
-CONFIG = {}
-with open("config.json", "r") as f:
-    CONFIG = json.loads(f.read())
