@@ -10,6 +10,7 @@ from application.sap.managers import (
     UserManager,
 )
 
+
 class User(AbstractUser):
     registration_date = models.DateTimeField(
         default=timezone.now, 

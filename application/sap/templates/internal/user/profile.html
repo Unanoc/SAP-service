@@ -17,20 +17,22 @@
             <div class="profile-field">{{ profile.email }}</div>
         </div>
 
-        <div class="profile-button-wrapper">
-            <a href="{% url 'statistics-index' %}">
-                <div class="image-button-wrapper">
-                    <img class="image-button" src="{% static 'src/statistics.png' %}">
-                </div>
-                <div class="text-button">Statistics</div>
-            </a>
+        {% if user.username == profile.username  %}
+            <div class="profile-button-wrapper">
+                <a href="{% url 'statistics-index' %}">
+                    <div class="image-button-wrapper">
+                        <img class="image-button" src="{% static 'src/statistics.png' %}">
+                    </div>
+                    <div class="text-button">Statistics</div>
+                </a>
 
-            <a href="{% url 'user-settings' %}">
-                <div class="image-button-wrapper">
-                    <img class="image-button" src="{% static 'src/edit.png' %}">
-                </div>
-                <div class="text-button">Edit Profile</div>
-            </a>
-        </div>
+                <a href="{% url 'user-settings' %}">
+                    <div class="image-button-wrapper">
+                        <img class="image-button" src="{% static 'src/edit.png' %}">
+                    </div>
+                    <div class="text-button">Edit Profile</div>
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
