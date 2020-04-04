@@ -1,5 +1,9 @@
 # SAP-service
 
+<p align="center">
+  <a href="#"><img src="https://github.com/Unanoc/SAP-service/blob/master/media/default/default_avatar.png" alt="SAP"></a>
+</p>
+
 Students and Professors feedback system for improving and analyzing of education process at university
 
 ## Run a project
@@ -42,4 +46,9 @@ Then, change `config.json`:
 ```
 ./recreate_db.sh
 python manage.py runserver 0.0.0.0:8000
+```
+
+### Generate fake data
+```
+python manage.py fake_generator
 ```
