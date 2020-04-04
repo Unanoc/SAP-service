@@ -19,6 +19,7 @@
         <div id="chart-header" ></div>
         <div class="right-content">
             <canvas id="chart"></canvas>
+            <div id="right-content-items"></div>
         </div>
     </div>
 
@@ -94,6 +95,7 @@
 
                 chartType = getChartType();
                 _drawChart(result['objects'], chartType);
+                _displayComments(result['objects']);
             })
             .catch((err) => {
                 header = document.getElementById('chart-header')
@@ -152,6 +154,21 @@
                 },
                 options: {}
             });
+        }
+
+        function _displayComments(data) {
+            comments_div = document.getElementById('right-content-items');
+            comments_div.innerHTML = ''
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].comment.length == 0) {
+                    continue;
+                }
+                comment = document.createElement('div');
+                comment.className = 'right-content-item';
+                var content = `<b>${data[i].time}</b> <i>Rating: ${data[i].rating}</i><hr>${data[i].comment}`;
+                comment.innerHTML += content;
+                comments_div.appendChild(comment);
+            }
         }
     </script>
 {% endblock %}

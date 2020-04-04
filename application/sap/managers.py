@@ -66,7 +66,7 @@ class EstimatedFeedbackManager(models.Manager):
     def get_group_day_info(self, user_id, date, group_name, subject):
         with connection.cursor() as cursor:
             query = """
-                SELECT s.rating, s.time
+                SELECT s.rating, s.time, s.comment
                 FROM sap_estimatedfeedback as s
                 WHERE 
                     s.user_id = '{}' AND s.group_name = '{}' AND s.subject = '{}'
@@ -77,6 +77,12 @@ class EstimatedFeedbackManager(models.Manager):
             cursor.execute(query)
             result_list = []
             for row in cursor.fetchall():
-                result_list.append({'rating': row[0], 'time': row[1].strftime("%H:%M:%S")})
+                result_list.append(
+                    {
+                        'rating': row[0], 
+                        'time': row[1].strftime("%H:%M:%S"),
+                        'comment': row[2],
+                    }
+                )
         return result_list
     
