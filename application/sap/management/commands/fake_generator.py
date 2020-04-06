@@ -48,8 +48,8 @@ class Command(BaseCommand):
         user = User.objects.by_username('test')
 
         for date in self.get_dates_of_current_month():
-            for subject in ['Электроника', 'ООП', 'Схемотехника', 'Дискретная математика', 'Информатика']:
-                for group in ["ИУ6-8{}".format(i) for i in range(1, 6)]:
+            for subject in ['Electronics', 'Discrete math', 'Phsychology', 'System design', 'Computer Networks']:
+                for group in ["IU6-8{}".format(i) for i in range(1, 6)]:
                     hash_url = uuid.uuid4()
 
                     fs_commented = FeedbackSettings.objects.create(
