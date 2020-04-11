@@ -133,6 +133,7 @@ dmypy.json
 
 # db 
 db.sqlite3
+mysql/
 
 # media
 media/uploads/
