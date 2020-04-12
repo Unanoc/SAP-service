@@ -45,7 +45,7 @@ docker-stop:
 
 docker-clean:
 	make docker-stop
-	docker rm $(docker ps -a | grep -E "sap-service*" | awk '{print $1}')
-	docker rmi $(docker images | grep -E "mysql|sap-service*" | awk '{print $3}')
+	docker rm $$(docker ps -a | grep -E "sap-service*" | awk '{print $$1}')
+	docker rmi $$(docker images | grep -E "mysql|sap-service*" | awk '{print $$3}')
 	# mysql
 	find . | grep -E "venv|mysql" | xargs rm -rf

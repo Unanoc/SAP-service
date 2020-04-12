@@ -1,11 +1,15 @@
 {% extends "internal/base.html" %}
 {% load static %}
 
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/internal/feedback/generated_link.css' %}">
+{% endblock %}
+
 {% block header_name %}
-    <div id="status" style="text-align: center; margin-top: 3vh; color: rgb(143, 6, 197);"></div>
+    <div id="status"></div>
     <div class="header-name">{{ title }}</div>
     <div class="header-desc">
-        <input type="text" id="header" style="text-align: center; width: 50%;" value='{{ url }}'/>
+        <input type="text" id="header" value='{{ url }}'/>
     </div>
     {% endblock %}
     
@@ -13,12 +17,15 @@
     <div class="form-wrapper">
         <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
+            <div class="info">It will be sent to channel {{ telegram_channel }}</div>
+            <textarea id="text" name="comment" rows="4" placeholder="Write a comment..."></textarea>
             <button id="btn-send" class="form-btn">Send</button>
+            <button id="btn-copy" class="form-btn">Copy a link</button>
         </form>
-        <button id="btn-copy" class="form-btn copy-btn" style="margin-right: 10px;">Copy</button>
     </div>
     
     <script>
+        // handler of Copy button
         document.getElementById("btn-copy").addEventListener('click', function(e){
             e.preventDefault();
             var copyText = document.getElementById("header");
@@ -36,7 +43,9 @@
             e.preventDefault();
 
             const data = {
+                message: document.getElementById('text').value,
                 url: '{{ url }}',
+                telegram_channel: '{{ telegram_channel }}',
             };
 
             fetch('{% url "api-bot_send" %}', {
@@ -57,8 +66,7 @@
             })
             .catch((err) => {
                 header = document.getElementById('status')
-                header.innerHTML = "Error. Try Later...";
-                console.log('error:', err)
+                header.innerHTML = result['message'];
             })
         }, false);
     </script>

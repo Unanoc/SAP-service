@@ -12,7 +12,7 @@ from application.sap.models import (
     User,
 )
 
-# To clean up Data base and generate fake data just write "python manage.py flush && python manage.py fake_generator"
+# To clean up Database and generate fake data, just write "python manage.py flush && python manage.py fake_generator"
 
 count_estimated_feedback = 10
 count_commented_feedback = 10

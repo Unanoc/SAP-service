@@ -6,7 +6,6 @@ from django.shortcuts import render
 
 from application.sap.forms import FeedbackSettingsForm
 from application.sap.models import (
-    CommentedFeedback,
     EstimatedFeedback,
     FeedbackSettings,
     User,
@@ -17,7 +16,7 @@ from application.sap.models import (
 def create(request):
     if request.method == 'POST':
         form = FeedbackSettingsForm(request.POST)
-        url = None
+        url, tg_chan = None, None
         
         if form.is_valid():
             user = User.objects.by_username(username=request.user)
@@ -37,6 +36,7 @@ def create(request):
                     form.cleaned_data['feedback_type'], 
                     _hash,
                 )
+                tg_chan = form.cleaned_data['telegram_channel']
 
                 fs = FeedbackSettings.objects.create(
                     group_name=form.cleaned_data['group_name'].upper(),
@@ -51,11 +51,12 @@ def create(request):
                 fs.save()
             else:
                 url = existing.url
+                tg_chan = existing.telegram_channel
 
             return render(
                 request, 
                 'internal/feedback/generated_link.html', 
-                {'title': "Generated feedback link", 'url': url},
+                {'title': "Generated feedback link", 'url': url, 'telegram_channel': tg_chan},
             )
     else:
         form = FeedbackSettingsForm()

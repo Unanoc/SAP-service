@@ -1,0 +1,19 @@
+#status {
+    text-align: center; 
+    margin-top: 3vh; 
+    color: rgb(143, 6, 197);
+}
+#header {
+    text-align: center; 
+    width: 50%;
+}
+#btn-copy {
+    margin-right: 10px;
+}
+.info {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 2vh;
+    color: rgb(131, 131, 131);
+}

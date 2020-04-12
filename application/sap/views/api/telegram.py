@@ -2,9 +2,6 @@ import telebot
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from application.sap.models import (
-    FeedbackSettings,
-)
 from application.sap.utils import send_to_telegram_channel
 
 
@@ -13,18 +10,14 @@ class BotSender(APIView):
     permission_classes = []
 
     def post (self, request, format=None):
-        _hash = request.data["hash"]
+        msg = request.data["message"]
         url = request.data["url"]
-        
-        fs = FeedbackSettings.objects.get_by_hash(hash=_hash)
-        message = "Please, leave some feedback about passed class.\n\n{}/{}".format(
-            fs.base_url, 
-            fs.hash_url,
-        )
+        tg_chan = request.data["telegram_channel"]
+    
+        msg_url = "{}\n\n{}".format(msg, url)
         result = dict()
-        
         try:
-            send_to_telegram_channel(channel=fs.telegram_channel, message=message)
+            send_to_telegram_channel(channel=tg_chan, message=msg_url)
             result['message'] = "Done!"
         except telebot.apihelper.ApiException as e:
             result['message'] = "Bot is not a member of the channel chat or this channel chat does not exist."

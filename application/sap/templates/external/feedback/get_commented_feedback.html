@@ -12,7 +12,7 @@
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data" id="form">
             {% csrf_token %}
             <div class="comment-field">
                 <textarea id="text" name="comment" rows="4" placeholder="Write a comment..."></textarea>
@@ -48,10 +48,16 @@
                 credentials:'include'      
             }).then((response) => response.json())
             .then((result) => {
-                console.log("works!")
+                var div = document.createElement('div');
+                div.className = 'message';
+                div.innerHTML = 'Thank you!'
+
+                var form = document.getElementById('form')
+                form.innerHTML = '';
+                form.appendChild(div);
             })
             .catch((err) => {
-                console.log("doesnt works!")
+                console.log('error:', err)
             })
         }
     </script>
