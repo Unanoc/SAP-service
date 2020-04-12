@@ -25,5 +25,6 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', include('application.sap.urls')),
+    path('i18n/', include('django.conf.urls.i18n')), 
     prefix_default_language=False,
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from application.sap.models import (
     CommentedFeedback,

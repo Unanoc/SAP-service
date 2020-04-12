@@ -132,6 +132,26 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     opacity:1;
 }
 
+#language-select {
+    border: 1px solid rgb(204, 204, 204);
+    width: auto;
+    height: 30px;
+    font-size: 1.5vh;
+    color: rgb(117, 117, 117);
+    background-color: white;
+}
+.lang-btn {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 1vh;
+    text-align: center;
+    font-size: 1.5vh;
+}
+.lang-btn:hover {
+    background-color: #000000;
+    opacity: 1;
+    color: white;
+}
 
 /* menu */
 .menu {
