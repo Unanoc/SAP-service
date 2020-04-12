@@ -1,9 +1,10 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block header_name %}
-    <div class="header-name">STATISTICS</div>
-    <div class="header-desc">Go over statistics to analyze a quality of your classes.</div>
+    <div class="header-name">{% trans "STATISTICS" %}</div>
+    <div class="header-desc">{% trans "Go over statistics to analyze a quality of your classes." %}</div>
 {% endblock %}
 
 {% block content %}
@@ -12,14 +13,14 @@
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/commented_feedback_stat.png' %}">
             </div>
-            <div class="text-button">Commented feedback</div>
+            <div class="text-button">{% trans "Commented feedback" %}</div>
         </a>
 
         <a href="{% url 'statistics-estimated' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/estimated_feedback_stat.png' %}">
             </div>
-            <div class="text-button">Estimated feedback</div>
+            <div class="text-button">{% trans "Estimated feedback" %}</div>
         </a>
     </div>
 {% endblock %}

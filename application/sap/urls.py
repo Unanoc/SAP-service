@@ -1,6 +1,4 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import path, re_path
+from django.urls import path
 
 from application.sap.views import (
     auth,
@@ -43,6 +41,3 @@ urlpatterns = [
     path('api/feedback/get/commented/', fb.Commented.as_view(), name='api-feedback_commented'),
     path('api/feedback/get/estimated/', fb.Estimated.as_view(), name='api-feedback_estimated'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

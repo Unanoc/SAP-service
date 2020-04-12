@@ -1,5 +1,6 @@
 {% extends 'internal/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block css_js %}
     <link rel="stylesheet" href="{% static 'css/internal/user/profile.css' %}">
@@ -23,7 +24,7 @@
                     <div class="image-button-wrapper">
                         <img class="image-button" src="{% static 'src/edit.png' %}">
                     </div>
-                    <div class="text-button">Edit Profile</div>
+                    <div class="text-button">{% trans "Edit Profile" %}</div>
                 </a>
             </div>
         {% endif %}

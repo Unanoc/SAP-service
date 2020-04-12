@@ -1,5 +1,6 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block css_js %}
     <link rel="stylesheet" href="{% static 'css/internal/statistics/left_right_content.css' %}">
@@ -11,7 +12,7 @@
 {% endblock %}
 
 {% block header_name %}
-    <div class="header-name">Statistics by group</div>
+    <div class="header-name">{% trans "Statistics by group" %}</div>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +25,7 @@
 
     <div class="left">
         <div class="left-content">
-            <div class="form-wrapper">
+            <div class="form-container">
                 <form enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
@@ -34,12 +35,12 @@
                     {% endfor %}
 
                     <select id="chart-type">
-                        <option value="line">Line</option>
-                        <option value="bar">Bar</option>
-                        <option value="radar">Radar</option>
-                        <option value="doughnut">Doughnut</option>
-                        <option value="pie">Pie</option>
-                        <option value="polarArea">Polar Area</option>
+                        <option value="line">{% trans "Line" %}</option>
+                        <option value="bar">{% trans "Bar" %}</option>
+                        <option value="radar">{% trans "Radar" %}</option>
+                        <option value="doughnut">{% trans "Doughnut" %}</option>
+                        <option value="pie">{% trans "Pie" %}</option>
+                        <option value="polarArea">{% trans "Polar Area" %}</option>
                     </select>
         
                     <div>
@@ -89,7 +90,7 @@
             .then((result) => {
                 header = document.getElementById('chart-header')
                 if (result['objects'].length == 0) {
-                    header.innerHTML = "No data";
+                    header.innerHTML = '{% trans "No data" %}';
                     return
                 }
                 header.innerHTML = result['group'];
@@ -99,7 +100,7 @@
             })
             .catch((err) => {
                 header = document.getElementById('chart-header')
-                header.innerHTML = "No data";
+                header.innerHTML = '{% trans "No data" %}';
                 console.log('error:', err)
             })
         }
@@ -146,7 +147,7 @@
                 data: {
                     labels: x_points,
                     datasets: [{
-                        label: 'Average group rating per period',
+                        label: '{% trans "Average group rating per period" %}',
                         backgroundColor: getColors(y_points, '0.2'),
                         borderColor: getColors(y_points, '1'),
                         data: y_points,

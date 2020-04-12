@@ -1,5 +1,6 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block css_js %}
     <link rel="stylesheet" href="{% static 'css/internal/statistics/left_right_content.css' %}">
@@ -11,7 +12,7 @@
 {% endblock %}
 
 {% block header_name %}
-    <div class="header-name">Comments</div>
+    <div class="header-name">{% trans "Comments" %}</div>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +25,7 @@
 
     <div class="left">
         <div class="left-content">
-            <div class="form-wrapper">
+            <div class="form-container">
                 <form enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
@@ -34,7 +35,7 @@
                     {% endfor %}
 
                     <div>
-                        <button id="btn" class="form-btn">Go</button>
+                        <button id="btn" class="form-btn">{% trans "Go" %}</button>
                     </div>
                 </form>
             </div>
@@ -79,7 +80,7 @@
             .then((result) => {
                 header = document.getElementById('right-content-header');
                 if (result['comments'].length == 0) {
-                    header.innerHTML = "No comments for this day";
+                    header.innerHTML = '{% trans "No comments for your request" %}';
                     return
                 }
                 header.innerHTML = result['subject'] + ' (' + result['group'] + ')';
@@ -96,7 +97,7 @@
             })
             .catch((err) => {
                 header = document.getElementById('right-content-header')
-                header.innerHTML = "No comments for this day";
+                header.innerHTML = '{% trans "No comments for your request" %}';
                 console.log('error:', err)
             })
         }

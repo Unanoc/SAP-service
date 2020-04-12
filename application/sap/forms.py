@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from django.utils.translation import ugettext as _
 
 from application.sap.models import (
     CommentedFeedback,
@@ -11,13 +12,13 @@ from application.sap.models import (
 
 
 text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
-                               'Text should contain letters')
+                               _('Text should contain letters'))
 
 telergam_channel_validator = RegexValidator(r'^@.*',
-                                           'Telegram channel name must have "@" at the begining')
+                                           _('Telegram channel name must have "@" at the begining'))
 
 not_empty_validator = RegexValidator(r'^.*',
-                                    'Fields must not be empty')
+                                    _('Fields must not be empty'))
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -27,7 +28,7 @@ class UserRegistrationForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'First name',
+            'placeholder': _('First name'),
         })
     )
     last_name = forms.CharField(
@@ -36,7 +37,7 @@ class UserRegistrationForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'Last name',
+            'placeholder': _('Last name'),
         })
     )
     username = forms.CharField(
@@ -45,16 +46,16 @@ class UserRegistrationForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'Username',
+            'placeholder': _('Username'),
         })
     )
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Password',
+        'placeholder': _('Password'),
     }))
     password_confirmation = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Password confirmation',
+        'placeholder': _('Password confirmation'),
     }))
 
 
@@ -64,7 +65,7 @@ class UserRegistrationForm(forms.ModelForm):
         password_confirmation = cleaned_data.get("password_confirmation")
 
         if password != password_confirmation:
-            raise ValidationError("Password and Confirm password does not match")
+            raise ValidationError(_("Password and Confirm password does not match"))
         return cleaned_data
 
 
@@ -78,11 +79,11 @@ class UserLoginForm(forms.ModelForm):
         'class': 'form-control',
         'minlength': 1,
         'maxlength': 30,
-        'placeholder': 'Username',
+        'placeholder': _('Username'),
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Password',
+        'placeholder': _('Password'),
     }))
 
 
@@ -91,7 +92,7 @@ class UserLoginForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if not user or not user.is_active:
-            raise ValidationError("Sorry, that login or password is invalid. Please try again.")
+            raise ValidationError(_("Sorry, that login or password is invalid. Please try again."))
         return self.cleaned_data
 
 
@@ -107,7 +108,7 @@ class UserSettingsForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'First name',
+            'placeholder': _('First name'),
         })
     )
     last_name = forms.CharField(
@@ -116,7 +117,7 @@ class UserSettingsForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'Last name',
+            'placeholder': _('Last name'),
         })
     )
     username = forms.CharField(
@@ -125,14 +126,14 @@ class UserSettingsForm(forms.ModelForm):
             'class': 'form-control',
             'minlength': 1,
             'maxlength': 30,
-            'placeholder': 'Username',
+            'placeholder': _('Username'),
         })
     )
     email = forms.EmailField(
         required=False,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
-            'placeholder': 'E-mail',
+            'placeholder': _('E-mail'),
         })
     )
 
@@ -146,30 +147,30 @@ class FeedbackSettingsForm(forms.ModelForm):
         validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Student group name',
+            'placeholder': _('Student group name'),
         })
     )
     subject = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Subject name',
+            'placeholder': _('Subject name'),
         })
     )
     class_type = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Class type (e.g. lection, seminar and etc)',
+            'placeholder': _('Class type (e.g. lection, seminar and etc)'),
         })
     )
     telegram_channel = forms.CharField(
         validators=[telergam_channel_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Telegram channel (e.g. @group_channel)',
+            'placeholder': _('Telegram channel (e.g. @group_channel)'),
         })
     )
     feedback_type = forms.ChoiceField(
-        choices=(("commented", "Commented"), ("estimated", "Estimated")),
+        choices=(("commented", _("Commented")), ("estimated", _("Estimated"))),
         widget=forms.Select(attrs={
             'class': 'feedback-type',
         })
@@ -185,7 +186,7 @@ class CommentedStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'date',
             'data-toggle':'datepicker',
-            'placeholder': 'date',
+            'placeholder': _('Date'),
             'autocomplete': 'off',
         }),
     )
@@ -194,21 +195,21 @@ class CommentedStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'group_name',
             'class': 'form-control',
-            'placeholder': 'Student group name',
+            'placeholder': _('Student group name'),
         })
     )
     subject = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'subject',
             'class': 'form-control',
-            'placeholder': 'Subject name',
+            'placeholder': _('Subject name'),
         })
     )
     class_type = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'class_type',
             'class': 'form-control',
-            'placeholder': 'Class type',
+            'placeholder': _('Class type'),
         })
     )
 
@@ -218,7 +219,7 @@ class GroupAverageStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'from',
             'data-toggle':'datepicker',
-            'placeholder': 'From',
+            'placeholder': _('From'),
             'autocomplete': 'off',
         }),
     )
@@ -226,7 +227,7 @@ class GroupAverageStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'to',
             'data-toggle':'datepicker',
-            'placeholder': 'To',
+            'placeholder': _('To'),
             'autocomplete': 'off',
         }),
     )
@@ -235,21 +236,21 @@ class GroupAverageStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'group_name',
             'class': 'form-control',
-            'placeholder': 'Student group name',
+            'placeholder': _('Student group name'),
         })
     )
     subject = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'subject',
             'class': 'form-control',
-            'placeholder': 'Subject name',
+            'placeholder': _('Subject name'),
         })
     )
     class_type = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'class_type',
             'class': 'form-control',
-            'placeholder': 'Class type',
+            'placeholder': _('Class type'),
         })
     )
 
@@ -259,7 +260,7 @@ class GroupDayInfoStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'date',
             'data-toggle':'datepicker',
-            'placeholder': 'Date',
+            'placeholder': _('Date'),
             'autocomplete': 'off',
         }),
     )
@@ -268,20 +269,20 @@ class GroupDayInfoStatisticsForm(forms.Form):
         widget=forms.TextInput(attrs={
             'id': 'group_name',
             'class': 'form-control',
-            'placeholder': 'Student group name',
+            'placeholder': _('Student group name'),
         })
     )
     subject = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'subject',
             'class': 'form-control',
-            'placeholder': 'Subject name',
+            'placeholder': _('Subject name'),
         })
     )
     class_type = forms.CharField(
         widget=forms.TextInput(attrs={
             'id': 'class_type',
             'class': 'form-control',
-            'placeholder': 'Class type',
+            'placeholder': _('Class type'),
         })
     )

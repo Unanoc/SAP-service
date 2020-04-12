@@ -1,0 +1,384 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-13 01:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: application/sap/forms.py:15
+msgid "Text should contain letters"
+msgstr "Текст должен содержать буквы"
+
+#: application/sap/forms.py:18
+msgid "Telegram channel name must have \"@\" at the begining"
+msgstr "Имя Telegram канала должно иметь \"@\" в начале"
+
+#: application/sap/forms.py:21
+msgid "Fields must not be empty"
+msgstr "Поля не должны быть пустыми"
+
+#: application/sap/forms.py:31 application/sap/forms.py:111
+msgid "First name"
+msgstr "Имя"
+
+#: application/sap/forms.py:40 application/sap/forms.py:120
+msgid "Last name"
+msgstr "Фамилия"
+
+#: application/sap/forms.py:49 application/sap/forms.py:82
+#: application/sap/forms.py:129
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: application/sap/forms.py:54 application/sap/forms.py:86
+msgid "Password"
+msgstr "Пароль"
+
+#: application/sap/forms.py:58
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+#: application/sap/forms.py:68
+msgid "Password and Confirm password does not match"
+msgstr "Пароли не совпадают"
+
+#: application/sap/forms.py:95
+msgid "Sorry, that login or password is invalid. Please try again."
+msgstr "Извините, этот логин или пароль некорректны. Попробуйте еще раз."
+
+#: application/sap/forms.py:136
+msgid "E-mail"
+msgstr "Электронная почта"
+
+#: application/sap/forms.py:150 application/sap/forms.py:198
+#: application/sap/forms.py:239 application/sap/forms.py:272
+msgid "Student group name"
+msgstr "Название студенческой группы"
+
+#: application/sap/forms.py:156 application/sap/forms.py:205
+#: application/sap/forms.py:246 application/sap/forms.py:279
+#: application/sap/templates/external/feedback/get_commented_feedback.html:11
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:11
+msgid "Subject name"
+msgstr "Название предмета"
+
+#: application/sap/forms.py:162
+msgid "Class type (e.g. lection, seminar and etc)"
+msgstr "Тип занятия (например, лекция, семинар и т.д.)"
+
+#: application/sap/forms.py:169
+msgid "Telegram channel (e.g. @group_channel)"
+msgstr "Telegram канал (например, @имя_канала)"
+
+#: application/sap/forms.py:173
+msgid "Commented"
+msgstr "Комментируемый"
+
+#: application/sap/forms.py:173
+msgid "Estimated"
+msgstr "Оцениваемый"
+
+#: application/sap/forms.py:189 application/sap/forms.py:263
+msgid "Date"
+msgstr "Дата"
+
+#: application/sap/forms.py:212 application/sap/forms.py:253
+#: application/sap/forms.py:286
+msgid "Class type"
+msgstr "Тип занятия"
+
+#: application/sap/forms.py:222
+msgid "From"
+msgstr "От"
+
+#: application/sap/forms.py:230
+msgid "To"
+msgstr "До"
+
+#: application/sap/templates/external/feedback/get_commented_feedback.html:10
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:10
+msgid "Group:"
+msgstr "Группа"
+
+#: application/sap/templates/external/feedback/get_commented_feedback.html:19
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:28
+msgid "Write a comment..."
+msgstr "Напишите комментарий..."
+
+#: application/sap/templates/external/feedback/get_commented_feedback.html:22
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:31
+#: application/sap/templates/internal/feedback/generated_link.html:24
+msgid "Send"
+msgstr "Отправить"
+
+#: application/sap/templates/external/feedback/get_commented_feedback.html:54
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:72
+msgid "Thank you!"
+msgstr "Спасибо тебе!"
+
+#: application/sap/templates/internal/auth/signin.html:6
+#: application/sap/templates/internal/auth/signin.html:41
+#: application/sap/templates/internal/base.html:25
+msgid "Sign in"
+msgstr "Вход"
+
+#: application/sap/templates/internal/auth/signup.html:6
+#: application/sap/templates/internal/auth/signup.html:41
+#: application/sap/templates/internal/base.html:24
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: application/sap/templates/internal/base.html:19
+msgid "Sign out"
+msgstr "Выход"
+
+#: application/sap/templates/internal/base.html:20
+msgid "Profile"
+msgstr "Профиль"
+
+#: application/sap/templates/internal/base.html:21
+#: application/sap/templates/internal/root/help.html:10
+msgid "Help"
+msgstr "Помощь"
+
+#: application/sap/templates/internal/base.html:22
+msgid "Home"
+msgstr "Главная"
+
+#: application/sap/templates/internal/feedback/create.html:10
+#: application/sap/templates/internal/root/index.html:16
+msgid "Create a feedback"
+msgstr "Создать опросную форму"
+
+#: application/sap/templates/internal/feedback/create.html:45
+msgid "Create"
+msgstr "Создать"
+
+#: application/sap/templates/internal/feedback/generated_link.html:11
+msgid "Generated link"
+msgstr "Сгенерированная ссылка"
+
+#: application/sap/templates/internal/feedback/generated_link.html:22
+msgid "It will be sent to channel"
+msgstr "Это будет отправлено в канал"
+
+#: application/sap/templates/internal/feedback/generated_link.html:25
+msgid "Copy a link"
+msgstr "Копировать ссылку"
+
+#: application/sap/templates/internal/root/help.html:11
+msgid "How to use?"
+msgstr "Как использовать?"
+
+#: application/sap/templates/internal/root/help.html:17
+msgid "Concept of using this service is very simple!"
+msgstr "Принцип использования сервиса очеь простой!"
+
+#: application/sap/templates/internal/root/help.html:20
+msgid "How to create a feedback page after class?"
+msgstr "Как создать опросную форму после занятия?"
+
+#: application/sap/templates/internal/root/help.html:23
+msgid ""
+"1. First of all, you have to create telegram channel for your group and add "
+"student to it"
+msgstr ""
+"1. Прежде всего, Вы должны создать Telegram канал, в который будут добавлены "
+"Ваши студенты"
+
+#: application/sap/templates/internal/root/help.html:24
+msgid "Then, copy @channel_name."
+msgstr "Затем, скопируйте @имя_канала"
+
+#: application/sap/templates/internal/root/help.html:28
+msgid "2. Open <b>Home</b> page and click on the button «Create a feedback»"
+msgstr ""
+"2. Откройте страницу <b>Главная</b> и нажмите на кнопку «Создать опросную "
+"форму»"
+
+#: application/sap/templates/internal/root/help.html:29
+msgid ""
+"3. Fill the form and press a button «Create». Pay attention to the last "
+"field of form <u><i>Telegram channel</i></u>"
+msgstr ""
+"3. Заполните форму и нажмите на кнопку «Создать». Обратите внимание на поле "
+"формы <u><i>Telegram канал</i></u>"
+
+#: application/sap/templates/internal/root/help.html:30
+msgid "You have to paste a channel name in format @channel_name."
+msgstr "Вы должны вставить имя канала в формате @имя_канала."
+
+#: application/sap/templates/internal/root/help.html:31
+msgid ""
+"4. After the link is generated you can copy it or send it to the telegram "
+"channel"
+msgstr ""
+"4. После того, как ссылка сгенерирована Вы можете скопировать ее и отправить "
+"в Telegram канал"
+
+#: application/sap/templates/internal/root/help.html:35
+msgid "How to check feedback statistic?"
+msgstr "Как посмотреть статистику?"
+
+#: application/sap/templates/internal/root/help.html:38
+msgid ""
+"1. Go <b>Home</b> -> <b>Statistics</b> and then you get 2 buttons: "
+"<u><i>Commented feedback</i></u> and <u><i>Estimated feedback"
+msgstr ""
+"1. Перейдите в <b>Главная</b> -> <b>Статистика</b> и затем перед Вами буду 2 "
+"кнопки: <u><i>Комментируемый отзыв</i></u> и <u><i>Оцениваемый отзыв"
+
+#: application/sap/templates/internal/root/help.html:39
+msgid "2. Choose a feedback type you want to see"
+msgstr ""
+"2. Выберите тип обратной связи, для которой Вы хотите посмотреть статистику "
+
+#: application/sap/templates/internal/root/help.html:40
+msgid "3. Fill the form to request data"
+msgstr "3. Заполните форму, чтобы запросить данные"
+
+#: application/sap/templates/internal/root/help.html:44
+msgid "How to edit a prodile?"
+msgstr "Как изменить профиль?"
+
+#: application/sap/templates/internal/root/help.html:47
+msgid "1. Go <b>Profile</b> -> <b>Edit Profile"
+msgstr "1. Перейдите в <b>Профиль</b> -> <b>Редактировать профиль"
+
+#: application/sap/templates/internal/root/help.html:48
+msgid "2. Fill the form to change your personal data"
+msgstr "Заполните форому, чтобы изменить Ваши личные данные"
+
+#: application/sap/templates/internal/root/index.html:6
+msgid "STUDENTS & PROFESSORS"
+msgstr "СТУДЕНТЫ И ПРЕПОДАВАТЕЛИ"
+
+#: application/sap/templates/internal/root/index.html:7
+msgid ""
+"feedback system for improving and analyzing of education process at school"
+msgstr ""
+"Система анализа качества образовательного процесса по отзывам обучающихся"
+
+#: application/sap/templates/internal/root/index.html:23
+msgid "Statistics"
+msgstr "Статистика"
+
+#: application/sap/templates/internal/statistics/commented/index.html:15
+msgid "Comments"
+msgstr "Комментарии"
+
+#: application/sap/templates/internal/statistics/commented/index.html:38
+#: application/sap/templates/internal/statistics/estimated/byday.html:48
+msgid "Go"
+msgstr "Вперед"
+
+#: application/sap/templates/internal/statistics/commented/index.html:83
+#: application/sap/templates/internal/statistics/commented/index.html:100
+msgid "No comments for your request"
+msgstr "Комментариев для такого запроса нет"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:15
+msgid "Statistics by day"
+msgstr "Статистика по дню"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:39
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:38
+msgid "Line"
+msgstr "Линия"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:40
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:39
+msgid "Bar"
+msgstr "Полоса"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:41
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:40
+msgid "Radar"
+msgstr "Радар"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:42
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:41
+msgid "Doughnut"
+msgstr "Пончик"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:43
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:42
+msgid "Pie"
+msgstr "Пирог"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:44
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:43
+msgid "Polar Area"
+msgstr "Полярная зона"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:93
+#: application/sap/templates/internal/statistics/estimated/byday.html:104
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:93
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:103
+msgid "No data"
+msgstr "Данных нет"
+
+#: application/sap/templates/internal/statistics/estimated/byday.html:151
+msgid "Daily group rating"
+msgstr "Рейтинг группы за день"
+
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:15
+msgid "Statistics by group"
+msgstr "Статистика по группе"
+
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:150
+msgid "Average group rating per period"
+msgstr "Средний рейтинг по группе за период"
+
+#: application/sap/templates/internal/statistics/estimated/index.html:6
+msgid "Estimated feedback statistics"
+msgstr "Статистика по Оцениваемому отзыву"
+
+#: application/sap/templates/internal/statistics/estimated/index.html:15
+msgid "By group"
+msgstr "По группе"
+
+#: application/sap/templates/internal/statistics/estimated/index.html:22
+msgid "By day"
+msgstr "По дню"
+
+#: application/sap/templates/internal/statistics/index.html:6
+msgid "STATISTICS"
+msgstr "СТАТИСТИКА"
+
+#: application/sap/templates/internal/statistics/index.html:7
+msgid "Go over statistics to analyze a quality of your classes."
+msgstr ""
+"Посмотрите на статистику, чтобы проанализировать качество Ваших занятий."
+
+#: application/sap/templates/internal/statistics/index.html:16
+msgid "Commented feedback"
+msgstr "Комментируемый отзыв"
+
+#: application/sap/templates/internal/statistics/index.html:23
+msgid "Estimated feedback"
+msgstr "Оцениваемый отзыв"
+
+#: application/sap/templates/internal/user/profile.html:27
+#: application/sap/templates/internal/user/settings.html:6
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: application/sap/templates/internal/user/settings.html:40
+msgid "Save"
+msgstr "Сохранить"

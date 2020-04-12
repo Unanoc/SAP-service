@@ -107,10 +107,14 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 
 /* forms */
 .form-wrapper {
+    width: 50%;
+    margin: auto;
+}
+.form-container {
     display: block;
     margin: auto;
     margin-top: 5vh;
-    width: 50%;
+    width: 100%;
 }
 .form-btn {
     background-color: #000000;
@@ -119,7 +123,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100px;
+    min-width: 100px;
     opacity: 0.9;
     float: right;
     font-size: relative-size;

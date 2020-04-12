@@ -1,8 +1,9 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block header_name %}
-    <div class="header-name">Edit Profile</div>
+    <div class="header-name">{% trans "Edit Profile" %}</div>
 {% endblock %}
 
 {% block messages %}
@@ -25,18 +26,20 @@
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data" action="{% url 'user-settings' %}" method="post">
-            {% csrf_token %}
+        <div class="form-container">
+            <form enctype="multipart/form-data" action="{% url 'user-settings' %}" method="post">
+                {% csrf_token %}
 
-            {% for field in form %}
+                {% for field in form %}
+                    <div>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
                 <div>
-                    {{ field }}
+                    <button type="submit" class="form-btn">{% trans "Save" %}</button>
                 </div>
-            {% endfor %}
-
-            <div>
-                <button type="submit" class="form-btn">Save</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 {% endblock %}

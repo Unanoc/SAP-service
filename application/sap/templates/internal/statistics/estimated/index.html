@@ -1,8 +1,9 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block header_name %}
-    <div class="header-name">Estimated feedback statistics</div>
+    <div class="header-name">{% trans "Estimated feedback statistics" %}</div>
 {% endblock %}
 
 {% block content %}
@@ -11,14 +12,14 @@
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/stat-group.png' %}">
             </div>
-            <div class="text-button">By group</div>
+            <div class="text-button">{% trans "By group" %}</div>
         </a>
 
         <a href="{% url 'statistics-estimated-by-day' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/stat-day.png' %}">
             </div>
-            <div class="text-button">By day</div>
+            <div class="text-button">{% trans "By day" %}</div>
         </a>
     </div>
 {% endblock %}

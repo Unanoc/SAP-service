@@ -1,12 +1,13 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block css_js %}
     <link rel="stylesheet" href="{% static 'css/internal/feedback/forms.css' %}">
 {% endblock %}
 
 {% block header_name %}
-    <div class="header-name">Create feedback</div>
+    <div class="header-name">{% trans "Create a feedback" %}</div>
 {% endblock %}
 
 {% block messages %}
@@ -31,17 +32,19 @@
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data" action="{% url 'feedback-create' %}" method="post">
-            {% csrf_token %}
-            {% for field in form %}
+        <div class="form-container">
+            <form enctype="multipart/form-data" action="{% url 'feedback-create' %}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+    
                 <div>
-                    {{ field }}
+                    <button type="submit" class="form-btn">{% trans "Create" %}</button>
                 </div>
-            {% endfor %}
-
-            <div>
-                <button type="submit" class="form-btn">Create</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 {% endblock %}

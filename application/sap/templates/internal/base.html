@@ -1,6 +1,9 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +16,13 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
-            <a href="{% url 'auth-signout' %}"><div class="nav-button">Sign out</div></a>
-            <a href="{% url 'user-profile' user.username %}"><div class="nav-button">Profile</div></a>
-            <a href="{% url 'root-help' %}"><div class="nav-button">Help</div></a>
-            <a href="{% url 'root-index' %}"><div class="nav-button">Home</div></a>
+            <a href="{% url 'auth-signout' %}"><div class="nav-button">{% trans "Sign out" %}</div></a>
+            <a href="{% url 'user-profile' user.username %}"><div class="nav-button">{% trans "Profile" %}</div></a>
+            <a href="{% url 'root-help' %}"><div class="nav-button">{% trans "Help" %}</div></a>
+            <a href="{% url 'root-index' %}"><div class="nav-button">{% trans "Home" %}</div></a>
         {% else %}
-            <a href="{% url 'auth-signup' %}"><div class="nav-button">Sign up</div></a>
-            <a href="{% url 'auth-signin' %}"><div class="nav-button">Sign in</div></a>
+            <a href="{% url 'auth-signup' %}"><div class="nav-button">{% trans "Sign up" %}</div></a>
+            <a href="{% url 'auth-signin' %}"><div class="nav-button">{% trans "Sign in" %}</div></a>
         {% endif %}
     </nav>
 

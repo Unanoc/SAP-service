@@ -56,7 +56,7 @@ def create(request):
             return render(
                 request, 
                 'internal/feedback/generated_link.html', 
-                {'title': "Generated feedback link", 'url': url, 'telegram_channel': tg_chan},
+                {'url': url, 'telegram_channel': tg_chan},
             )
     else:
         form = FeedbackSettingsForm()

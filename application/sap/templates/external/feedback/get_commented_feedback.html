@@ -1,13 +1,14 @@
 {% extends "external/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block css_js %}
     <link rel="stylesheet" href="{% static 'css/external/feedback/forms.css' %}">
 {% endblock %}
 
 {% block header_name %}
-    <div class="header-name">Group: {{ group_name }}</div>
-    <div class="header-desc">Subject: {{ subject }} ({{ class_type }})</div>
+    <div class="header-name">{% trans "Group:" %} {{ group_name }}</div>
+    <div class="header-desc">{% trans "Subject name" %}: {{ subject }} ({{ class_type }})</div>
 {% endblock %}
 
 {% block content %}
@@ -15,10 +16,10 @@
         <form enctype="multipart/form-data" id="form">
             {% csrf_token %}
             <div class="comment-field">
-                <textarea id="text" name="comment" rows="4" placeholder="Write a comment..."></textarea>
+                <textarea id="text" name="comment" rows="4" placeholder='{% trans "Write a comment..." %}'></textarea>
             </div>
 
-            <button type="submit" id="btn" class="form-btn">Send</button>
+            <button type="submit" id="btn" class="form-btn">{% trans "Send" %}</button>
         </form>
     </div>
 
@@ -50,7 +51,7 @@
             .then((result) => {
                 var div = document.createElement('div');
                 div.className = 'message';
-                div.innerHTML = 'Thank you!'
+                div.innerHTML = '{% trans "Thank you!" %}'
 
                 var form = document.getElementById('form')
                 form.innerHTML = '';

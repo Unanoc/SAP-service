@@ -1,9 +1,10 @@
 {% extends "internal/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block header_name %}
-    <div class="header-name">STUDENTS & PROFESSORS</div>
-    <div class="header-desc">feedback system for improving and analyzing of education process at university</div>
+    <div class="header-name">{% trans "STUDENTS & PROFESSORS" %}</div>
+    <div class="header-desc">{% trans "feedback system for improving and analyzing of education process at school" %}</div>
 {% endblock %}
 
 {% block content %}
@@ -12,14 +13,14 @@
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/feedback_create.png' %}">
             </div>
-            <div class="text-button">Create a feedback</div>
+            <div class="text-button">{% trans "Create a feedback" %}</div>
         </a>
 
         <a href="{% url 'statistics-index' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/statistics.png' %}">
             </div>
-            <div class="text-button">Statistics</div>
+            <div class="text-button">{% trans "Statistics" %}</div>
         </a>
     </div>
 {% endblock %}
