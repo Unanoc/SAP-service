@@ -8,18 +8,18 @@
 
 {% block content %}
     <div class="menu">
-        <a href="{% url 'feedback-create_commented_feedback' %}">
+        <a href="{% url 'feedback-create' %}">
             <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/commented_feedback.png' %}">
+                <img class="image-button" src="{% static 'src/feedback_create.png' %}">
             </div>
-            <div class="text-button">Commented feedback</div>
+            <div class="text-button">Create a feedback</div>
         </a>
 
-        <a href="{% url 'feedback-create_estimated_feedback' %}">
+        <a href="{% url 'statistics-index' %}">
             <div class="image-button-wrapper">
-                <img class="image-button" src="{% static 'src/estimated_feedback.png' %}">
+                <img class="image-button" src="{% static 'src/statistics.png' %}">
             </div>
-            <div class="text-button">Estimated feedback</div>
+            <div class="text-button">Statistics</div>
         </a>
     </div>
 {% endblock %}

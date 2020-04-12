@@ -1,13 +1,10 @@
 import uuid
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-from django.utils.datastructures import MultiValueDictKeyError
+from django.http import Http404
+from django.shortcuts import render
 
-from application.sap.forms import (
-    CommentedFeedbackForm,
-    FeedbackSettingsForm,
-)
+from application.sap.forms import FeedbackSettingsForm
 from application.sap.models import (
     CommentedFeedback,
     EstimatedFeedback,
@@ -17,154 +14,76 @@ from application.sap.models import (
 
 
 @login_required(login_url='/auth/signin/')
-def create_commented_feedback(request):
+def create(request):
     if request.method == 'POST':
         form = FeedbackSettingsForm(request.POST)
+        url = None
+        
         if form.is_valid():
             user = User.objects.by_username(username=request.user)
             existing = FeedbackSettings.objects.get_where(
                 group_name=form.cleaned_data['group_name'].upper(),
                 subject=form.cleaned_data['subject'],
-                user=user,
+                class_type=form.cleaned_data['class_type'],
                 telegram_channel=form.cleaned_data['telegram_channel'],
-                base_url="{}/feedback/get/commented".format(request.META['HTTP_HOST']),
+                feedback_type=form.cleaned_data['feedback_type'],
+                user=user,
                 date=datetime.date(datetime.now())
             )
             if existing is None:
-                hash_url = uuid.uuid4()
+                _hash = uuid.uuid4()
+                url = "{}/feedback/get/{}/{}".format(
+                    request.META['HTTP_HOST'], 
+                    form.cleaned_data['feedback_type'], 
+                    _hash,
+                )
+
                 fs = FeedbackSettings.objects.create(
                     group_name=form.cleaned_data['group_name'].upper(),
                     subject=form.cleaned_data['subject'],
-                    user=user,
+                    class_type=form.cleaned_data['class_type'],
                     telegram_channel=form.cleaned_data['telegram_channel'],
-                    base_url = "{}/feedback/get/commented".format(request.META['HTTP_HOST']),
-                    hash_url=hash_url,
+                    feedback_type=form.cleaned_data['feedback_type'],
+                    url=url,
+                    _hash=_hash,
+                    user=user,
                 )
                 fs.save()
-
-                base_url = fs.base_url
-                _hash = fs.hash_url
             else:
-                base_url = existing.base_url
-                _hash = existing.hash_url
+                url = existing.url
 
-            return render(request, 'internal/feedback/generated_link.html', 
-                {
-                    'message': "Commented feedback link",
-                    'base_url': base_url,
-                    'hash': _hash,
-                }
+            return render(
+                request, 
+                'internal/feedback/generated_link.html', 
+                {'title': "Generated feedback link", 'url': url},
             )
     else:
         form = FeedbackSettingsForm()
 
-    return render(request, 'internal/feedback/create_commented_feedback.html', {'form': form})
+    return render(request, 'internal/feedback/create.html', {'form': form})
 
 
-def get_commented_feedback(request, hash):
-    fs = FeedbackSettings.objects.get_by_hash(hash=hash)
+def get(request, fb_type, hash):
+    fs = FeedbackSettings.objects.get_by_hash(_hash=hash)
 
-    if request.method == 'POST':
-        form = CommentedFeedbackForm(request.POST)
-        if form.is_valid():
-
-            cf = CommentedFeedback.objects.create(
-                text=form.cleaned_data['text'],
-                group_name=fs.group_name,
-                user=fs.user,
-                date=fs.date,
-                subject=fs.subject,
-                settings_id=fs.id,
-            )
-            cf.save()
-
-            return render(request, 'external/response_message.html', 
-                {'message': "Thank you!"}
-            )
-    else:
-        form = CommentedFeedbackForm()
-
-    return render(request, 'external/feedback/get_commented_feedback.html', 
-        {
-            'form': form,
-            'group_name': fs.group_name,
-            'subject': fs.subject,
-            'hash_url': fs.hash_url,
-        }
+    if fb_type == 'commented':
+        return render(request, 'external/feedback/get_commented_feedback.html', 
+            {
+                'group_name': fs.group_name,
+                'subject': fs.subject,
+                'class_type': fs.class_type,
+                'settings': fs.id,
+            }
     )
-
-
-@login_required(login_url='/auth/signin/')
-def create_estimated_feedback(request):
-    if request.method == 'POST':
-        form = FeedbackSettingsForm(request.POST)
-        if form.is_valid():
-            user = User.objects.by_username(username=request.user)
-            existing = FeedbackSettings.objects.get_where(
-                group_name=form.cleaned_data['group_name'].upper(),
-                subject=form.cleaned_data['subject'],
-                user=user,
-                telegram_channel=form.cleaned_data['telegram_channel'],
-                base_url="{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
-                date=datetime.date(datetime.now())
-            )
-            if existing is None:
-                hash_url = uuid.uuid4()
-                fs = FeedbackSettings.objects.create(
-                    group_name=form.cleaned_data['group_name'].upper(),
-                    subject=form.cleaned_data['subject'],
-                    user=user,
-                    telegram_channel=form.cleaned_data['telegram_channel'],
-                    base_url = "{}/feedback/get/estimated".format(request.META['HTTP_HOST']),
-                    hash_url=hash_url,
-                )
-                fs.save()
-
-                base_url = fs.base_url
-                _hash = fs.hash_url
-            else:
-                base_url = existing.base_url
-                _hash = existing.hash_url
-
-            return render(request, 'internal/feedback/generated_link.html', 
-                {
-                    'message': "Estimated feedback link",
-                    'base_url': base_url,
-                    'hash': _hash,
-                }
-            )
-    else:
-        form = FeedbackSettingsForm()
-
-    return render(request, 'internal/feedback/create_estimated_feedback.html', {'form': form})
-
-
-def get_estimated_feedback(request, hash):
-    fs = FeedbackSettings.objects.get_by_hash(hash=hash)
-
-    if request.method == 'POST':
-        try:
-            cf = EstimatedFeedback.objects.create(
-                rating=request.POST['rating'],
-                comment=request.POST['comment'],
-                group_name=fs.group_name,
-                user=fs.user,
-                subject=fs.subject,
-                settings_id=fs.id,
-            )
-            cf.save()
-        except MultiValueDictKeyError:
-            pass
-
-        return render(request, 'external/response_message.html', 
-            {'message': "Thank you!"}
-        )
-    else:
+    if fb_type == 'estimated':
         return render(request, 'external/feedback/get_estimated_feedback.html', 
             {
                 'group_name': fs.group_name,
                 'subject': fs.subject,
-                'hash_url': fs.hash_url,
+                'class_type': fs.class_type,
+                'settings': fs.id,
                 'RATING_CHOICES': EstimatedFeedback.RATING_CHOICES,
             }
-        )
+    )
+
+    raise Http404 

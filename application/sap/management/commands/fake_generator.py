@@ -49,49 +49,48 @@ class Command(BaseCommand):
 
         for date in self.get_dates_of_current_month():
             for subject in ['Electronics', 'Discrete math', 'Phsychology', 'System design', 'Computer Networks']:
-                for group in ["IU6-8{}".format(i) for i in range(1, 6)]:
-                    hash_url = uuid.uuid4()
+                for class_type in ['Lection', 'Seminar']:
+                    for group in ["IU6-8{}".format(i) for i in range(1, 6)]:
+                        hash_url = uuid.uuid4()
 
-                    fs_commented = FeedbackSettings.objects.create(
-                        group_name=group,
-                        subject=subject,
-                        user=user,
-                        telegram_channel="test_channel",
-                        base_url="test_commented_url",
-                        hash_url=hash_url,
-                        date=date,
-                    )
-                    fs_commented.save()
-
-                    fs_estimated = FeedbackSettings.objects.create(
-                        group_name=group,
-                        subject=subject,
-                        user=user,
-                        telegram_channel="test_channel",
-                        base_url="test_estimated_url",
-                        hash_url=hash_url,
-                        date=date,
-                    )
-                    fs_estimated.save()
-
-                    for i in range(1, count_estimated_feedback):
-                        commented_feedback = CommentedFeedback.objects.create(
-                            text=faker.sentence(),
+                        fs_commented = FeedbackSettings.objects.create(
                             group_name=group,
                             subject=subject,
+                            class_type=class_type,
+                            telegram_channel="test_channel",
+                            feedback_type="commentes",
+                            url="test_url.sap",
+                            _hash=hash_url,
+                            user=user,
                             date=date,
-                            user_id=user.id,
-                            settings=fs_commented,
                         )
-                        commented_feedback.save()
+                        fs_commented.save()
 
-                        estimated_feedback = EstimatedFeedback.objects.create(
-                            rating=random.randint(1, 5), 
-                            comment=faker.sentence(),
+                        fs_estimated = FeedbackSettings.objects.create(
                             group_name=group,
                             subject=subject,
+                            class_type=class_type,
+                            telegram_channel="test_channel",
+                            feedback_type="estimated",
+                            url="test_url.sap",
+                            _hash=hash_url,
+                            user=user,
                             date=date,
-                            user_id=user.id,
-                            settings=fs_estimated,
                         )
-                        estimated_feedback.save()
+                        fs_estimated.save()
+
+                        for i in range(1, count_estimated_feedback):
+                            commented_feedback = CommentedFeedback.objects.create(
+                                text=faker.sentence(),
+                                date=date,
+                                settings=fs_commented,
+                            )
+                            commented_feedback.save()
+
+                            estimated_feedback = EstimatedFeedback.objects.create(
+                                rating=random.randint(1, 5), 
+                                text=faker.sentence(),
+                                date=date,
+                                settings=fs_estimated,
+                            )
+                            estimated_feedback.save()

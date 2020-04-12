@@ -12,7 +12,11 @@
 }
 #chart-type {
     width: 100%;
-    font-size: 1.8vh;
+    height: 45px;
+    font-size: 2vh;
+    color: rgb(117, 117, 117);
+    background-color: white;
+    border: 1px solid rgb(204, 204, 204);
 }
 
 

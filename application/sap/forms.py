@@ -30,7 +30,6 @@ class UserRegistrationForm(forms.ModelForm):
             'placeholder': 'First name',
         })
     )
-
     last_name = forms.CharField(
         validators=[text_validator],
         widget=forms.TextInput(attrs={
@@ -40,7 +39,6 @@ class UserRegistrationForm(forms.ModelForm):
             'placeholder': 'Last name',
         })
     )
-
     username = forms.CharField(
         validators=[text_validator],
         widget=forms.TextInput(attrs={
@@ -50,12 +48,10 @@ class UserRegistrationForm(forms.ModelForm):
             'placeholder': 'Username',
         })
     )
-
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Password',
     }))
-
     password_confirmation = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Password confirmation',
@@ -84,7 +80,6 @@ class UserLoginForm(forms.ModelForm):
         'maxlength': 30,
         'placeholder': 'Username',
     }))
-
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Password',
@@ -115,7 +110,6 @@ class UserSettingsForm(forms.ModelForm):
             'placeholder': 'First name',
         })
     )
-
     last_name = forms.CharField(
         validators=[text_validator],
         widget=forms.TextInput(attrs={
@@ -125,7 +119,6 @@ class UserSettingsForm(forms.ModelForm):
             'placeholder': 'Last name',
         })
     )
-
     username = forms.CharField(
         validators=[text_validator],
         widget=forms.TextInput(attrs={
@@ -135,7 +128,6 @@ class UserSettingsForm(forms.ModelForm):
             'placeholder': 'Username',
         })
     )
-
     email = forms.EmailField(
         required=False,
         widget=forms.EmailInput(attrs={
@@ -157,40 +149,35 @@ class FeedbackSettingsForm(forms.ModelForm):
             'placeholder': 'Student group name',
         })
     )
-
     subject = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Subject name',
         })
     )
-
+    class_type = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Class type (e.g. lection, seminar and etc)',
+        })
+    )
     telegram_channel = forms.CharField(
         validators=[telergam_channel_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Telegram channel',
+            'placeholder': 'Telegram channel (e.g. @group_channel)',
+        })
+    )
+    feedback_type = forms.ChoiceField(
+        choices=(("commented", "Commented"), ("estimated", "Estimated")),
+        widget=forms.Select(attrs={
+            'class': 'feedback-type',
         })
     )
 
     class Meta:
         model = FeedbackSettings
-        fields = ['group_name', 'subject', 'telegram_channel']
-
-
-class CommentedFeedbackForm(forms.ModelForm):
-    text = forms.CharField(
-        validators=[not_empty_validator], 
-        widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Write a comment...',
-            'rows': 4,
-        })
-    )
-
-    class Meta:
-        model = CommentedFeedback
-        fields = ['text']
+        fields = ['group_name', 'subject', 'class_type', 'telegram_channel', 'feedback_type']
 
 
 class CommentedStatisticsForm(forms.Form):
@@ -205,7 +192,7 @@ class CommentedStatisticsForm(forms.Form):
     group_name = forms.CharField(
         validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
-            'id': 'group',
+            'id': 'group_name',
             'class': 'form-control',
             'placeholder': 'Student group name',
         })
@@ -215,6 +202,13 @@ class CommentedStatisticsForm(forms.Form):
             'id': 'subject',
             'class': 'form-control',
             'placeholder': 'Subject name',
+        })
+    )
+    class_type = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'id': 'class_type',
+            'class': 'form-control',
+            'placeholder': 'Class type',
         })
     )
 
@@ -239,7 +233,7 @@ class GroupAverageStatisticsForm(forms.Form):
     group_name = forms.CharField(
         validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
-            'id': 'group',
+            'id': 'group_name',
             'class': 'form-control',
             'placeholder': 'Student group name',
         })
@@ -249,6 +243,13 @@ class GroupAverageStatisticsForm(forms.Form):
             'id': 'subject',
             'class': 'form-control',
             'placeholder': 'Subject name',
+        })
+    )
+    class_type = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'id': 'class_type',
+            'class': 'form-control',
+            'placeholder': 'Class type',
         })
     )
 
@@ -265,7 +266,7 @@ class GroupDayInfoStatisticsForm(forms.Form):
     group_name = forms.CharField(
         validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
-            'id': 'group',
+            'id': 'group_name',
             'class': 'form-control',
             'placeholder': 'Student group name',
         })
@@ -275,5 +276,12 @@ class GroupDayInfoStatisticsForm(forms.Form):
             'id': 'subject',
             'class': 'form-control',
             'placeholder': 'Subject name',
+        })
+    )
+    class_type = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'id': 'class_type',
+            'class': 'form-control',
+            'placeholder': 'Class type',
         })
     )

@@ -3,27 +3,40 @@
 
 {% block header_name %}
     <div id="status" style="text-align: center; margin-top: 3vh; color: rgb(143, 6, 197);"></div>
-    <div class="header-name">{{ message }}</div>
-    <div id="header" class="header-desc">{{ base_url }}/{{ hash }}</div>
+    <div class="header-name">{{ title }}</div>
+    <div class="header-desc">
+        <input type="text" id="header" style="text-align: center; width: 50%;" value='{{ url }}'/>
+    </div>
     {% endblock %}
     
     {% block content %}
     <div class="form-wrapper">
         <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
-            
-            <button id="btn" class="form-btn">Send</button>
+            <button id="btn-send" class="form-btn">Send</button>
         </form>
+        <button id="btn-copy" class="form-btn copy-btn" style="margin-right: 10px;">Copy</button>
     </div>
     
     <script>
-        // handler of button submit
-        document.getElementById("btn").addEventListener('click',function(e){
+        document.getElementById("btn-copy").addEventListener('click', function(e){
+            e.preventDefault();
+            var copyText = document.getElementById("header");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            header = document.getElementById('status')
+            header.innerHTML = "Copied";
+        }, false);
+
+        // handler of Send button
+        document.getElementById("btn-send").addEventListener('click',function(e){
             e.preventDefault();
 
             const data = {
-                hash: "{{ hash }}",
-                url: document.getElementById('header').textContent,
+                url: '{{ url }}',
             };
 
             fetch('{% url "api-bot_send" %}', {

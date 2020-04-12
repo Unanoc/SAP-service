@@ -1,8 +1,12 @@
 {% extends "internal/base.html" %}
 {% load static %}
 
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/internal/feedback/forms.css' %}">
+{% endblock %}
+
 {% block header_name %}
-    <div class="header-name">Create commented feedback</div>
+    <div class="header-name">Create feedback</div>
 {% endblock %}
 
 {% block messages %}
@@ -27,7 +31,7 @@
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data" action="{% url 'feedback-create_commented_feedback' %}" method="post">
+        <form enctype="multipart/form-data" action="{% url 'feedback-create' %}" method="post">
             {% csrf_token %}
             {% for field in form %}
                 <div>
@@ -36,7 +40,7 @@
             {% endfor %}
 
             <div>
-                <button type="submit" class="form-btn">Generate a link</button>
+                <button type="submit" class="form-btn">Create</button>
             </div>
         </form>
     </div>

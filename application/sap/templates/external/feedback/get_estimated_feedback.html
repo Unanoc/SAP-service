@@ -1,99 +1,82 @@
 {% extends "external/base.html" %}
 {% load static %}
 
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/external/feedback/forms.css' %}">
+{% endblock %}
+
 {% block header_name %}
     <div class="header-name">Group: {{ group_name }}</div>
-    <div class="header-desc">Subject: {{ subject }}</div>
+    <div class="header-desc">Subject: {{ subject }} ({{ class_type }})</div>
 {% endblock %}
 
 {% block content %}
     <div class="form-wrapper">
-        <form enctype="multipart/form-data" action="{% url 'feedback-get_estimated_feedback' hash_url %}" method="post">
+        <form enctype="multipart/form-data" id="form">
             {% csrf_token %}
 
             <div class="star-rating-wrapper">
                 <span class="star-rating">
                     {% for rate in RATING_CHOICES %}
-                        <input type="radio" name="rating" name="{{ forloop.counter }}" value="{{ rate.0 }}"/><i></i>
+                        <input name="rating" type="radio" name="{{ forloop.counter }}" value="{{ rate.0 }}"/><i></i>
                     {% endfor %}
                 </span>
             </div>
 
             <div class="comment-field">
-                <textarea name="comment" rows="4" placeholder="Write a comment..."></textarea>
+                <textarea id="text" name="comment" rows="4" placeholder="Write a comment..."></textarea>
             </div>
 
-            <button type="submit" class="form-btn">Send</button>
+            <button type="submit" id="btn" class="form-btn">Send</button>
         </form>
     </div>
-{% endblock %}
 
-{% block custom_css %}
-    <style>
-        .star-rating {
-            font-size: 0;
-            white-space: nowrap;
-            display: inline-block;
-            width: 250px;
-            height: 50px;
-            overflow: hidden;
-            position: relative;
-            background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
-            background-size: contain;
+    <script>
+        // handler of button submit
+        document.getElementById("btn").addEventListener('click', function(e){
+            e.preventDefault();
+            sendForm();
+        }, false);
+
+        function checkRadio() {
+            var rad = document.getElementsByName('rating');
+            for (var i = 0; i < rad.length; i++) {
+                if (rad[i].checked) {
+                    return rad[i].value;
+                }
+            }
+    }
+        function sendForm() {
+            const data = {
+                rating: checkRadio(),
+                text: document.getElementById('text').value,
+                settings: "{{ settings }}",
+            };
+
+            fetch('{% url "api-feedback_estimated" %}', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json', 
+                    'X-CSRFToken':'{{ csrf_token }}',
+                    'X-Requested-With':'XMLHttpRequest'
+                },
+                body: JSON.stringify(data),
+                mode:'cors',
+                cache:'default',
+                credentials:'include'      
+            }).then((response) => response.json())
+            .then((result) => {
+                var div = document.createElement('div');
+                div.className = 'message';
+                div.innerHTML = 'Thank you!'
+
+                var form = document.getElementById('form')
+                form.innerHTML = '';
+                form.appendChild(div);
+            })
+            .catch((err) => {
+                console.log('error:', err)
+            })
         }
-        .star-rating i {
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 20%;
-            z-index: 1;
-            background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
-            background-size: contain;
-        }
-        .star-rating input {
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            opacity: 0;
-            display: inline-block;
-            width: 20%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            z-index: 2;
-            position: relative;
-        }
-        .star-rating input:hover + i,
-        .star-rating input:checked + i {
-            opacity: 1;
-        }
-        .star-rating i ~ i {
-            width: 40%;
-        }
-        .star-rating i ~ i ~ i {
-            width: 60%;
-        }
-        .star-rating i ~ i ~ i ~ i {
-            width: 80%;
-        }
-        .star-rating i ~ i ~ i ~ i ~ i {
-            width: 100%;
-        }
-        ::after, ::before {
-            height: 100%;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            text-align: center;
-            vertical-align: middle;
-        }
-        
-        .comment-field {
-            margin-top: 5vh;
-        }
-        .star-rating-wrapper {
-            text-align: center;
-        }
-    </style>
+    </script>
 {% endblock %}
