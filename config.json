@@ -1,5 +1,4 @@
-  
 {
-    "prod": true,
-    "token": ""
+    "prod": false,
+    "token": "TELEGRAM TOKEN"
 }

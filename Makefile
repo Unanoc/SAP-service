@@ -49,3 +49,10 @@ docker-clean:
 	docker rmi $$(docker images | grep -E "mysql|sap-service*" | awk '{print $$3}')
 	# mysql
 	find . | grep -E "venv|mysql" | xargs rm -rf
+
+# Internalization
+messages:
+	django-admin.py makemessages -l ru -i "django*"
+
+compile:
+	django-admin.py compilemessages
