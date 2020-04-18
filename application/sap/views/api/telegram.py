@@ -1,4 +1,5 @@
 import telebot
+from django.utils.translation import gettext as _
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -18,10 +19,9 @@ class BotSender(APIView):
         result = dict()
         try:
             send_to_telegram_channel(channel=tg_chan, message=msg_url)
-            result['message'] = '{% trans "Done!" %}'
+            result['message'] = _("Done!")
         except telebot.apihelper.ApiException as e:
-            result['message'] = '{% trans "Bot is not a member of the channel chat or this channel chat does not exist." %}'
+            result['message'] = _("Bot is not a member of the channel or this channel does not exist.")
         except Exception as e:
-            result['message'] = '{% trans "Something bad happend... Bot has not send this link. Please, try again." %}'
-
+            result['message'] = _("Something bad happend... Bot has not send this link. Please, try again.")
         return Response(result)

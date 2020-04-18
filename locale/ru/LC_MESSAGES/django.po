@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 01:04+0300\n"
+"POT-Creation-Date: 2020-04-18 14:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,6 +180,10 @@ msgstr "Это будет отправлено в канал"
 #: application/sap/templates/internal/feedback/generated_link.html:25
 msgid "Copy a link"
 msgstr "Копировать ссылку"
+
+#: application/sap/templates/internal/feedback/generated_link.html:41
+msgid "Copied"
+msgstr "Скопировано"
 
 #: application/sap/templates/internal/root/help.html:11
 msgid "How to use?"
@@ -382,3 +386,15 @@ msgstr "Редактировать профиль"
 #: application/sap/templates/internal/user/settings.html:40
 msgid "Save"
 msgstr "Сохранить"
+
+#: application/sap/views/api/telegram.py:22
+msgid "Done!"
+msgstr "Готово!"
+
+#: application/sap/views/api/telegram.py:24
+msgid "Bot is not a member of the channel or this channel does not exist."
+msgstr "Бот не добавлен в канал или такой канал не существует"
+
+#: application/sap/views/api/telegram.py:26
+msgid "Something bad happend... Bot has not send this link. Please, try again."
+msgstr "Что-то пошло не так... Бот не отправил ссылку. Попробуйте еще раз."

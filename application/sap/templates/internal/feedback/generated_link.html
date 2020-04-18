@@ -38,7 +38,7 @@
             /* Copy the text inside the text field */
             document.execCommand("copy");
             header = document.getElementById('status')
-            header.innerHTML = "Copied";
+            header.innerHTML = '{% trans "Copied" %}';
         }, false);
 
         // handler of Send button
