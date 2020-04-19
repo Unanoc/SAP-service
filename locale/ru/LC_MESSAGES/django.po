@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 19:40+0300\n"
+"POT-Creation-Date: 2020-04-19 21:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgid "Text should contain letters"
 msgstr "Текст должен содержать буквы"
 
 #: application/sap/forms.py:18
-msgid "Telegram channel name must have \"@\" at the begining"
-msgstr "Имя Telegram канала должно иметь \"@\" в начале"
+msgid "Chat name must have \"@\" at the begining"
+msgstr "Название чата должно иметь \"@\" в начале"
 
 #: application/sap/forms.py:21
 msgid "Fields must not be empty"
@@ -92,8 +92,8 @@ msgid "Class type (e.g. lection, seminar and etc)"
 msgstr "Тип занятия (например, лекция, семинар и т.д.)"
 
 #: application/sap/forms.py:186
-msgid "Telegram channel (e.g. @group_channel)"
-msgstr "Telegram канал (например, @имя_канала)"
+msgid "Chat name (e.g. @group_chat)"
+msgstr "Название чата (например, @чат_группы)"
 
 #: application/sap/forms.py:190
 msgid "Commented"
@@ -118,7 +118,7 @@ msgid "To"
 msgstr "До"
 
 #: application/sap/templates/external/base.html:30
-#: application/sap/templates/internal/base.html:40
+#: application/sap/templates/internal/base.html:39
 msgid "Change"
 msgstr "Изменить"
 
@@ -151,13 +151,13 @@ msgstr "Спасибо тебе!"
 
 #: application/sap/templates/internal/auth/signin.html:6
 #: application/sap/templates/internal/auth/signin.html:42
-#: application/sap/templates/internal/base.html:25
+#: application/sap/templates/internal/base.html:24
 msgid "Sign in"
 msgstr "Вход"
 
 #: application/sap/templates/internal/auth/signup.html:6
 #: application/sap/templates/internal/auth/signup.html:42
-#: application/sap/templates/internal/base.html:24
+#: application/sap/templates/internal/base.html:23
 msgid "Sign up"
 msgstr "Регистрация"
 
@@ -170,11 +170,6 @@ msgid "Profile"
 msgstr "Профиль"
 
 #: application/sap/templates/internal/base.html:21
-#: application/sap/templates/internal/root/help.html:10
-msgid "Help"
-msgstr "Помощь"
-
-#: application/sap/templates/internal/base.html:22
 msgid "Home"
 msgstr "Главная"
 
@@ -220,8 +215,8 @@ msgid "Feedback type"
 msgstr "Тип отзыва"
 
 #: application/sap/templates/internal/feedback/index.html:23
-msgid "Telegram channel"
-msgstr "Telegram канал"
+msgid "Chat name"
+msgstr "Название чата"
 
 #: application/sap/templates/internal/feedback/index.html:24
 msgid "URL"
@@ -234,89 +229,6 @@ msgstr "Открыть"
 #: application/sap/templates/internal/feedback/index.html:42
 msgid "Delete"
 msgstr "Удалить"
-
-#: application/sap/templates/internal/root/help.html:11
-msgid "How to use?"
-msgstr "Как использовать?"
-
-#: application/sap/templates/internal/root/help.html:17
-msgid "Concept of using this service is very simple!"
-msgstr "Принцип использования сервиса очеь простой!"
-
-#: application/sap/templates/internal/root/help.html:20
-msgid "How to create a feedback page after class?"
-msgstr "Как создать опросную форму после занятия?"
-
-#: application/sap/templates/internal/root/help.html:23
-msgid ""
-"1. First of all, you have to create telegram channel for your group and add "
-"student to it"
-msgstr ""
-"1. Прежде всего, Вы должны создать Telegram канал, в который будут добавлены "
-"Ваши студенты"
-
-#: application/sap/templates/internal/root/help.html:24
-msgid "Then, copy @channel_name."
-msgstr "Затем, скопируйте @имя_канала"
-
-#: application/sap/templates/internal/root/help.html:28
-msgid "2. Open <b>Home</b> page and click on the button «Create a feedback»"
-msgstr ""
-"2. Откройте страницу <b>Главная</b> и нажмите на кнопку «Создать опросную "
-"форму»"
-
-#: application/sap/templates/internal/root/help.html:29
-msgid ""
-"3. Fill the form and press a button «Create». Pay attention to the last "
-"field of form <u><i>Telegram channel</i></u>"
-msgstr ""
-"3. Заполните форму и нажмите на кнопку «Создать». Обратите внимание на поле "
-"формы <u><i>Telegram канал</i></u>"
-
-#: application/sap/templates/internal/root/help.html:30
-msgid "You have to paste a channel name in format @channel_name."
-msgstr "Вы должны вставить имя канала в формате @имя_канала."
-
-#: application/sap/templates/internal/root/help.html:31
-msgid ""
-"4. After the link is generated you can copy it or send it to the telegram "
-"channel"
-msgstr ""
-"4. После того, как ссылка сгенерирована Вы можете скопировать ее и отправить "
-"в Telegram канал"
-
-#: application/sap/templates/internal/root/help.html:35
-msgid "How to check feedback statistic?"
-msgstr "Как посмотреть статистику?"
-
-#: application/sap/templates/internal/root/help.html:38
-msgid ""
-"1. Go <b>Home</b> -> <b>Statistics</b> and then you get 2 buttons: "
-"<u><i>Commented feedback</i></u> and <u><i>Estimated feedback"
-msgstr ""
-"1. Перейдите в <b>Главная</b> -> <b>Статистика</b> и затем перед Вами буду 2 "
-"кнопки: <u><i>Комментируемый отзыв</i></u> и <u><i>Оцениваемый отзыв"
-
-#: application/sap/templates/internal/root/help.html:39
-msgid "2. Choose a feedback type you want to see"
-msgstr ""
-"2. Выберите тип обратной связи, для которой Вы хотите посмотреть статистику "
-
-#: application/sap/templates/internal/root/help.html:40
-msgid "3. Fill the form to request data"
-msgstr "3. Заполните форму, чтобы запросить данные"
-
-#: application/sap/templates/internal/root/help.html:44
-msgid "How to edit a prodile?"
-msgstr "Как изменить профиль?"
-
-#: application/sap/templates/internal/root/help.html:47
-msgid "1. Go <b>Profile</b> -> <b>Edit Profile"
-msgstr "1. Перейдите в <b>Профиль</b> -> <b>Редактировать профиль"
-
-#: application/sap/templates/internal/root/help.html:48
-msgid "2. Fill the form to change your personal data"
-msgstr "Заполните форому, чтобы изменить Ваши личные данные"
 
 #: application/sap/templates/internal/root/index.html:6
 msgid "STUDENTS & PROFESSORS"
@@ -441,14 +353,14 @@ msgstr "Редактировать профиль"
 msgid "Save"
 msgstr "Сохранить"
 
-#: application/sap/views/api/telegram.py:22
+#: application/sap/views/api/chatbot.py:27
 msgid "Done!"
 msgstr "Готово!"
 
-#: application/sap/views/api/telegram.py:25
+#: application/sap/views/api/chatbot.py:30
 msgid "Bot is not a member of the channel or this channel does not exist."
 msgstr "Бот не добавлен в канал или такой канал не существует"
 
-#: application/sap/views/api/telegram.py:28
+#: application/sap/views/api/chatbot.py:33
 msgid "Something bad happend... Bot has not send this link. Please, try again."
 msgstr "Что-то пошло не так... Бот не отправил ссылку. Попробуйте еще раз."

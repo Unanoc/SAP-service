@@ -19,7 +19,7 @@
         <div class="form-container">
             <form enctype="multipart/form-data" method="post">
                 {% csrf_token %}
-                <div class="info">{% trans "It will be sent to channel" %} {{ telegram_channel }}</div>
+                <div class="info">{% trans "It will be sent to channel" %} {{ chat_name }}</div>
                 <textarea id="text" name="comment" rows="4" placeholder="{% trans 'Write a comment...' %}"></textarea>
                 <button id="btn-send" class="form-btn">{% trans "Send" %}</button>
                 <button id="btn-copy" class="form-btn">{% trans "Copy a link" %}</button>
@@ -48,7 +48,7 @@
             const data = {
                 message: document.getElementById('text').value,
                 url: '{{ url }}',
-                telegram_channel: '{{ telegram_channel }}',
+                chat_name: '{{ chat_name }}',
             };
 
             fetch('{% url "api-bot_send" %}', {

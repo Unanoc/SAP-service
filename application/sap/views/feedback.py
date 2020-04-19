@@ -28,7 +28,7 @@ def index(request):
 def create(request):
     if request.method == 'POST':
         form = FeedbackSettingsForm(request.POST)
-        url, tg_chan = None, None
+        url, chat = None, None
         
         if form.is_valid():
             user = User.objects.by_username(username=request.user)
@@ -36,7 +36,7 @@ def create(request):
                 group_name=form.cleaned_data['group_name'].upper(),
                 subject=form.cleaned_data['subject'],
                 class_type=form.cleaned_data['class_type'],
-                telegram_channel=form.cleaned_data['telegram_channel'],
+                chat_name=form.cleaned_data['chat_name'],
                 feedback_type=form.cleaned_data['feedback_type'],
                 user=user,
                 date=request.POST['date']
@@ -47,13 +47,13 @@ def create(request):
                     form.cleaned_data['feedback_type'], 
                     _hash,
                 )
-                tg_chan = form.cleaned_data['telegram_channel']
+                chat = form.cleaned_data['chat_name']
 
                 fs = FeedbackSettings.objects.create(
                     group_name=form.cleaned_data['group_name'].upper(),
                     subject=form.cleaned_data['subject'],
                     class_type=form.cleaned_data['class_type'],
-                    telegram_channel=form.cleaned_data['telegram_channel'],
+                    chat_name=form.cleaned_data['chat_name'],
                     feedback_type=form.cleaned_data['feedback_type'],
                     url=url,
                     _hash=_hash,
@@ -63,13 +63,13 @@ def create(request):
                 fs.save()
             else:
                 url = existing.url
-                tg_chan = existing.telegram_channel
+                chat = existing.chat_name
 
             result_url = request.META['HTTP_HOST'] + url
             return render(
                 request, 
                 'internal/feedback/generated_link.html', 
-                {'url': result_url, 'telegram_channel': tg_chan},
+                {'url': result_url, 'chat_name': chat},
             )
     else:
         form = FeedbackSettingsForm()
@@ -93,7 +93,6 @@ def delete(request):
 def get(request, feedback_type, hash):
     fs = FeedbackSettings.objects.get_by_hash(_hash=hash)
     user = User.objects.by_username(username=fs.user)
-    print(user.first_name)
 
     if feedback_type == 'commented':
         return render(request, 'external/feedback/get_commented_feedback.html', 

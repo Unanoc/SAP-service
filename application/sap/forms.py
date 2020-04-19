@@ -15,7 +15,7 @@ text_validator = RegexValidator(r'[а-яА-Яa-zA-Z]',
                                _('Text should contain letters'))
 
 telergam_channel_validator = RegexValidator(r'^@.*',
-                                           _('Telegram channel name must have "@" at the begining'))
+                                           _('Chat name must have "@" at the begining'))
 
 not_empty_validator = RegexValidator(r'^.*',
                                     _('Fields must not be empty'))
@@ -179,11 +179,11 @@ class FeedbackSettingsForm(forms.ModelForm):
             'placeholder': _('Class type (e.g. lection, seminar and etc)'),
         })
     )
-    telegram_channel = forms.CharField(
+    chat_name = forms.CharField(
         validators=[telergam_channel_validator], 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': _('Telegram channel (e.g. @group_channel)'),
+            'placeholder': _('Chat name (e.g. @group_chat)'),
         })
     )
     feedback_type = forms.ChoiceField(
@@ -195,7 +195,7 @@ class FeedbackSettingsForm(forms.ModelForm):
 
     class Meta:
         model = FeedbackSettings
-        fields = ['date', 'group_name', 'subject', 'class_type', 'telegram_channel', 'feedback_type']
+        fields = ['date', 'group_name', 'subject', 'class_type', 'chat_name', 'feedback_type']
 
 
 class CommentedStatisticsForm(forms.Form):

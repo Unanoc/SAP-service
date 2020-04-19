@@ -10,13 +10,12 @@ from application.sap.views import (
 from application.sap.views.api import (
     feedback as fb,
     stat,
-    telegram,
+    chatbot,
 )
 
 
 urlpatterns = [
     path('', root.index, name='root-index'),
-    path('help/', root.help, name='root-help'),
 
     path('auth/signup/', auth.signup, name='auth-signup'),
     path('auth/signin/', auth.signin, name='auth-signin'),
@@ -36,7 +35,7 @@ urlpatterns = [
     path('feedback/delete/', feedback.delete, name='feedback-delete'),
     path('feedback/get/<feedback_type>/<hash>/', feedback.get, name='feedback-get'),
 
-    path('api/telegrambot/send/', telegram.BotSender.as_view(), name='api-bot_send'),
+    path('api/chatbot/send/', chatbot.BotSender.as_view(), name='api-bot_send'),
     path('api/statistics/comments/', stat.Comments.as_view(), name='api-stat-comments'),
     path('api/statistics/group/average/', stat.GroupAverage.as_view(), name='api-stat_group_average'),
     path('api/statistics/group/day/info/', stat.GroupDayInfo.as_view(), name='api-stat_group_day_info'),

@@ -20,18 +20,18 @@
                 <th>{% trans "Subject" %}</th>
                 <th>{% trans "Class type" %}</th>
                 <th>{% trans "Feedback type" %}</th>
-                <th>{% trans "Telegram channel" %}</th>
+                <th>{% trans "Chat name" %}</th>
                 <th>{% trans "URL" %}</th>
                 <th></th>
             </tr>
             {% for item in feedback_list %}
                 <tr>
-                    <td>{{ item.date }}</td>
+                    <td>{{ item.date | date:'d-m-Y' }}</td>
                     <td>{{ item.group_name }}</td>
                     <td>{{ item.subject }}</td>
                     <td>{{ item.class_type }}</td>
                     <td>{{ item.feedback_type }}</td>
-                    <td>{{ item.telegram_channel }}</td>
+                    <td>{{ item.chat_name }}</td>
                     <td>
                         <a href={{ item.url }}>{% trans "Open" %}</a>
                     </td>
