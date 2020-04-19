@@ -14,27 +14,27 @@
     <div class="header-name">{% trans "Create a feedback" %}</div>
 {% endblock %}
 
-{% block messages %}
-    {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-            <p>{{ error|escape }}</p>
-        {% endfor %}
-    {% endif %}
-
-    {% if form.group_name.errors %}
-        {% for error in form.group_name.errors %}
-            <p>{{ error|escape }}</p>
-        {% endfor %}
-    {% endif %}
-
-    {% if form.telegram_channel.errors %}
-        {% for error in form.telegram_channel.errors %}
-            <p>{{ error|escape }}</p>
-        {% endfor %}
-    {% endif %}
-{% endblock %}
-
 {% block content %}
+    <div class="messages">
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p>{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+        
+        {% if form.username.errors %}
+            {% for error in form.username.errors %}
+                <p>{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+        
+        {% if form.password.errors %}
+            {% for error in form.password.errors %}
+                <p>{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="form-wrapper">
         <div class="form-container">
             <form enctype="multipart/form-data" action="{% url 'feedback-create' %}" method="post">

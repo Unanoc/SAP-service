@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 19:08+0300\n"
+"POT-Creation-Date: 2020-04-19 19:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,40 +117,46 @@ msgstr "От"
 msgid "To"
 msgstr "До"
 
+#: application/sap/templates/external/base.html:30
+#: application/sap/templates/internal/base.html:40
+msgid "Change"
+msgstr "Изменить"
+
 #: application/sap/templates/external/feedback/get_commented_feedback.html:10
 #: application/sap/templates/external/feedback/get_estimated_feedback.html:10
 msgid "Group:"
 msgstr "Группа"
 
-#: application/sap/templates/external/feedback/get_commented_feedback.html:19
+#: application/sap/templates/external/feedback/get_commented_feedback.html:12
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:12
+msgid "Professor"
+msgstr "Преподаватель"
+
+#: application/sap/templates/external/feedback/get_commented_feedback.html:20
 #: application/sap/templates/external/feedback/get_estimated_feedback.html:29
 #: application/sap/templates/internal/feedback/generated_link.html:23
 msgid "Write a comment..."
 msgstr "Напишите комментарий..."
 
-#: application/sap/templates/external/feedback/get_commented_feedback.html:22
+#: application/sap/templates/external/feedback/get_commented_feedback.html:23
 #: application/sap/templates/external/feedback/get_estimated_feedback.html:32
 #: application/sap/templates/internal/feedback/generated_link.html:24
 msgid "Send"
 msgstr "Отправить"
 
-#: application/sap/templates/external/feedback/get_commented_feedback.html:54
+#: application/sap/templates/external/feedback/get_commented_feedback.html:55
 #: application/sap/templates/external/feedback/get_estimated_feedback.html:73
 msgid "Thank you!"
 msgstr "Спасибо тебе!"
 
-#: application/sap/templates/external/feedback/get_estimated_feedback.html:12
-msgid "Professor"
-msgstr "Преподаватель"
-
 #: application/sap/templates/internal/auth/signin.html:6
-#: application/sap/templates/internal/auth/signin.html:41
+#: application/sap/templates/internal/auth/signin.html:42
 #: application/sap/templates/internal/base.html:25
 msgid "Sign in"
 msgstr "Вход"
 
 #: application/sap/templates/internal/auth/signup.html:6
-#: application/sap/templates/internal/auth/signup.html:41
+#: application/sap/templates/internal/auth/signup.html:42
 #: application/sap/templates/internal/base.html:24
 msgid "Sign up"
 msgstr "Регистрация"
@@ -431,7 +437,7 @@ msgstr "Оцениваемый отзыв"
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
 
-#: application/sap/templates/internal/user/settings.html:40
+#: application/sap/templates/internal/user/settings.html:43
 msgid "Save"
 msgstr "Сохранить"
 
