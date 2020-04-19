@@ -152,6 +152,14 @@ class UserSettingsForm(forms.ModelForm):
 
 
 class FeedbackSettingsForm(forms.ModelForm):
+    date = forms.DateField(
+        widget=forms.TextInput(attrs={
+            'id': 'date',
+            'data-toggle':'datepicker',
+            'placeholder': _('Date'),
+            'autocomplete': 'off',
+        }),
+    )
     group_name = forms.CharField(
         validators=[not_empty_validator], 
         widget=forms.TextInput(attrs={
@@ -187,7 +195,7 @@ class FeedbackSettingsForm(forms.ModelForm):
 
     class Meta:
         model = FeedbackSettings
-        fields = ['group_name', 'subject', 'class_type', 'telegram_channel', 'feedback_type']
+        fields = ['date', 'group_name', 'subject', 'class_type', 'telegram_channel', 'feedback_type']
 
 
 class CommentedStatisticsForm(forms.Form):

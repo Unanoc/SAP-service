@@ -21,7 +21,9 @@ class BotSender(APIView):
             send_to_telegram_channel(channel=tg_chan, message=msg_url)
             result['message'] = _("Done!")
         except telebot.apihelper.ApiException as e:
+            print(e)
             result['message'] = _("Bot is not a member of the channel or this channel does not exist.")
         except Exception as e:
+            print(e)
             result['message'] = _("Something bad happend... Bot has not send this link. Please, try again.")
         return Response(result)

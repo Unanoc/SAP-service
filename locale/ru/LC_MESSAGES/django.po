@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 14:28+0300\n"
+"POT-Creation-Date: 2020-04-19 19:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgid "Last name"
 msgstr "Фамилия"
 
 #: application/sap/forms.py:49 application/sap/forms.py:82
-#: application/sap/forms.py:129
+#: application/sap/forms.py:138
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -61,52 +61,59 @@ msgstr "Пароли не совпадают"
 msgid "Sorry, that login or password is invalid. Please try again."
 msgstr "Извините, этот логин или пароль некорректны. Попробуйте еще раз."
 
-#: application/sap/forms.py:136
+#: application/sap/forms.py:129
+msgid "Patronymic"
+msgstr "Отчество"
+
+#: application/sap/forms.py:145
 msgid "E-mail"
 msgstr "Электронная почта"
 
-#: application/sap/forms.py:150 application/sap/forms.py:198
-#: application/sap/forms.py:239 application/sap/forms.py:272
+#: application/sap/forms.py:159 application/sap/forms.py:206
+#: application/sap/forms.py:280
+#: application/sap/templates/internal/feedback/index.html:18
+msgid "Date"
+msgstr "Дата"
+
+#: application/sap/forms.py:167 application/sap/forms.py:215
+#: application/sap/forms.py:256 application/sap/forms.py:289
 msgid "Student group name"
 msgstr "Название студенческой группы"
 
-#: application/sap/forms.py:156 application/sap/forms.py:205
-#: application/sap/forms.py:246 application/sap/forms.py:279
+#: application/sap/forms.py:173 application/sap/forms.py:222
+#: application/sap/forms.py:263 application/sap/forms.py:296
 #: application/sap/templates/external/feedback/get_commented_feedback.html:11
 #: application/sap/templates/external/feedback/get_estimated_feedback.html:11
 msgid "Subject name"
 msgstr "Название предмета"
 
-#: application/sap/forms.py:162
+#: application/sap/forms.py:179
 msgid "Class type (e.g. lection, seminar and etc)"
 msgstr "Тип занятия (например, лекция, семинар и т.д.)"
 
-#: application/sap/forms.py:169
+#: application/sap/forms.py:186
 msgid "Telegram channel (e.g. @group_channel)"
 msgstr "Telegram канал (например, @имя_канала)"
 
-#: application/sap/forms.py:173
+#: application/sap/forms.py:190
 msgid "Commented"
-msgstr "Комментируемый"
+msgstr "Комментируемый отзыв"
 
-#: application/sap/forms.py:173
+#: application/sap/forms.py:190
 msgid "Estimated"
-msgstr "Оцениваемый"
+msgstr "Оцениваемый отзыв"
 
-#: application/sap/forms.py:189 application/sap/forms.py:263
-msgid "Date"
-msgstr "Дата"
-
-#: application/sap/forms.py:212 application/sap/forms.py:253
-#: application/sap/forms.py:286
+#: application/sap/forms.py:229 application/sap/forms.py:270
+#: application/sap/forms.py:303
+#: application/sap/templates/internal/feedback/index.html:21
 msgid "Class type"
 msgstr "Тип занятия"
 
-#: application/sap/forms.py:222
+#: application/sap/forms.py:239
 msgid "From"
 msgstr "От"
 
-#: application/sap/forms.py:230
+#: application/sap/forms.py:247
 msgid "To"
 msgstr "До"
 
@@ -116,20 +123,25 @@ msgid "Group:"
 msgstr "Группа"
 
 #: application/sap/templates/external/feedback/get_commented_feedback.html:19
-#: application/sap/templates/external/feedback/get_estimated_feedback.html:28
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:29
+#: application/sap/templates/internal/feedback/generated_link.html:23
 msgid "Write a comment..."
 msgstr "Напишите комментарий..."
 
 #: application/sap/templates/external/feedback/get_commented_feedback.html:22
-#: application/sap/templates/external/feedback/get_estimated_feedback.html:31
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:32
 #: application/sap/templates/internal/feedback/generated_link.html:24
 msgid "Send"
 msgstr "Отправить"
 
 #: application/sap/templates/external/feedback/get_commented_feedback.html:54
-#: application/sap/templates/external/feedback/get_estimated_feedback.html:72
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:73
 msgid "Thank you!"
 msgstr "Спасибо тебе!"
+
+#: application/sap/templates/external/feedback/get_estimated_feedback.html:12
+msgid "Professor"
+msgstr "Преподаватель"
 
 #: application/sap/templates/internal/auth/signin.html:6
 #: application/sap/templates/internal/auth/signin.html:41
@@ -160,12 +172,12 @@ msgstr "Помощь"
 msgid "Home"
 msgstr "Главная"
 
-#: application/sap/templates/internal/feedback/create.html:10
-#: application/sap/templates/internal/root/index.html:16
+#: application/sap/templates/internal/feedback/create.html:14
 msgid "Create a feedback"
 msgstr "Создать опросную форму"
 
-#: application/sap/templates/internal/feedback/create.html:45
+#: application/sap/templates/internal/feedback/create.html:49
+#: application/sap/templates/internal/feedback/index.html:11
 msgid "Create"
 msgstr "Создать"
 
@@ -184,6 +196,38 @@ msgstr "Копировать ссылку"
 #: application/sap/templates/internal/feedback/generated_link.html:41
 msgid "Copied"
 msgstr "Скопировано"
+
+#: application/sap/templates/internal/feedback/index.html:10
+msgid "List of created feedbacks"
+msgstr "Список созданных опросов"
+
+#: application/sap/templates/internal/feedback/index.html:19
+msgid "Group"
+msgstr "Группа"
+
+#: application/sap/templates/internal/feedback/index.html:20
+msgid "Subject"
+msgstr "Название предмета"
+
+#: application/sap/templates/internal/feedback/index.html:22
+msgid "Feedback type"
+msgstr "Тип отзыва"
+
+#: application/sap/templates/internal/feedback/index.html:23
+msgid "Telegram channel"
+msgstr "Telegram канал"
+
+#: application/sap/templates/internal/feedback/index.html:24
+msgid "URL"
+msgstr "URL"
+
+#: application/sap/templates/internal/feedback/index.html:36
+msgid "Open"
+msgstr "Открыть"
+
+#: application/sap/templates/internal/feedback/index.html:42
+msgid "Delete"
+msgstr "Удалить"
 
 #: application/sap/templates/internal/root/help.html:11
 msgid "How to use?"
@@ -277,6 +321,10 @@ msgid ""
 "feedback system for improving and analyzing of education process at school"
 msgstr ""
 "Система анализа качества образовательного процесса по отзывам обучающихся"
+
+#: application/sap/templates/internal/root/index.html:16
+msgid "Feedback"
+msgstr "Обратная связь"
 
 #: application/sap/templates/internal/root/index.html:23
 msgid "Statistics"
@@ -378,7 +426,7 @@ msgstr "Комментируемый отзыв"
 msgid "Estimated feedback"
 msgstr "Оцениваемый отзыв"
 
-#: application/sap/templates/internal/user/profile.html:27
+#: application/sap/templates/internal/user/profile.html:24
 #: application/sap/templates/internal/user/settings.html:6
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
@@ -391,10 +439,10 @@ msgstr "Сохранить"
 msgid "Done!"
 msgstr "Готово!"
 
-#: application/sap/views/api/telegram.py:24
+#: application/sap/views/api/telegram.py:25
 msgid "Bot is not a member of the channel or this channel does not exist."
 msgstr "Бот не добавлен в канал или такой канал не существует"
 
-#: application/sap/views/api/telegram.py:26
+#: application/sap/views/api/telegram.py:28
 msgid "Something bad happend... Bot has not send this link. Please, try again."
 msgstr "Что-то пошло не так... Бот не отправил ссылку. Попробуйте еще раз."

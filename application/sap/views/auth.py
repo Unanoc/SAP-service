@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+from django.utils.translation import get_language
 
 from application.sap.forms import UserRegistrationForm, UserLoginForm
 from application.sap.models import User
@@ -7,7 +8,7 @@ from application.sap.models import User
 
 def signup(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('/{}/'.format(get_language()))
 
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
@@ -16,7 +17,7 @@ def signup(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             login(request, user)
-            return redirect('/')
+            return redirect('/{}/'.format(get_language()))
     else:
         form = UserRegistrationForm()
         logout(request)
@@ -25,7 +26,7 @@ def signup(request):
 
 def signin(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('/{}/'.format(get_language()))
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -34,7 +35,7 @@ def signin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return redirect('/{}/'.format(get_language()))
     else:
         form = UserLoginForm()
         logout(request)
@@ -44,4 +45,4 @@ def signin(request):
 def signout(request):
     if request.user.is_authenticated:
         logout(request)
-    return redirect('/')
+    return redirect('/{}/'.format(get_language()))

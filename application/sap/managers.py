@@ -19,6 +19,9 @@ class FeedbackSettingsManager(models.Manager):
     def get_where(self, **kwargs):
         return self.all().filter(**kwargs).first()
 
+    def get_all(self, user_id):
+        return self.all()
+
 
 class CommentedFeedbackManager(models.Manager):
 
@@ -32,7 +35,6 @@ class CommentedFeedbackManager(models.Manager):
                 AND f.class_type = '{}' AND f.user_id = '{}' AND f.group_name = '{}'
                 ORDER BY c.time DESC
             """.format(date, subject, class_type, user_id, group_name)
-            print(query)
             
             cursor.execute(query)
             result_list = []
@@ -59,7 +61,6 @@ class EstimatedFeedbackManager(models.Manager):
                 GROUP BY f.date
                 ORDER BY f.date
             """.format(user_id, group_name, subject, class_type, date_from, date_to)
-            print(query)
 
             cursor.execute(query)
             result_list = []
@@ -78,7 +79,6 @@ class EstimatedFeedbackManager(models.Manager):
                 AND f.subject = '{}' AND f.class_type = '{}' AND f.date = '{}'
                 ORDER BY e.time
             """.format(user_id, group_name, subject, class_type, date)
-            print(query)
 
             cursor.execute(query)
             result_list = []

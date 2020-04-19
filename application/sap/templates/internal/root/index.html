@@ -9,11 +9,11 @@
 
 {% block content %}
     <div class="menu">
-        <a href="{% url 'feedback-create' %}">
+        <a href="{% url 'feedback-index' %}">
             <div class="image-button-wrapper">
                 <img class="image-button" src="{% static 'src/feedback_create.png' %}">
             </div>
-            <div class="text-button">{% trans "Create a feedback" %}</div>
+            <div class="text-button">{% trans "Feedback" %}</div>
         </a>
 
         <a href="{% url 'statistics-index' %}">

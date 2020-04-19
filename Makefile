@@ -55,7 +55,7 @@ messages:
 	django-admin.py makemessages -l ru -i "django*"
 
 compile:
-	django-admin.py compilemessages
+	django-admin.py compilemessages -i "django*"
 
 # admin
 superuser:

@@ -2,7 +2,8 @@ import uuid
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.utils.translation import get_language
 
 from application.sap.forms import FeedbackSettingsForm
 from application.sap.models import (
@@ -10,6 +11,17 @@ from application.sap.models import (
     FeedbackSettings,
     User,
 )
+
+
+@login_required(login_url='/auth/signin/')
+def index(request):
+    feedback_list = FeedbackSettings.objects.get_all(user_id=request.user)
+
+    return render(
+        request, 
+        'internal/feedback/index.html', 
+        {'feedback_list': feedback_list},
+    )
 
 
 @login_required(login_url='/auth/signin/')
@@ -27,12 +39,11 @@ def create(request):
                 telegram_channel=form.cleaned_data['telegram_channel'],
                 feedback_type=form.cleaned_data['feedback_type'],
                 user=user,
-                date=datetime.date(datetime.now())
+                date=request.POST['date']
             )
             if existing is None:
                 _hash = uuid.uuid4()
-                url = "{}/feedback/get/{}/{}".format(
-                    request.META['HTTP_HOST'], 
+                url = "/feedback/get/{}/{}".format(
                     form.cleaned_data['feedback_type'], 
                     _hash,
                 )
@@ -47,16 +58,18 @@ def create(request):
                     url=url,
                     _hash=_hash,
                     user=user,
+                    date=request.POST['date'],
                 )
                 fs.save()
             else:
                 url = existing.url
                 tg_chan = existing.telegram_channel
 
+            result_url = request.META['HTTP_HOST'] + url
             return render(
                 request, 
                 'internal/feedback/generated_link.html', 
-                {'url': url, 'telegram_channel': tg_chan},
+                {'url': result_url, 'telegram_channel': tg_chan},
             )
     else:
         form = FeedbackSettingsForm()
@@ -64,12 +77,25 @@ def create(request):
     return render(request, 'internal/feedback/create.html', {'form': form})
 
 
-def get(request, fb_type, hash):
+@login_required(login_url='/auth/signin/')
+def delete(request):
+    if request.method == 'POST':
+        feedback_id = int(request.POST.get('id'))
+        feedback = FeedbackSettings.objects.get_by_id(id=feedback_id)
+        if feedback.user.id != request.user.id:
+            raise Http403
+        feedback.delete()
+        return redirect('/{}/feedback/'.format(get_language()))
+    else:
+        raise Http404
+
+
+def get(request, feedback_type, hash):
     fs = FeedbackSettings.objects.get_by_hash(_hash=hash)
     user = User.objects.by_username(username=fs.user)
     print(user.first_name)
 
-    if fb_type == 'commented':
+    if feedback_type == 'commented':
         return render(request, 'external/feedback/get_commented_feedback.html', 
             {
                 'group_name': fs.group_name,
@@ -79,7 +105,7 @@ def get(request, fb_type, hash):
                 'settings': fs.id,
             }
     )
-    if fb_type == 'estimated':
+    if feedback_type == 'estimated':
         return render(request, 'external/feedback/get_estimated_feedback.html', 
             {
                 'group_name': fs.group_name,

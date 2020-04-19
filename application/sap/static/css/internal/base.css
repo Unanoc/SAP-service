@@ -88,6 +88,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     border: 1px solid rgb(28, 29, 29);
     border-radius: 5px;
     padding: 1vh;
+    width: fit-content;
     text-align: center;
     margin-top: 2vh;
     opacity: 0.7;
@@ -123,7 +124,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    min-width: 100px;
+    width: fit-content;
     opacity: 0.9;
     float: right;
     font-size: relative-size;
@@ -134,7 +135,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
 
 #language-select {
     border: none;
-    width: auto;
+    width: fit-content;
     height: 30px;
     font-size: 1.5vh;
     color: rgb(117, 117, 117);

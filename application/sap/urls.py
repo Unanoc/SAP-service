@@ -31,8 +31,10 @@ urlpatterns = [
     path('statistics/estimated/bygroup/', statistics.estimated_by_group, name='statistics-estimated-by-group'),
     path('statistics/estimated/byday/', statistics.estimated_by_day, name='statistics-estimated-by-day'),
 
+    path('feedback/', feedback.index, name='feedback-index'),
     path('feedback/create/', feedback.create, name='feedback-create'),
-    path('feedback/get/<fb_type>/<hash>/', feedback.get, name='feedback-get'),
+    path('feedback/delete/', feedback.delete, name='feedback-delete'),
+    path('feedback/get/<feedback_type>/<hash>/', feedback.get, name='feedback-get'),
 
     path('api/telegrambot/send/', telegram.BotSender.as_view(), name='api-bot_send'),
     path('api/statistics/comments/', stat.Comments.as_view(), name='api-stat-comments'),

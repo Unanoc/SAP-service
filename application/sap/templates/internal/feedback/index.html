@@ -1,0 +1,50 @@
+{% extends "internal/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block css_js %}
+    <link rel="stylesheet" href="{% static 'css/internal/feedback/index.css' %}">
+{% endblock %}
+
+{% block header_name %}
+    <div class="header-name">{% trans "List of created feedbacks" %}</div>
+    <a href="{% url 'feedback-create' %}"><div class="text-button">{% trans "Create" %}</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="feedback-list-wrapper">
+        <table>
+            <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Group" %}</th>
+                <th>{% trans "Subject" %}</th>
+                <th>{% trans "Class type" %}</th>
+                <th>{% trans "Feedback type" %}</th>
+                <th>{% trans "Telegram channel" %}</th>
+                <th>{% trans "URL" %}</th>
+                <th></th>
+            </tr>
+            {% for item in feedback_list %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.group_name }}</td>
+                    <td>{{ item.subject }}</td>
+                    <td>{{ item.class_type }}</td>
+                    <td>{{ item.feedback_type }}</td>
+                    <td>{{ item.telegram_channel }}</td>
+                    <td>
+                        <a href={{ item.url }}>{% trans "Open" %}</a>
+                    </td>
+                    <td>
+                        <form enctype="multipart/form-data" action="{% url 'feedback-delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.id }}">
+                            <input type="submit" value="{% trans 'Delete' %}" class="form-btn">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+    </div>
+{% endblock %}
