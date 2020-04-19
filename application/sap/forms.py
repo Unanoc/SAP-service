@@ -120,6 +120,15 @@ class UserSettingsForm(forms.ModelForm):
             'placeholder': _('Last name'),
         })
     )
+    patronymic = forms.CharField(
+        validators=[text_validator],
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'minlength': 1,
+            'maxlength': 30,
+            'placeholder': _('Patronymic'),
+        })
+    )
     username = forms.CharField(
         validators=[text_validator],
         widget=forms.TextInput(attrs={
@@ -139,7 +148,7 @@ class UserSettingsForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'upload']
+        fields = ['first_name', 'last_name', 'patronymic', 'username', 'email', 'upload']
 
 
 class FeedbackSettingsForm(forms.ModelForm):

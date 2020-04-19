@@ -9,6 +9,7 @@
 {% block header_name %}
     <div class="header-name">{% trans "Group:" %} {{ group_name }}</div>
     <div class="header-desc">{% trans "Subject name" %}: {{ subject }} ({{ class_type }})</div>
+    <div class="header-desc">{% trans "Professor" %}: {{ professor.last_name }} {{ professor.first_name }} {{ professor.patronymic }}</div>
 {% endblock %}
 
 {% block content %}

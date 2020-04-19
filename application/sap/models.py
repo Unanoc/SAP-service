@@ -12,6 +12,10 @@ from application.sap.managers import (
 
 
 class User(AbstractUser):
+    patronymic = models.CharField(
+        max_length=30, 
+        verbose_name="Patronymic",
+    )
     registration_date = models.DateTimeField(
         default=timezone.now, 
         verbose_name="User's Registration Date"

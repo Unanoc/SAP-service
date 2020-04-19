@@ -14,22 +14,24 @@
     <title>SAP</title>
 </head>
 <body>
+    <nav>
+        <form action="{% url 'set_language' %}", method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ redirect_to }}">
+            <select name="language" id="language-select">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                {% endfor %}
+            </select>
+            <input class="lang-btn" type="submit" value="»">
+        </form>
+    </nav>
+
     {% block header_name %}{% endblock %}
-    
-    <form action="{% url 'set_language' %}", method="post">
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ redirect_to }}">
-        <select name="language" id="language-select">
-            {% get_available_languages as LANGUAGES %}
-            {% get_language_info_list for LANGUAGES as languages %}
-            {% for language in languages %}
-                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
-                    {{ language.name_local }} ({{ language.code }})
-                </option>
-            {% endfor %}
-        </select>
-        <input class="lang-btn" type="submit" value="»">
-    </form>
     
     <div class="messages">{% block messages %}{% endblock %}</div>
     <div class="main">{% block content %}{% endblock %}</div>

@@ -66,12 +66,15 @@ def create(request):
 
 def get(request, fb_type, hash):
     fs = FeedbackSettings.objects.get_by_hash(_hash=hash)
+    user = User.objects.by_username(username=fs.user)
+    print(user.first_name)
 
     if fb_type == 'commented':
         return render(request, 'external/feedback/get_commented_feedback.html', 
             {
                 'group_name': fs.group_name,
                 'subject': fs.subject,
+                'professor': user,
                 'class_type': fs.class_type,
                 'settings': fs.id,
             }
@@ -81,6 +84,7 @@ def get(request, fb_type, hash):
             {
                 'group_name': fs.group_name,
                 'subject': fs.subject,
+                'professor': user,
                 'class_type': fs.class_type,
                 'settings': fs.id,
                 'RATING_CHOICES': EstimatedFeedback.RATING_CHOICES,

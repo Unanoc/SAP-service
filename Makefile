@@ -56,3 +56,7 @@ messages:
 
 compile:
 	django-admin.py compilemessages
+
+# admin
+superuser:
+	python manage.py createsuperuser
