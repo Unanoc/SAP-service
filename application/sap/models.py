@@ -20,7 +20,6 @@ class User(AbstractUser):
         default=timezone.now, 
         verbose_name="User's Registration Date"
     )
-    rating = models.IntegerField(default=0, verbose_name="User's Rating")
     upload = models.ImageField(
         default="default/default_avatar.png", 
         upload_to="uploads/%Y/%m/%d/", 
