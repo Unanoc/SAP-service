@@ -14,8 +14,20 @@ from application.sap.models import (
 
 # To clean up Database and generate fake data, just write "python manage.py flush && python manage.py fake_generator"
 
-count_estimated_feedback = 10
-count_commented_feedback = 10
+students_num = 20
+subject_name = "Программирование на языке С/С++"
+class_type = ["Лекция", "Семинар"]
+student_group = "ИУ6-84Б"
+class_days = [2, 7, 9, 14, 16, 21, 23, 28, 30]
+chat_name = "@sap_test_channel"
+test_comments = [
+    "Очень интересное занятие! Много нового узнал.",
+    "Было плохо слышно, из-за этого мало материала усвоил на занятии:(",
+    "Очень быстро проходим каждый раздел, не успевает закрепиться в голове...",
+    "Сегодня было очень здорово интересно",
+    "Хорошая подача материала, спасибо большое!",
+    "Не структурированный материал, поэтому было сложно уловить концепцию",
+]
 
 class Command(BaseCommand):
 
@@ -47,50 +59,52 @@ class Command(BaseCommand):
         faker = Faker()
         user = User.objects.by_username('test')
 
-        for date in self.get_dates_of_current_month():
-            for subject in ['Electronics', 'Discrete math', 'Phsychology', 'System design', 'Computer Networks']:
-                for class_type in ['Lection', 'Seminar']:
-                    for group in ["IU6-8{}".format(i) for i in range(1, 6)]:
-                        hash_url = uuid.uuid4()
+        for day, date in enumerate(self.get_dates_of_current_month()):
+            if day+1 not in class_days:
+                continue
 
-                        fs_commented = FeedbackSettings.objects.create(
-                            group_name=group,
-                            subject=subject,
-                            class_type=class_type,
-                            chat_name="test_chat",
-                            feedback_type="commentes",
-                            url="test_url.sap",
-                            _hash=hash_url,
-                            user=user,
-                            date=date,
-                        )
-                        fs_commented.save()
+            hash_commented = uuid.uuid4()
+            hash_estimated = uuid.uuid4()
 
-                        fs_estimated = FeedbackSettings.objects.create(
-                            group_name=group,
-                            subject=subject,
-                            class_type=class_type,
-                            chat_name="test_chat",
-                            feedback_type="estimated",
-                            url="test_url.sap",
-                            _hash=hash_url,
-                            user=user,
-                            date=date,
-                        )
-                        fs_estimated.save()
+            fs_commented = FeedbackSettings.objects.create(
+                group_name=student_group,
+                subject=subject_name,
+                class_type=random.choice(class_type),
+                chat_name=chat_name,
+                feedback_type="commented",
+                url="/feedback/get/{}/{}".format("commentes", hash_commented),
+                _hash=hash_commented,
+                user=user,
+                date=date,
+            )
+            fs_commented.save()
 
-                        for i in range(1, count_estimated_feedback):
-                            commented_feedback = CommentedFeedback.objects.create(
-                                text=faker.sentence(),
-                                date=date,
-                                settings=fs_commented,
-                            )
-                            commented_feedback.save()
+            fs_estimated = FeedbackSettings.objects.create(
+                group_name=student_group,
+                subject=subject_name,
+                class_type=random.choice(class_type),
+                chat_name=chat_name,
+                feedback_type="estimated",
+                url="/feedback/get/{}/{}".format("estimated", hash_estimated),
+                _hash=hash_estimated,
+                user=user,
+                date=date,
+            )
+            fs_estimated.save()
 
-                            estimated_feedback = EstimatedFeedback.objects.create(
-                                rating=random.randint(1, 5), 
-                                text=faker.sentence(),
-                                date=date,
-                                settings=fs_estimated,
-                            )
-                            estimated_feedback.save()
+            for i in range(1, students_num):
+                test_comment_index = i % len(test_comments)
+                commented_feedback = CommentedFeedback.objects.create(
+                    text=test_comments[test_comment_index],
+                    date=date,
+                    settings=fs_commented,
+                )
+                commented_feedback.save()
+
+                estimated_feedback = EstimatedFeedback.objects.create(
+                    rating=random.randint(1, 5), 
+                    text=test_comments[test_comment_index],
+                    date=date,
+                    settings=fs_estimated,
+                )
+                estimated_feedback.save()

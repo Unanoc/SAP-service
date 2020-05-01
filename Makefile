@@ -18,6 +18,7 @@ db:
 	$(venv)python manage.py migrate
 
 fake-gen:
+	make db
 	$(venv)python manage.py fake_generator
 
 run:
