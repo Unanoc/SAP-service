@@ -33,9 +33,9 @@ class User(AbstractUser):
 
 
 class FeedbackSettings(models.Model):
-    group_name = models.CharField(max_length=10, verbose_name="Group name")
-    subject = models.CharField(max_length=30, verbose_name="Subject name")
-    class_type = models.CharField(max_length=30, verbose_name="Class type")
+    group_name = models.CharField(max_length=100, verbose_name="Group name")
+    subject = models.CharField(max_length=100, verbose_name="Subject name")
+    class_type = models.CharField(max_length=100, verbose_name="Class type")
     chat_name = models.CharField(max_length=100, verbose_name="Chat name")
     feedback_type = models.CharField(max_length=100, verbose_name="Feedback type")
     url = models.CharField(max_length=100, default="", verbose_name="URL to feedback page")
