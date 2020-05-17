@@ -2,10 +2,10 @@ FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /SAP-service
-WORKDIR /SAP-service
+RUN mkdir /sap
+WORKDIR /sap
 
-ADD requirements.txt /SAP-service/
+ADD requirements.txt /sap
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-ADD . /SAP-service/
+ADD . /sap/
