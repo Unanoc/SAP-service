@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -13,7 +13,7 @@ from application.sap.managers import (
 
 class User(AbstractUser):
     patronymic = models.CharField(
-        max_length=30, 
+        max_length=100, 
         verbose_name="Patronymic",
     )
     registration_date = models.DateTimeField(
@@ -49,7 +49,7 @@ class FeedbackSettings(models.Model):
 class CommentedFeedback(models.Model):
     text = models.TextField(verbose_name="Comment text")
     date = models.DateField(default=date.today, verbose_name="Commented feedback date")
-    time = models.TimeField(auto_now_add=True, verbose_name="Commented feedback time")
+    time = models.TimeField(default=timezone.now, verbose_name="Commented feedback time")
     settings = models.ForeignKey(FeedbackSettings, on_delete=models.CASCADE, verbose_name=("Feedback settings"))
 
     objects = CommentedFeedbackManager()
@@ -60,7 +60,7 @@ class EstimatedFeedback(models.Model):
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, choices=RATING_CHOICES)
     text = models.TextField(blank=True, null=True)
     date = models.DateField(default=date.today, verbose_name="Estimated feedback date")
-    time = models.TimeField(auto_now_add=True, verbose_name="Estimated feedback time")
+    time = models.TimeField(default=timezone.now, verbose_name="Estimated feedback time")
     settings = models.ForeignKey(FeedbackSettings, on_delete=models.CASCADE, verbose_name=("Feedback settings"))
 
     objects = EstimatedFeedbackManager()

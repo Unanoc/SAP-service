@@ -15,10 +15,10 @@ from application.sap.models import (
 # To clean up Database and generate fake data, just write "python manage.py flush && python manage.py fake_generator"
 
 students_num = 20
-subject_name = "Программирование на языке С/С++"
+subject_name = "Объектно-ориентированное программирование"
 class_type = ["Лекция", "Семинар"]
 student_group = "ИУ6-84Б"
-class_days = [2, 7, 9, 14, 16, 21, 23, 28, 30]
+class_days = [2, 4, 7, 9, 11, 14, 17, 21, 23, 28, 30]
 chat_name = "@sap_test_channel"
 test_comments = [
     "Очень интересное занятие! Много нового узнал.",
@@ -28,6 +28,11 @@ test_comments = [
     "Хорошая подача материала, спасибо большое!",
     "Не структурированный материал, поэтому было сложно уловить концепцию",
 ]
+times = ["12:32:31", "12:54:56", "13:24:42", "13:30:23", "13:31:05",
+         "13:32:10", "13:50:12", "15:45:50", "15:50:11", "16:22:56",
+         "16:32:19", "16:48:20", "16:59:14", "17:14:50", "17:25:52",
+         "17:49:49", "17:50:01", "18:12:13", "18:43:21", "18:50:32",
+        ]
 
 class Command(BaseCommand):
 
@@ -72,7 +77,7 @@ class Command(BaseCommand):
                 class_type=random.choice(class_type),
                 chat_name=chat_name,
                 feedback_type="commented",
-                url="/feedback/get/{}/{}".format("commentes", hash_commented),
+                url="/feedback/get/{}/{}".format("commented", hash_commented),
                 _hash=hash_commented,
                 user=user,
                 date=date,
@@ -98,6 +103,7 @@ class Command(BaseCommand):
                     text=test_comments[test_comment_index],
                     date=date,
                     settings=fs_commented,
+                    time=datetime.strptime(times[i-1], "%H:%M:%S").time(),
                 )
                 commented_feedback.save()
 
@@ -106,5 +112,6 @@ class Command(BaseCommand):
                     text=test_comments[test_comment_index],
                     date=date,
                     settings=fs_estimated,
+                    time=datetime.strptime(times[i-1], "%H:%M:%S").time(),
                 )
                 estimated_feedback.save()

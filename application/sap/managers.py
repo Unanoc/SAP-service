@@ -20,7 +20,7 @@ class FeedbackSettingsManager(models.Manager):
         return self.all().filter(**kwargs).first()
 
     def get_all(self, user_id):
-        return self.all().filter(user=user_id)
+        return self.all().filter(user=user_id).order_by('-date')
 
 
 class CommentedFeedbackManager(models.Manager):

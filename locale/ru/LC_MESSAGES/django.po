@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 21:53+0300\n"
+"POT-Creation-Date: 2020-06-07 20:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,7 +150,7 @@ msgid "Thank you!"
 msgstr "Спасибо тебе!"
 
 #: application/sap/templates/internal/auth/signin.html:6
-#: application/sap/templates/internal/auth/signin.html:42
+#: application/sap/templates/internal/auth/signin.html:41
 #: application/sap/templates/internal/base.html:24
 msgid "Sign in"
 msgstr "Вход"
@@ -177,7 +177,7 @@ msgstr "Главная"
 msgid "Create a feedback"
 msgstr "Создать опросную форму"
 
-#: application/sap/templates/internal/feedback/create.html:49
+#: application/sap/templates/internal/feedback/create.html:41
 #: application/sap/templates/internal/feedback/index.html:11
 msgid "Create"
 msgstr "Создать"
@@ -254,6 +254,7 @@ msgstr "Комментарии"
 
 #: application/sap/templates/internal/statistics/commented/index.html:38
 #: application/sap/templates/internal/statistics/estimated/byday.html:48
+#: application/sap/templates/internal/statistics/estimated/bygroup.html:47
 msgid "Go"
 msgstr "Вперед"
 
@@ -353,14 +354,14 @@ msgstr "Редактировать профиль"
 msgid "Save"
 msgstr "Сохранить"
 
-#: application/sap/views/api/chatbot.py:27
+#: application/sap/views/api/chatbot.py:28
 msgid "Done!"
 msgstr "Готово!"
 
-#: application/sap/views/api/chatbot.py:30
+#: application/sap/views/api/chatbot.py:31
 msgid "Bot is not a member of the channel or this channel does not exist."
 msgstr "Бот не добавлен в канал или такой канал не существует"
 
-#: application/sap/views/api/chatbot.py:33
+#: application/sap/views/api/chatbot.py:34
 msgid "Something bad happend... Bot has not send this link. Please, try again."
 msgstr "Что-то пошло не так... Бот не отправил ссылку. Попробуйте еще раз."
